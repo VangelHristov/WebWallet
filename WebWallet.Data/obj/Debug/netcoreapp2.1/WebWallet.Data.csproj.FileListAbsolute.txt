@@ -1,0 +1,12 @@
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\bin\Debug\netcoreapp2.1\WebWallet.Data.deps.json
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\bin\Debug\netcoreapp2.1\WebWallet.Data.dll
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.csprojAssemblyReference.cache
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.csproj.CoreCompileInputs.cache
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.AssemblyInfoInputs.cache
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.AssemblyInfo.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\bin\Debug\netcoreapp2.1\WebWallet.Models.dll
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\bin\Debug\netcoreapp2.1\WebWallet.Data.pdb
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\bin\Debug\netcoreapp2.1\WebWallet.Models.pdb
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.csproj.CopyComplete
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.dll
+C:\Users\vangel\Documents\WebWallet\WebWallet.Data\obj\Debug\netcoreapp2.1\WebWallet.Data.pdb
