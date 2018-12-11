@@ -1,0 +1,14 @@
+{
+  "name": "WebWallet",
+  "version": "1.0.0",
+  "description": "\"personal finance menagemaent web application\"",
+  "main": "index.js",
+  "repository": "https://github.com/vangelhristov/webwallet",
+  "author": "vangel hristov",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "font-awesome": "^4.7.0"
+  }
+}

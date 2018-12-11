@@ -62,9 +62,9 @@ namespace WebWallet.Web
                 .AddAuthentication()
                 .AddCookie(cookieAuthentication =>
                 {
-                    cookieAuthentication.LoginPath = "Identity/Account/Login";
-                    cookieAuthentication.AccessDeniedPath = "Error/StatusCode/403";
-                    cookieAuthentication.LogoutPath = "Identity/Acount/Logout";
+                    cookieAuthentication.LoginPath = "/Identity/Account/Login";
+                    cookieAuthentication.AccessDeniedPath = "/Errors/Error/Code/403";
+                    cookieAuthentication.LogoutPath = "/Identity/Acount/Logout";
                     cookieAuthentication.Cookie.HttpOnly = true;
                     cookieAuthentication.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
                 });
@@ -84,17 +84,21 @@ namespace WebWallet.Web
             }
             else
             {
-                app.UseExceptionHandler("Errors/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
-                app.UseStatusCodePagesWithReExecute("Errors/StatusCode/{0}");
             }
 
+            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebWallet.Data", "WebWallet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebWallet.Models", "WebWallet.Models\WebWallet.Models.csproj", "{FD331778-AB90-479D-B7F2-C329F30FD049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWallet.Web", "WebWallet.Web\WebWallet.Web.csproj", "{3AA38E05-5029-4C86-8509-179CAD0D1B49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebWallet.Web", "WebWallet.Web\WebWallet.Web.csproj", "{3AA38E05-5029-4C86-8509-179CAD0D1B49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebWallet.ViewModels", "WebWallet.ViewModels\WebWallet.ViewModels.csproj", "{72616555-8576-4C4B-AFA5-564AC26F0903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{3AA38E05-5029-4C86-8509-179CAD0D1B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AA38E05-5029-4C86-8509-179CAD0D1B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AA38E05-5029-4C86-8509-179CAD0D1B49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72616555-8576-4C4B-AFA5-564AC26F0903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72616555-8576-4C4B-AFA5-564AC26F0903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72616555-8576-4C4B-AFA5-564AC26F0903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72616555-8576-4C4B-AFA5-564AC26F0903}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
