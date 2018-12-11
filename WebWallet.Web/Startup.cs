@@ -29,46 +29,48 @@ namespace WebWallet.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            services.Configure<CookiePolicyOptions>(cookiePolicy =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                cookiePolicy.CheckConsentNeeded = context => true;
+                cookiePolicy.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<WebWalletDBContext>(options =>
+            services.AddDbContext<WebWalletDBContext>(dbContext =>
             {
-                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
+                dbContext.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services
-                .AddIdentity<User, IdentityRole>(options =>
+                .AddIdentity<User, IdentityRole>(identity =>
                 {
-                    options.Stores.MaxLengthForKeys = 128;
-                    options.SignIn.RequireConfirmedEmail = false;
-                    options.Password.RequireDigit = true;
-                    options.Password.RequireLowercase = true;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequiredUniqueChars = 1;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequiredLength = 8;
+                    identity.Stores.MaxLengthForKeys = 128;
+
+                    identity.SignIn.RequireConfirmedEmail = false;
+
+                    identity.Password.RequireDigit = true;
+                    identity.Password.RequireLowercase = true;
+                    identity.Password.RequireUppercase = true;
+                    identity.Password.RequiredUniqueChars = 1;
+                    identity.Password.RequireNonAlphanumeric = true;
+                    identity.Password.RequiredLength = 8;
                 })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<WebWalletDBContext>();
 
             services
                 .AddAuthentication()
-                .AddCookie(option =>
+                .AddCookie(cookieAuthentication =>
                 {
-                    option.LoginPath = "Identity/Account/Login";
-                    option.AccessDeniedPath = "Error/StatusCode/403";
-                    option.LogoutPath = "Identity/Acount/Logout";
-                    option.Cookie.HttpOnly = true;
-                    option.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
+                    cookieAuthentication.LoginPath = "Identity/Account/Login";
+                    cookieAuthentication.AccessDeniedPath = "Error/StatusCode/403";
+                    cookieAuthentication.LogoutPath = "Identity/Acount/Logout";
+                    cookieAuthentication.Cookie.HttpOnly = true;
+                    cookieAuthentication.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
                 });
 
             services
-                .AddMvc()
+                .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -78,11 +80,13 @@ namespace WebWallet.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Errors/Error");
                 app.UseHsts();
+                app.UseStatusCodePagesWithReExecute("Errors/StatusCode/{0}");
             }
 
             app.UseHttpsRedirection();
