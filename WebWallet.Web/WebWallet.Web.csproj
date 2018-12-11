@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,10 @@
     <ProjectReference Include="..\WebWallet.Data\WebWallet.Data.csproj" />
     <ProjectReference Include="..\WebWallet.Models\WebWallet.Models.csproj" />
     <ProjectReference Include="..\WebWallet.ViewModels\WebWallet.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

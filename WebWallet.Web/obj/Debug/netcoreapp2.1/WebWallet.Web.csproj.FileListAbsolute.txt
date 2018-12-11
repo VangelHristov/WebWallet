@@ -17,10 +17,7 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\WebWal
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
-C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
-C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
-C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\WebWallet.Web.RazorTargetAssemblyInfo.cache
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\WebWallet.Web.RazorTargetAssemblyInfo.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\WebWallet.Web.Views.pdb
@@ -34,3 +31,6 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\bin\Debug\netcoreapp2.1\WebWal
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\bin\Debug\netcoreapp2.1\WebWallet.ViewModels.dll
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\bin\Debug\netcoreapp2.1\WebWallet.ViewModels.pdb
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Errors\Views\StatusCodeView.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Old_ViewImports.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Old_ViewStart.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Old_Layout.g.cshtml.cs

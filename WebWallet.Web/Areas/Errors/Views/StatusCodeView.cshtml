@@ -1,31 +1,31 @@
 ﻿@model WebWallet.ViewModels.StatusCodeVM
 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!doctype html>
 <html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@Model.Code</title>
+    <title>@Model.Code @Model.Message</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <!-- style css -->
     <link rel="stylesheet" href="~/css/default-css.css">
     <link rel="stylesheet" href="~/css/styles.css">
 </head>
 
 <body>
-        <div class="error-area  text-center">
-            <div class="container">
-                <div class="row">
+    <div class="error-area ptb--100 text-center">
+        <div class="container">
+            <div class="row">
 
-                    <div class="error-content">
-                        <h2 class="col-md-12">@Model.Code</h2>
-                        <p class="col-md-12">@Model.Message</p>
-                        <a class="col-md-6" asp-controller="Home" asp-action="Index">Back to Dashboard</a>
-                    </div>
+                <div class="error-content">
+                    <h2 class="col-md-12">@Model.Code</h2>
+                    <p class="col-md-12">@Model.Message</p>
+                    <a class="col-md-6" asp-controller="Home" asp-action="Index">Back to Dashboard</a>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 </html>

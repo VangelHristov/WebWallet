@@ -1,6 +1,219 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<h1>Home page for anonimous user.</h1>
-<h2>Provide links to login register and some inofrmation about the application</h2>
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/images/logo.png">
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Web Wallet</title>
+    <link href="~/css/font-popins.css" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="~/css/linearicons.css">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/main.css">
+</head>
+<body>
+    <div class="main-wrapper-first relative">
+        <header>
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="header-top d-flex justify-content-between align-items-center">
+                        <div class="logo">
+                            <a asp-controller="Home" asp-action="Index"><img src="images/logo.png" alt="picture of a wallet"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="banner-area">
+            <div class="container">
+                <div class="row justify-content-center height align-items-center">
+                    <div class="col-lg-8">
+                        <div class="banner-content text-center">
+                            <h1 class="text-uppercase">Stay on top of your finances</h1>
+                            <a asp-area="Identity" asp-controller="User" asp-action="Register"
+                               class="primary-btn d-inline-flex align-items-center">
+                                <span>Get Started</span>
+                            </a>
+                            <a asp-area="Identity" asp-controller="User" asp-action="Login"
+                               class="primary-btn d-inline-flex align-items-center">
+                                <span>Already a Member?</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Feature Area -->
+        <section class="featured-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="single-feature d-flex flex-wrap justify-content-between">
+                            <div class="icon">
+                                <img src="~/images/logo.png" alt="">
+                            </div>
+                            <div class="desc">
+                                <h4>Unlimited Colors</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-feature d-flex flex-wrap justify-content-between">
+                            <div class="icon">
+                                <img src="~/images/logo.png" alt="">
+                            </div>
+                            <div class="desc">
+                                <h4>Smart Security</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-feature d-flex flex-wrap justify-content-between">
+                            <div class="icon">
+                                <img src="~/images/logo.png" alt="">
+                            </div>
+                            <div class="desc">
+                                <h4>Endless Support</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-feature d-flex flex-wrap justify-content-between">
+                            <div class="icon">
+                                <img src="~/images/logo.png" alt="">
+                            </div>
+                            <div class="desc">
+                                <h4>Smart Security</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Feature Area -->
+        <!-- Start About Area -->
+        <section class="about-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4">
+                        <div class="about-title">
+                            <h2>About <br> Our Company</h2>
+                            <p>LCD screens are uniquely modern in style, and the liquid crystals that make.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="about-thumb">
+                            <img src="~/images/logo.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End About Area -->
+        <!-- Start Amazing Works Area -->
+    </div>
+    <div class="main-wrapper">
+        <!-- Start Blog Area -->
+        <div class="blog-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="single-blog">
+                            <div class="thumb" style="background: url(~/images/logo.png);"></div>
+                            <div class="desc text-center">
+                                <h4>Ultimate pet lover</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-blog">
+                            <div class="thumb" style="background: url(~/images/logo.png);"></div>
+                            <div class="desc text-center">
+                                <h4>Upcoming role model</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-blog">
+                            <div class="thumb" style="background: url(~/images/logo.png);"></div>
+                            <div class="desc text-center">
+                                <h4>Colors of Life</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Blog Area -->
+        <!-- Start Story Area -->
+        <section class="story-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="story-content">
+                            <h2 class="text-white">Crafting <br>Our Experiences</h2>
+                            <p class="text-white mt-20 mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Story Area -->
+    </div>
+    <div class="main-wrapper">
+
+        <!-- Start footer Area -->
+        <footer class="footer-area">
+            <div class="container">
+                <div class="footer-content d-flex flex-column align-items-center">
+                    <div class="footer-menu">
+                        <a href="javascript:void(0);">Home</a>
+                        <a href="javascript:void(0);">Generic</a>
+                        <a href="javascript:void(0);">Elements</a>
+                    </div>
+                    <div class="footer-social">
+                        <a href="javascript:void(0);"><i class="fa fa-facebook"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-dribbble"></i></a>
+                        <a href="javascript:void(0);"><i class="fa fa-behance"></i></a>
+                    </div>
+                    <div class="copy-right-text">Copyright &copy; 2018 All rights reserved   |   This template is made with <i class="fa fa-heart"></i> by <a href="https://colorlib.com">Colorlib</a></div>
+                </div>
+            </div>
+        </footer>
+        <!-- End footer Area -->
+    </div>
+
+    <script src="js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/lib/popper.js/dist/popper.min.js"></script>
+    <script src="~/lib/bootstrap/js/dist/index.js"></script>
+    @*<script src="js/jquery.ajaxchimp.min.js"></script>*@
+    <script src="~/lib/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="~/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>
