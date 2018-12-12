@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebWallet.Data;
+using WebWallet.Data.Contracts;
 using WebWallet.Models;
 
 namespace WebWallet.Web
@@ -72,6 +68,12 @@ namespace WebWallet.Web
             services
                 .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<IRepository<Account>, Repository<Account>>();
+            services.AddScoped<IRepository<Budget>, Repository<Budget>>();
+            services.AddScoped<IRepository<Goal>, Repository<Goal>>();
+            services.AddScoped<IRepository<Investment>, Repository<Investment>>();
+            services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

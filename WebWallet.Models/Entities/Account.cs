@@ -1,18 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebWallet.Models.Enumerations;
 
 namespace WebWallet.Models
 {
-    public class Account
+    public class Account : BaseEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
+        [Required]
+        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Balance { get; set; }
 
+        [Required]
         public AccountType Type { get; set; }
+
         public IEnumerable<Transaction> Transactions { get; set; }
     }
 }

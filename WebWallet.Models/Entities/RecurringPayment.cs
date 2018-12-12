@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebWallet.Models.Enumerations;
 
 namespace WebWallet.Models
 {
-    public class RecurringPayment
+    public class RecurringPayment : BaseEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        [Required]
         public RecurringPaymentType RecurringPaymentType { get; set; }
+
+        [Required]
         public DateTime DueDate { get; set; }
+
+        [Required]
         public TimeSpan Period { get; set; }
 
+        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
