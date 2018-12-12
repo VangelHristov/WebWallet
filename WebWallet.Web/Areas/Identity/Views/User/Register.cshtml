@@ -1,0 +1,52 @@
+﻿@model RegistrationVM
+@{
+    Layout = "_Layout";
+    ViewData["title"] = "Register";
+}
+
+<div class="login-area">
+    <div class="container">
+        <div class="login-box ptb--100">
+            <form asp-action="Register" method="post">
+                <div class="login-form-head">
+                    <h4>Sign up</h4>
+                    <p>Join us and start managing your finances</p>
+                </div>
+                <div class="login-form-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-gp">
+                        <label asp-for="UserName"></label>
+                        <input asp-for="UserName">
+                        <i class="ti-user"></i>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email">
+                        <i class="ti-email"></i>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password">
+                        <i class="ti-lock"></i>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input asp-for="ConfirmPassword">
+                        <i class="ti-lock"></i>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit">Register <i class="ti-arrow-right"></i></button>
+                    </div>
+                    <hr />
+                    <div class="form-footer text-center mt-5">
+                        <p class="text-muted">Already have an account? <a asp-action="Login">Sign in</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

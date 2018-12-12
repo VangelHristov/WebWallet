@@ -34,3 +34,11 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Old_ViewImports.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Old_ViewStart.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Old_Layout.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\_ViewImports.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\_ViewStart.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\Login.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\Register.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\ForgotPassword.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\ResetPassword.g.cshtml.cs
