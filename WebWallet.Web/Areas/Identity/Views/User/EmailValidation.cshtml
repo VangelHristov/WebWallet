@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["title"] = "Потвърждение на имейл адрес";
+}
+@model ConfirmEmailVM
+<div class="login-area">
+    <div class="container">
+        <div class="col-lg-4 col-md-6 mt-5">
+            <div class="card card-bordered">
+
+                <div class="card-body">
+                    <h4><b>@Model.Result</b></h4>
+                    <div class="card-text">
+                        <p>@Model.Message</p>
+                        <p>
+                            <a asp-action="Index" asp-controller="Home" asp-area="">Към Началната Страница <i class="ti-arrow-right"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

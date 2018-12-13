@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
     <PackageReference Include="sendgrid" Version="9.10.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebWallet.Data\WebWallet.Data.csproj" />
     <ProjectReference Include="..\WebWallet.Models\WebWallet.Models.csproj" />
     <ProjectReference Include="..\WebWallet.ViewModels\WebWallet.ViewModels.csproj" />
   </ItemGroup>

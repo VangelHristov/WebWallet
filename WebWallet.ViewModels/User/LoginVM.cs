@@ -4,19 +4,23 @@ namespace WebWallet.ViewModels.User
 {
     public class LoginVM
     {
-        [Required]
-        [RegularExpression(@"^[a-zA-Z0-9.\-@#^]{8,20}$")]
-        [Display(Name = "Username")]
+        [Required(ErrorMessage = "Полето е задължително.")]
+        [RegularExpression(
+            @"^[a-zA-Z0-9.\-@#^]{8,20}$",
+            ErrorMessage = "Потребителското име трябва да бъде между 8 и 20 символа и може да съдържа само букви и цифри, [.-@$#^]")]
+        [Display(Name = "Потребителско име")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-            ErrorMessage = "The password must be between 8 and 20 symbols long. It must contain uppercase and lowercase letters, number and a special character[ @$!%*?& ]."
+        [RegularExpression(
+            @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+            ErrorMessage = "Паролата трябва да е между 8 и 20 символа. Трябва да съдържа главни и малки букви, цифри и специални символи [ @$!%*?& ]."
         )]
+        [Display(Name = "Парола")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember Me?")]
+        [Display(Name = "Запомне ме?")]
         public bool RememberMe { get; set; } = true;
     }
 }

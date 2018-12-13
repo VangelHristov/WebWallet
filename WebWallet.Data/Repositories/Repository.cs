@@ -6,7 +6,7 @@ using WebWallet.Models.Contracts;
 
 namespace WebWallet.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class Repository<TEntity> : BaseRepository, IRepository<TEntity>
     where TEntity : class, IEntity
     {
         private readonly WebWalletDBContext _dbContext;
@@ -25,6 +25,7 @@ namespace WebWallet.Data.Repositories
         public async Task Delete(string id)
         {
             var entity = await this.GetById(id);
+            ThrowIfIsNull(entity);
             this._dbContext.Set<TEntity>().Remove(entity);
             await this._dbContext.SaveChangesAsync();
         }
@@ -36,9 +37,12 @@ namespace WebWallet.Data.Repositories
 
         public async Task<TEntity> GetById(string id)
         {
-            return await _dbContext.Set<TEntity>()
+            var entity = await _dbContext.Set<TEntity>()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(e => e.Id == id);
+
+            ThrowIfIsNull(entity);
+            return entity;
         }
 
         public async Task Update(string id, TEntity entity)

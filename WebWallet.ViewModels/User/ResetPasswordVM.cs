@@ -4,20 +4,20 @@ namespace WebWallet.ViewModels.User
 {
     public class ResetPasswordVM
     {
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-            ErrorMessage = "The password must be between 8 and 20 symbols long. It must contain uppercase and lowercase letters, number and a special character[ @$!%*?& ]."
+             ErrorMessage = "Паролата трябва да е между 8 и 20 символа. Трябва да съдържа главни и малки букви, цифри и специални символи [ @$!%*?& ]."
         )]
-        [Display(Name = "Old Password")]
+        [Display(Name = "Стара Парола")]
         public string OldPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-            ErrorMessage = "The password must be between 8 and 20 symbols long. It must contain uppercase and lowercase letters, number and a special character[ @$!%*?& ]."
+             ErrorMessage = "Паролата трябва да е между 8 и 20 символа. Трябва да съдържа главни и малки букви, цифри и специални символи [ @$!%*?& ]."
         )]
-        [Display(Name = "New Password")]
+        [Display(Name = "Нова Парола")]
         public string NewPassword { get; set; }
     }
 }

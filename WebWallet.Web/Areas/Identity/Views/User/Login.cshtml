@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_Layout";
-    ViewData["title"] = "Login";
+    ViewData["title"] = "Вход";
 }
 @model LoginVM;
 
@@ -9,8 +9,8 @@
         <div class="login-box ptb--100">
             <form asp-controller="User" asp-action="Login" asp-area="Identity" method="post">
                 <div class="login-form-head">
-                    <h4>Sign In</h4>
-                    <p>Hello there, Sign in and start managing your finances</p>
+                    <h4>Вход за регистрирани потребители</h4>
+                    <p>Здравей, Влез и започни да управляваш финансите се</p>
                 </div>
                 <div class="login-form-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -35,15 +35,15 @@
                             </div>
                         </div>
                         <div class="col-6 text-right">
-                            <a asp-action="ForgotPassword">Forgot Password?</a>
+                            <a asp-action="ForgotPassword">Забравена Парола?</a>
                         </div>
                     </div>
                     <div class="submit-btn-area">
-                        <button id="form_submit" type="submit">Sign In <i class="ti-arrow-right"></i></button>
+                        <button id="form_submit" type="submit">Вход <i class="ti-arrow-right"></i></button>
                     </div>
                     <div class="form-footer text-center mt-5">
                         <hr />
-                        <p class="text-muted">Don't have an account? <a asp-action="Register">Sign up</a></p>
+                        <p class="text-muted">Нямаш Регистрация? <a asp-action="Register">Регистрирай се</a></p>
                     </div>
                 </div>
             </form>

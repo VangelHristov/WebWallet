@@ -7,9 +7,9 @@ namespace WebWallet.Services.UserServices
 {
     public interface IUserService
     {
-        Task Login(LoginVM loginVM);
+        Task Login(string username, string password, bool percist);
 
-        Task Register(RegistrationVM registrationVM);
+        Task<User> Register(RegistrationVM registrationVM);
 
         Task Logout();
 
@@ -17,6 +17,10 @@ namespace WebWallet.Services.UserServices
 
         Task<User> GetByUsername(string username);
 
-        Task<IQueryable<User>> GetAll();
+        IQueryable<User> GetAll();
+
+        Task<string> GetEmailConfirmationToken(User user);
+
+        Task<bool> ConfirmEmail(User user, string token);
     }
 }

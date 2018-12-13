@@ -13,6 +13,9 @@ using WebWallet.Data.Repositories;
 using WebWallet.Data.Contracts;
 using WebWallet.Models.Entities;
 using WebWallet.Services.EmailSender;
+using AutoMapper;
+using WebWallet.Services.AutoMapper;
+using WebWallet.Services.UserServices;
 
 namespace WebWallet.Web
 {
@@ -72,15 +75,26 @@ namespace WebWallet.Web
                 .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // Repositories
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddScoped<IRepository<Account>, Repository<Account>>();
             services.AddScoped<IRepository<Budget>, Repository<Budget>>();
             services.AddScoped<IRepository<Goal>, Repository<Goal>>();
             services.AddScoped<IRepository<Investment>, Repository<Investment>>();
             services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
+
+            // Services
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddTransient<IUserService, UserService>();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            var mappingConfig = new MapperConfiguration(mc =>
+                mc.AddProfile(new MappingProfile())
+            );
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

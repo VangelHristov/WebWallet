@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
-using WebWallet.Data.Exceptions;
 using WebWallet.Models.Entities;
-using WebWallet.ViewModels.User;
 
 namespace WebWallet.Data.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -25,30 +24,6 @@ namespace WebWallet.Data.Repositories
             this._roleManager = roleManager;
         }
 
-        private void ThrowIfIsNull(User user)
-        {
-            if (user == null)
-            {
-                throw new DatabaseException();
-            }
-        }
-
-        private void ThrowIfTaskFail(IdentityResult result)
-        {
-            if (!result.Succeeded)
-            {
-                throw new DatabaseException();
-            }
-        }
-
-        private void ThrowIfTaskFail(SignInResult result)
-        {
-            if (!result.Succeeded)
-            {
-                throw new DatabaseException();
-            }
-        }
-
         public async Task<User> Create(User entity)
         {
             var createUser = await this._userManager.CreateAsync(entity);
@@ -57,21 +32,27 @@ namespace WebWallet.Data.Repositories
             var user = await this._userManager.FindByNameAsync(entity.UserName);
             ThrowIfIsNull(user);
 
+            if (!await this._roleManager.RoleExistsAsync("User"))
+            {
+                var role = new IdentityRole { Name = "User" };
+                var createUserRole = await this._roleManager.CreateAsync(role);
+                ThrowIfTaskFail(createUserRole);
+            }
+
+            var addRole = await this._userManager.AddToRoleAsync(user, "User");
+            ThrowIfTaskFail(addRole);
+
             return user;
         }
 
-        public async Task Delete(string id)
+        public async Task<string> GenerateEmailConfirmationToken(User user)
         {
-            var user = await this._userManager.FindByIdAsync(id);
-            ThrowIfIsNull(user);
-
-            var deleteUser = await this._userManager.DeleteAsync(user);
-            ThrowIfTaskFail(deleteUser);
+            return await this._userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
         public IQueryable<User> GetAll()
         {
-            return this._userManager.Users;
+            return this._userManager.Users.AsNoTracking();
         }
 
         public async Task<User> GetById(string id)
@@ -90,10 +71,10 @@ namespace WebWallet.Data.Repositories
             return user;
         }
 
-        public async Task PasswordSignIn(LoginVM loginVM)
+        public async Task PasswordSignIn(string username, string password, bool percist)
         {
             var passwordSignIn = await this._signInManager
-                .PasswordSignInAsync(loginVM.UserName, loginVM.Password, loginVM.RememberMe, false);
+                .PasswordSignInAsync(username, password, percist, false);
 
             ThrowIfTaskFail(passwordSignIn);
         }
@@ -101,6 +82,11 @@ namespace WebWallet.Data.Repositories
         public async Task SignOut()
         {
             await this._signInManager.SignOutAsync();
+        }
+
+        public async Task<bool> ConfirmEmail(User user, string token)
+        {
+            return (await this._userManager.ConfirmEmailAsync(user, token)).Succeeded;
         }
     }
 }
