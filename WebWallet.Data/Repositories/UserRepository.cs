@@ -3,9 +3,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
-using WebWallet.Models;
+using WebWallet.Models.Entities;
 
-namespace WebWallet.Data
+namespace WebWallet.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {

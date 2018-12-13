@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebWallet.Models
+namespace WebWallet.Models.Entities
 {
     public class Budget : BaseEntity
     {

@@ -3,13 +3,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebWallet.Data;
+using WebWallet.Data.Repositories;
 using WebWallet.Data.Contracts;
-using WebWallet.Models;
+using WebWallet.Models.Entities;
+using WebWallet.Services.EmailSender;
 
 namespace WebWallet.Web
 {
@@ -42,7 +45,7 @@ namespace WebWallet.Web
                 {
                     identity.Stores.MaxLengthForKeys = 128;
 
-                    identity.SignIn.RequireConfirmedEmail = false;
+                    identity.SignIn.RequireConfirmedEmail = true;
 
                     identity.Password.RequireDigit = true;
                     identity.Password.RequireLowercase = true;
@@ -69,11 +72,15 @@ namespace WebWallet.Web
                 .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddScoped<IRepository<Account>, Repository<Account>>();
             services.AddScoped<IRepository<Budget>, Repository<Budget>>();
             services.AddScoped<IRepository<Goal>, Repository<Goal>>();
             services.AddScoped<IRepository<Investment>, Repository<Investment>>();
             services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
+            services.AddSingleton<IEmailSender, EmailSender>();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3013,6 +3013,19 @@
           }
         }
       },
+      "Sendgrid/9.10.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.1.2",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -4642,6 +4655,23 @@
         },
         "runtime": {
           "bin/placeholder/WebWallet.Models.dll": {}
+        }
+      },
+      "WebWallet.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.UI": "2.1.0",
+          "Microsoft.Extensions.Options": "2.1.0",
+          "WebWallet.Models": "1.0.0",
+          "WebWallet.ViewModels": "1.0.0",
+          "sendgrid": "9.10.0"
+        },
+        "compile": {
+          "bin/placeholder/WebWallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebWallet.Services.dll": {}
         }
       },
       "WebWallet.ViewModels/1.0.0": {
@@ -7823,6 +7853,25 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Sendgrid/9.10.0": {
+      "sha512": "i6208SyPFvZ5bJRUbOimhBF/axjhiS4xQX71+KWPhzWUJGHbGX+yfwPrUg5y0D3deQlQz94mHeWF6AGHSZ81jQ==",
+      "type": "package",
+      "path": "sendgrid/9.10.0",
+      "files": [
+        ".signature.p7s",
+        "lib/net452/SendGrid.dll",
+        "lib/net452/SendGrid.pdb",
+        "lib/net452/SendGrid.xml",
+        "lib/netstandard1.3/SendGrid.dll",
+        "lib/netstandard1.3/SendGrid.pdb",
+        "lib/netstandard1.3/SendGrid.xml",
+        "lib/netstandard2.0/SendGrid.dll",
+        "lib/netstandard2.0/SendGrid.pdb",
+        "lib/netstandard2.0/SendGrid.xml",
+        "sendgrid.9.10.0.nupkg.sha512",
+        "sendgrid.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -12257,6 +12306,11 @@
       "path": "../WebWallet.Models/WebWallet.Models.csproj",
       "msbuildProject": "../WebWallet.Models/WebWallet.Models.csproj"
     },
+    "WebWallet.Services/1.0.0": {
+      "type": "project",
+      "path": "../WebWallet.Services/WebWallet.Services.csproj",
+      "msbuildProject": "../WebWallet.Services/WebWallet.Services.csproj"
+    },
     "WebWallet.ViewModels/1.0.0": {
       "type": "project",
       "path": "../WebWallet.ViewModels/WebWallet.ViewModels.csproj",
@@ -12271,6 +12325,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
       "WebWallet.Data >= 1.0.0",
       "WebWallet.Models >= 1.0.0",
+      "WebWallet.Services >= 1.0.0",
       "WebWallet.ViewModels >= 1.0.0"
     ]
   },
@@ -12309,6 +12364,9 @@
             },
             "C:\\Users\\vangel\\Documents\\WebWallet\\WebWallet.Models\\WebWallet.Models.csproj": {
               "projectPath": "C:\\Users\\vangel\\Documents\\WebWallet\\WebWallet.Models\\WebWallet.Models.csproj"
+            },
+            "C:\\Users\\vangel\\Documents\\WebWallet\\WebWallet.Services\\WebWallet.Services.csproj": {
+              "projectPath": "C:\\Users\\vangel\\Documents\\WebWallet\\WebWallet.Services\\WebWallet.Services.csproj"
             },
             "C:\\Users\\vangel\\Documents\\WebWallet\\WebWallet.ViewModels\\WebWallet.ViewModels.csproj": {
               "projectPath": "C:\\Users\\vangel\\Documents\\WebWallet\\WebWallet.ViewModels\\WebWallet.ViewModels.csproj"

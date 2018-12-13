@@ -5,6 +5,11 @@
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-WebWallet-asdfoi23909jngq4230xcvb9jfg-09q4w5uqekwdfjKJYUw09345tukolrjv98w475ty</UserSecretsId>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -14,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WebWallet.Data\WebWallet.Data.csproj" />
     <ProjectReference Include="..\WebWallet.Models\WebWallet.Models.csproj" />
+    <ProjectReference Include="..\WebWallet.Services\WebWallet.Services.csproj" />
     <ProjectReference Include="..\WebWallet.ViewModels\WebWallet.ViewModels.csproj" />
   </ItemGroup>
 

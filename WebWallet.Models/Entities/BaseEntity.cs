@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using WebWallet.Models.Contracts;
 
-namespace WebWallet.Models
+namespace WebWallet.Models.Entities
 {
     public class BaseEntity : IEntity
     {

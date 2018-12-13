@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WebWallet.Models;
+using WebWallet.Models.Entities;
 
 namespace WebWallet.Data
 {

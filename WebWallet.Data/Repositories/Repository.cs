@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
 using WebWallet.Models.Contracts;
 
-namespace WebWallet.Data
+namespace WebWallet.Data.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity

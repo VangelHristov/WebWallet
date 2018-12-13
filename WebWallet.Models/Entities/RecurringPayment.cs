@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebWallet.Models.Enumerations;
 
-namespace WebWallet.Models
+namespace WebWallet.Models.Entities
 {
     public class RecurringPayment : BaseEntity
     {

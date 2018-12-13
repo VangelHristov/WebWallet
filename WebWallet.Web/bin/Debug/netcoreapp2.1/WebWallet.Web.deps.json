@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "1f5da74c73bcd40a876f54e3c32d49fdb295924e"
+    "signature": "be901165c8c5f2ac053be39e6cef172b0ff890eb"
   },
   "compilationOptions": {
     "defines": [
@@ -30,6 +30,7 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.1",
           "WebWallet.Data": "1.0.0",
           "WebWallet.Models": "1.0.0",
+          "WebWallet.Services": "1.0.0",
           "WebWallet.ViewModels": "1.0.0"
         },
         "runtime": {
@@ -380,6 +381,21 @@
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
         }
       },
+      "Sendgrid/9.10.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.1",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {
+            "assemblyVersion": "9.10.0.0",
+            "fileVersion": "9.10.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
       "System.Composition/1.0.31": {
         "dependencies": {
           "System.Composition.AttributedModel": "1.0.31",
@@ -539,6 +555,21 @@
         },
         "compile": {
           "WebWallet.Models.dll": {}
+        }
+      },
+      "WebWallet.Services/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.UI": "2.1.1",
+          "Microsoft.Extensions.Options": "2.1.1",
+          "WebWallet.Models": "1.0.0",
+          "WebWallet.ViewModels": "1.0.0",
+          "Sendgrid": "9.10.0"
+        },
+        "runtime": {
+          "WebWallet.Services.dll": {}
+        },
+        "compile": {
+          "WebWallet.Services.dll": {}
         }
       },
       "WebWallet.ViewModels/1.0.0": {
@@ -3630,6 +3661,13 @@
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
     },
+    "Sendgrid/9.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i6208SyPFvZ5bJRUbOimhBF/axjhiS4xQX71+KWPhzWUJGHbGX+yfwPrUg5y0D3deQlQz94mHeWF6AGHSZ81jQ==",
+      "path": "sendgrid/9.10.0",
+      "hashPath": "sendgrid.9.10.0.nupkg.sha512"
+    },
     "System.Composition/1.0.31": {
       "type": "package",
       "serviceable": true,
@@ -3685,6 +3723,11 @@
       "sha512": ""
     },
     "WebWallet.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WebWallet.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

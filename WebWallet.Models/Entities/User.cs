@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WebWallet.Models
+namespace WebWallet.Models.Entities
 {
     public class User : IdentityUser<string>
     {
