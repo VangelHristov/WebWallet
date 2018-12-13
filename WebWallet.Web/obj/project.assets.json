@@ -4635,7 +4635,8 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.1.0",
           "Microsoft.EntityFrameworkCore": "2.1.0",
-          "WebWallet.Models": "1.0.0"
+          "WebWallet.Models": "1.0.0",
+          "WebWallet.ViewModels": "1.0.0"
         },
         "compile": {
           "bin/placeholder/WebWallet.Data.dll": {}
@@ -4663,6 +4664,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.UI": "2.1.0",
           "Microsoft.Extensions.Options": "2.1.0",
+          "WebWallet.Data": "1.0.0",
           "WebWallet.Models": "1.0.0",
           "WebWallet.ViewModels": "1.0.0",
           "sendgrid": "9.10.0"

@@ -18,9 +18,5 @@ namespace WebWallet.Services.UserServices
         Task<User> GetByUsername(string username);
 
         Task<IQueryable<User>> GetAll();
-
-        Task Update(User user);
-
-        Task Delete(User user);
     }
 }

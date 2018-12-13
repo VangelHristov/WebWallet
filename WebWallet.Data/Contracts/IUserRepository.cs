@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Models.Entities;
+using WebWallet.ViewModels.User;
 
 namespace WebWallet.Data.Contracts
 {
@@ -12,14 +13,10 @@ namespace WebWallet.Data.Contracts
 
         Task<User> GetByUserName(string username);
 
-        Task PasswordSignIn(string user, string password, bool persist);
+        Task PasswordSignIn(LoginVM loginVM);
 
         Task SignOut();
 
-        Task Create(User entity);
-
-        Task Update(string id, User entity);
-
-        Task Delete(string id);
+        Task<User> Create(User entity);
     }
 }

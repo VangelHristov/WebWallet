@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
+using WebWallet.Data.Exceptions;
 using WebWallet.Models.Entities;
+using WebWallet.ViewModels.User;
 
 namespace WebWallet.Data.Repositories
 {
@@ -24,44 +25,82 @@ namespace WebWallet.Data.Repositories
             this._roleManager = roleManager;
         }
 
-        public Task Create(User entity)
+        private void ThrowIfIsNull(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new DatabaseException();
+            }
         }
 
-        public Task Delete(string id)
+        private void ThrowIfTaskFail(IdentityResult result)
         {
-            throw new NotImplementedException();
+            if (!result.Succeeded)
+            {
+                throw new DatabaseException();
+            }
+        }
+
+        private void ThrowIfTaskFail(SignInResult result)
+        {
+            if (!result.Succeeded)
+            {
+                throw new DatabaseException();
+            }
+        }
+
+        public async Task<User> Create(User entity)
+        {
+            var createUser = await this._userManager.CreateAsync(entity);
+            ThrowIfTaskFail(createUser);
+
+            var user = await this._userManager.FindByNameAsync(entity.UserName);
+            ThrowIfIsNull(user);
+
+            return user;
+        }
+
+        public async Task Delete(string id)
+        {
+            var user = await this._userManager.FindByIdAsync(id);
+            ThrowIfIsNull(user);
+
+            var deleteUser = await this._userManager.DeleteAsync(user);
+            ThrowIfTaskFail(deleteUser);
         }
 
         public IQueryable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return this._userManager.Users;
         }
 
-        public Task<User> GetById(string id)
+        public async Task<User> GetById(string id)
         {
-            throw new NotImplementedException();
+            var user = await this._userManager.FindByIdAsync(id);
+            ThrowIfIsNull(user);
+
+            return user;
         }
 
-        public Task<User> GetByUserName(string username)
+        public async Task<User> GetByUserName(string username)
         {
-            throw new NotImplementedException();
+            var user = await this._userManager.FindByNameAsync(username);
+            ThrowIfIsNull(user);
+
+            return user;
         }
 
-        public Task PasswordSignIn(string user, string password, bool persist)
+        public async Task PasswordSignIn(LoginVM loginVM)
         {
-            throw new NotImplementedException();
+            var passwordSignIn = await this._signInManager
+                .PasswordSignInAsync(loginVM.UserName, loginVM.Password, loginVM.RememberMe, false);
+
+            ThrowIfTaskFail(passwordSignIn);
         }
 
-        public Task SignOut()
+        public async Task SignOut()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(string id, User user)
-        {
-            throw new NotImplementedException();
+            await this._signInManager.SignOutAsync();
         }
     }
 }
