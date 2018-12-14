@@ -28,7 +28,11 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         public IActionResult ForgotPassword() => this.View();
 
         [Authorize]
-        public IActionResult Logout() => this.RedirectToAction("Index", "Home");
+        public async Task<IActionResult> Logout()
+        {
+            await this._userService.Logout();
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegistrationVM registrationVM)

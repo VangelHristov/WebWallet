@@ -22,7 +22,14 @@
                 <div class="error-content">
                     <h2 class="col-md-12">@Model.Code</h2>
                     <p class="col-md-12">@Model.Message</p>
-                    <a class="col-md-6" asp-controller="Home" asp-action="Index">Back to Dashboard</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="col-md-6" asp-controller="Dashboard" asp-action="Index" asp-area="Authenticated">Към Основната Страница</a>
+                    }
+                    else
+                    {
+                        <a class="col-md-6" asp-controller="Home" asp-action="Index" asp-area="">Към Началната Страница</a>
+                    }
                 </div>
             </div>
         </div>

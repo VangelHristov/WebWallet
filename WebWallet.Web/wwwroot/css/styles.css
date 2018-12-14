@@ -2827,3 +2827,12 @@ table.dataTable thead td {
 }
 
 /*-------------------- END Offset Sidebar ------------------- */
+@font-face {
+    font-family: 'TeamSpiritNF';
+    src: url('~/fonts/TeamSpiritNF.ttf'),
+        url('~/fonts/TeamSpiritNF.otf');
+}
+.greeting {
+    font-size: 20px;
+    font-family: 'TeamSpiritNF';
+}

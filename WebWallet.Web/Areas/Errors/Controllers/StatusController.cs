@@ -14,12 +14,12 @@ namespace WebWallet.Web.Areas.Errors.Controllers
 
             switch (statusCode)
             {
-                case 400: statusmessage = "Bad request: The request cannot be fulfilled due to bad syntax"; break;
-                case 403: statusmessage = "Forbidden"; break;
-                case 404: statusmessage = "Page not found"; break;
-                case 408: statusmessage = "The server timed out waiting for the request"; break;
-                case 500: statusmessage = "Internal Server Error - server was unable to finish processing the request"; break;
-                default: statusmessage = "That’s odd... Something we didn't expect happened"; break;
+                case 400: statusmessage = "Заявката не може да се изпълни"; break;
+                case 403: statusmessage = "Нямате необходимите привилигии"; break;
+                case 404: statusmessage = "Няма такава страница"; break;
+                case 408: statusmessage = "Изпълнението на заявката се забави"; break;
+                case 500: statusmessage = "Грешка на сървъра. Моля да ни извините"; break;
+                default: statusmessage = "Г Р Е Ш К А"; break;
             }
 
             var viewModel = new StatusCodeVM { Code = statusCode.ToString(), Message = statusmessage };
