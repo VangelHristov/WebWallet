@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebWallet.Services.UserServices;
@@ -104,7 +102,7 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             var user = await this._userService.GetByUsername(username);
             ThrowIfNull(user);
             var token = await this._userService.GetPasswordResetToken(user);
-            var resetLink = Url.Action("ResetPassword", "User", new { userId = user.Id, token=token }, protocol: HttpContext.Request.Scheme);
+            var resetLink = Url.Action("ResetPassword", "User", new { userId = user.Id, token = token }, protocol: HttpContext.Request.Scheme);
 
             var message = $"Кликни на линка за да въведеш нова парола. <br/> <a href={resetLink}> Нова парола</a>";
 

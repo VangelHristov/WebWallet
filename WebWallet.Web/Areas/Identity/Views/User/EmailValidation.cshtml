@@ -13,20 +13,32 @@
                     <p>@Model.Message</p>
                 </div>
                 <div class="login-form-body">
-                    <div class="form-gp text-center">
-                        <p>Можете да започнете да изплзвате</p>
-                    </div>
-                    <div class="form-gp text-center">
-                        <p>Онлайн Портфейл</p>
-                    </div>
-                    <div class="form-footer text-center mt-5">
-                        <hr />
-                        <div class="submit-btn-area">
-                            <button id="form_submit" type="submit">
-                                    Към Началната Страница <i class="ti-arrow-right"></i>
-                            </button>
+                    @if (Model.Result == "Success")
+                    {
+                        <div class="form-gp text-center">
+                            <p>Можете да започнете да изплзвате</p>
                         </div>
-                    </div>
+                        <div class="form-gp text-center">
+                            <p>Онлайн Портфейл</p>
+                        </div>
+                        <div class="form-footer text-center mt-5">
+                            <hr />
+                            <div class="submit-btn-area">
+                                <button id="form_submit" type="submit">
+                                    Към Началната Страница <i class="ti-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-gp text-center">
+                            <p>Не можем да потвърдим валидността на имейл адреса който сте посочили.</p>
+                        </div>
+                        <div class="form-gp text-center">
+                            <p>Моля пишете ни на webwallet@abv.bg за да ви помогнем да завършите регистарацията си.</p>
+                        </div>
+                    }
                 </div>
             </form>
         </div>
