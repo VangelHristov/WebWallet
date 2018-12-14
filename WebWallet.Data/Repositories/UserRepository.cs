@@ -88,5 +88,19 @@ namespace WebWallet.Data.Repositories
         {
             return (await this._userManager.ConfirmEmailAsync(user, token)).Succeeded;
         }
+
+        public async Task<string> GeneratePasswordResetToken(User user)
+        {
+            return await this._userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<bool> ResetPassword(string userId, string token, string newPassword)
+        {
+            var user = await this._userManager.FindByIdAsync(userId);
+            ThrowIfIsNull(user);
+
+            var passwordReset = await this._userManager.ResetPasswordAsync(user, token, newPassword);
+            return passwordReset.Succeeded;
+        }
     }
 }

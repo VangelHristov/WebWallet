@@ -3,21 +3,32 @@
     ViewData["title"] = "Потвърждение на имейл адрес";
 }
 @model ConfirmEmailVM
+
 <div class="login-area">
     <div class="container">
-        <div class="col-lg-4 col-md-6 mt-5">
-            <div class="card card-bordered">
-
-                <div class="card-body">
+        <div class="login-box ptb--100">
+            <form asp-action="Index" asp-controller="Home" asp-area="" method="get">
+                <div class="login-form-head">
                     <h4><b>@Model.Result</b></h4>
-                    <div class="card-text">
-                        <p>@Model.Message</p>
-                        <p>
-                            <a asp-action="Index" asp-controller="Home" asp-area="">Към Началната Страница <i class="ti-arrow-right"></i></a>
-                        </p>
+                    <p>@Model.Message</p>
+                </div>
+                <div class="login-form-body">
+                    <div class="form-gp text-center">
+                        <p>Можете да започнете да изплзвате</p>
+                    </div>
+                    <div class="form-gp text-center">
+                        <p>Онлайн Портфейл</p>
+                    </div>
+                    <div class="form-footer text-center mt-5">
+                        <hr />
+                        <div class="submit-btn-area">
+                            <button id="form_submit" type="submit">
+                                    Към Началната Страница <i class="ti-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

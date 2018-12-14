@@ -21,5 +21,9 @@ namespace WebWallet.Data.Contracts
         Task<string> GenerateEmailConfirmationToken(User user);
 
         Task<bool> ConfirmEmail(User user, string token);
+
+        Task<string> GeneratePasswordResetToken(User user);
+
+        Task<bool> ResetPassword(string userId, string token, string newPassword);
     }
 }

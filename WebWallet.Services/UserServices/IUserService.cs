@@ -22,5 +22,9 @@ namespace WebWallet.Services.UserServices
         Task<string> GetEmailConfirmationToken(User user);
 
         Task<bool> ConfirmEmail(User user, string token);
+
+        Task<string> GetPasswordResetToken(User user);
+
+        Task<bool> ResetPassword(string userId, string token, string newPassword);
     }
 }

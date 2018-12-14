@@ -25,7 +25,7 @@ namespace WebWallet.Services.EmailSender
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("webwallet@abv.bg", "Admin"),
+                From = new EmailAddress("webwallet@testtt.bg", "Admin"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

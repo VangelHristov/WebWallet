@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.User;
@@ -30,13 +29,8 @@ namespace WebWallet.Web.Areas.Identity.Controllers
 
         public IActionResult ForgotPassword() => this.View();
 
-        public IActionResult ResetPassword() => this.View();
-
         [Authorize]
-        public IActionResult Logout()
-        {
-            return this.RedirectToAction("Index", "Home");
-        }
+        public IActionResult Logout() => this.RedirectToAction("Index", "Home");
 
         [HttpPost]
         public async Task<IActionResult> Register(RegistrationVM registrationVM)
@@ -57,11 +51,12 @@ namespace WebWallet.Web.Areas.Identity.Controllers
                 new { userId = user.Id, token = confirmationToken },
                 protocol: HttpContext.Request.Scheme);
 
-            var subject = "Web Wallet Email Validation";
-            var message = "Благодарим ви че се регистрирахте в WebWallet. Моля кликнете потвърди имейл за да завършите вашата регистрация.\n";
-            message += $"<a href='{confirmationLink}'> ПОТВЪРДИ ИМЕЙЛ</а> ";
+            var message = Regex.Replace(
+                registrationVM.ActivationEmailBody,
+                @"https:\/\/localhost:5001\/Identity\/User\/EmailValidation",
+                confirmationLink);
 
-            await this._emailSender.SendEmailAsync(user.Email, subject, message);
+            await this._emailSender.SendEmailAsync(user.Email, registrationVM.ActivationEmailSubjec, message);
 
             return this.RedirectToAction("RegistrationSuccess", new { userEmail = user.Email });
         }
@@ -81,7 +76,7 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             if (emailConfirmed)
             {
                 confirmEmailVM.Result = "Успех!";
-                confirmEmailVM.Message = "Имейлът беше потвърден!";
+                confirmEmailVM.Message = "Имейлът беше потвърден!\nРегистрацията е активирана.";
 
                 return View(confirmEmailVM);
             }
@@ -104,25 +99,41 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         }
 
         [HttpPost]
-        public IActionResult ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword(string username)
         {
-            var emailValidator = new EmailAddressAttribute();
-            if (!emailValidator.IsValid(email))
-            {
-                return this.View();
-            }
+            var user = await this._userService.GetByUsername(username);
+            ThrowIfNull(user);
+            var token = await this._userService.GetPasswordResetToken(user);
+            var resetLink = Url.Action("ResetPassword", "User", new { userId = user.Id, token=token }, protocol: HttpContext.Request.Scheme);
 
-            return this.RedirectToAction("ResetPassword");
+            var message = $"Кликни на линка за да въведеш нова парола. <br/> <a href={resetLink}> Нова парола</a>";
+
+            await this._emailSender.SendEmailAsync(user.Email, "Password Reset", message);
+
+            return this.RedirectToAction("Index", "Home", new { area = "" });
+        }
+
+        public IActionResult ResetPassword(string token, string userId)
+        {
+            ViewData["passwordResetToken"] = token;
+            ViewData["userId"] = userId;
+            return this.View();
         }
 
         [HttpPost]
-        public IActionResult ResetPassword(ResetPasswordVM resetPasswordVM)
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordVM)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(resetPasswordVM);
             }
-            // TODO: change the password and login user on success redirect to home
+            var passwordReset = await this._userService.ResetPassword(resetPasswordVM.UserId, resetPasswordVM.Token, resetPasswordVM.Password);
+
+            if (!passwordReset)
+            {
+                return this.Redirect("/StatusCode/500");
+            }
+
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }
     }
