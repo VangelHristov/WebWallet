@@ -86,14 +86,19 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginVM loginVM)
+        public async Task<IActionResult> Login(LoginVM loginVM)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(loginVM);
             }
 
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            if (!await this._userService.Login(loginVM.UserName, loginVM.Password, loginVM.RememberMe))
+            {
+                return this.View(loginVM);
+            }
+
+            return this.RedirectToAction("Index", "Dashboard", new { area = "Authenticated" });
         }
 
         [HttpPost]
@@ -101,14 +106,17 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         {
             var user = await this._userService.GetByUsername(username);
             ThrowIfNull(user);
+
             var token = await this._userService.GetPasswordResetToken(user);
-            var resetLink = Url.Action("ResetPassword", "User", new { userId = user.Id, token = token }, protocol: HttpContext.Request.Scheme);
-
+            var resetLink = Url.Action(
+                "ResetPassword",
+                "User",
+                new { userId = user.Id, token = token },
+                protocol: HttpContext.Request.Scheme);
             var message = $"Кликни на линка за да въведеш нова парола. <br/> <a href={resetLink}> Нова парола</a>";
-
             await this._emailSender.SendEmailAsync(user.Email, "Password Reset", message);
 
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            return this.RedirectToAction("Index", "Home");
         }
 
         public IActionResult ResetPassword(string token, string userId)
@@ -125,14 +133,15 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             {
                 return this.View(resetPasswordVM);
             }
-            var passwordReset = await this._userService.ResetPassword(resetPasswordVM.UserId, resetPasswordVM.Token, resetPasswordVM.Password);
 
-            if (!passwordReset)
+            var passwordResetSucceded = await this._userService.
+                ResetPasswordAndLogin(resetPasswordVM.UserId, resetPasswordVM.Token, resetPasswordVM.Password);
+            if (!passwordResetSucceded)
             {
-                return this.Redirect("/StatusCode/500");
+                return this.View(resetPasswordVM);
             }
 
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            return this.RedirectToAction("Index", "Dashboard", new { area = "Authenticated" });
         }
     }
 }

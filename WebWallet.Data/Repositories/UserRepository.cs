@@ -71,12 +71,12 @@ namespace WebWallet.Data.Repositories
             return user;
         }
 
-        public async Task PasswordSignIn(string username, string password, bool percist)
+        public async Task<bool> PasswordSignIn(string username, string password, bool percist)
         {
             var passwordSignIn = await this._signInManager
                 .PasswordSignInAsync(username, password, percist, false);
 
-            ThrowIfTaskFail(passwordSignIn);
+            return passwordSignIn.Succeeded;
         }
 
         public async Task SignOut()

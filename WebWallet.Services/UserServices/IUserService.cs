@@ -7,7 +7,7 @@ namespace WebWallet.Services.UserServices
 {
     public interface IUserService
     {
-        Task Login(string username, string password, bool percist);
+        Task<bool> Login(string username, string password, bool percist);
 
         Task<User> Register(RegistrationVM registrationVM);
 
@@ -25,6 +25,6 @@ namespace WebWallet.Services.UserServices
 
         Task<string> GetPasswordResetToken(User user);
 
-        Task<bool> ResetPassword(string userId, string token, string newPassword);
+        Task<bool> ResetPasswordAndLogin(string userId, string token, string newPassword);
     }
 }

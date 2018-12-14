@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
@@ -38,9 +39,9 @@ namespace WebWallet.Services.UserServices
             return await this._userRepository.GenerateEmailConfirmationToken(user);
         }
 
-        public async Task Login(string username, string password, bool percist)
+        public async Task<bool> Login(string username, string password, bool percist)
         {
-            await this._userRepository.PasswordSignIn(username, password, percist);
+            return await this._userRepository.PasswordSignIn(username, password, percist);
         }
 
         public async Task Logout()
@@ -64,9 +65,16 @@ namespace WebWallet.Services.UserServices
             return await this._userRepository.GeneratePasswordResetToken(user);
         }
 
-        public async Task<bool> ResetPassword(string userId, string token, string newPassword)
+        public async Task<bool> ResetPasswordAndLogin(string userId, string token, string newPassword)
         {
-            return await this._userRepository.ResetPassword(userId, token, newPassword);
+            if (!await this._userRepository.ResetPassword(userId, token, newPassword))
+            {
+                throw new ArgumentException();
+            }
+
+            var user = await this._userRepository.GetById(userId);
+
+            return await this._userRepository.PasswordSignIn(user.UserName, newPassword, false);
         }
     }
 }

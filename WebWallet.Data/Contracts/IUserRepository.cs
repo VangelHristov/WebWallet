@@ -12,7 +12,7 @@ namespace WebWallet.Data.Contracts
 
         Task<User> GetByUserName(string username);
 
-        Task PasswordSignIn(string username, string password, bool percist);
+        Task<bool> PasswordSignIn(string username, string password, bool percist);
 
         Task SignOut();
 

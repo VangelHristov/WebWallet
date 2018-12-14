@@ -24,15 +24,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Dashboard\Controllers\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Dashboard\Views\_ViewImports.cshtml">
+    <Content Update="Areas\Authenticated\Views\Shared\_LayoutScriptsPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Dashboard\Views\_ViewStart.cshtml">
+    <Content Update="Areas\Authenticated\Views\Shared\_LayoutStylesPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Authenticated\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Authenticated\Views\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Identity\Views\Shared\_ValidationScriptsPartial.cshtml">
