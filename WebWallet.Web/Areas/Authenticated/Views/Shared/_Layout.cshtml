@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
     <div class="page-container">
         <div class="sidebar-menu">
             <div class="sidebar-header">
@@ -22,28 +25,64 @@
                     <nav>
                         <ul class="metismenu" id="menu">
                             <li class="active">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-dashboard"></i><span>Начало</span></a>
+                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="false"><i class="fa fa-road"></i><span>Начало</span></a>
                             </li>
                             <li class="">
-                                <a asp-controller="" asp-action="Index" aria-expanded="true"><i class="ti-money"></i><span>Средства</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="fa fa-money"></i><span>Средства</span>
+                                </a>
+                                <ul class="collapse in" style="">
+                                    <li class=""><a asp-controller="Account" asp-action="Create"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Account" asp-action="ListAll"><span>Моите Средства</span></a></li>
+                                </ul>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-shield"></i><span>Бюджети</span></a>
+                                <a href="javascript:void(0)" aria-expanded="false">
+                                    <i class="ti-shield"></i><span>Бюджети</span>
+                                </a>
+                                <ul class="collapse in" style="">
+                                    <li class=""><a asp-controller="Budget" asp-action="Create"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Budget" asp-action="ListAll"><span>Моите Бюджети</span></a></li>
+                                </ul>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-receipt"></i><span>Транзакции</span></a>
+                                <a href="javascript:void(0)" aria-expanded="false">
+                                    <i class="ti-receipt"></i><span>Транзакции</span>
+                                </a>
+                                <ul class="collapse in" style="">
+                                    <li class=""><a asp-controller="Transaction" asp-action="Create"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Transaction" asp-action="ListAll"><span>Всички Транзакции</span></a></li>
+                                </ul>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-pencil-alt"></i><span>Финансови цели</span></a>
+                                <a href="javascript:void(0)" aria-expanded="false">
+                                    <i class="ti-pencil-alt"></i><span>Финансови цели</span>
+                                </a>
+                                <ul class="collapse in" style="">
+                                    <li class=""><a asp-controller="Goal" asp-action="Create"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Goal" asp-action="ListAll"><span>Виж Всички</span></a></li>
+                                </ul>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-stats-up"></i><span>Инвестиции</span></a>
+                                <a href="javascript:void(0)" aria-expanded="false">
+                                    <i class="ti-stats-up"></i><span>Инвестиции</span>
+                                </a>
+                                <ul class="collapse in" style="">
+                                    <li class=""><a asp-controller="Investment" asp-action="Create"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Investment" asp-action="ListAll"><span>Моите Инвестиции</span></a></li>
+                                </ul>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-check-box"></i><span>Заеми и Сметки</span></a>
+                                <a href="javascript:void(0)" aria-expanded="false">
+                                    <i class="ti-check-box"></i><span>Заеми и Сметки</span>
+                                </a>
+                                <ul class="collapse in" style="">
+                                    <li class=""><a asp-controller="RecurringPayment" asp-action="Create"><span>Добави</span></a></li>
+                                    <li><a asp-controller="RecurringPayment" asp-action="ListAll"><span>Виж Всички</span></a></li>
+                                </ul>
                             </li>
                             <li class="">
-                                <a asp-controller="User" asp-action="Logout" asp-area="Identity" aria-expanded="true"><i class="ti-shift-left"></i><span>Изход</span></a>
+                                <a asp-controller="User" asp-action="Logout" asp-area="Identity" aria-expanded="false"><i class="ti-shift-left"></i><span>Изход</span></a>
                             </li>
                         </ul>
                     </nav>
