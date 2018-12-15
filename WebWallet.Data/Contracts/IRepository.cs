@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Models.Contracts;
 
@@ -10,10 +10,10 @@ namespace WebWallet.Data.Contracts
 
         Task<TEntity> GetById(string id);
 
-        Task Create(TEntity entity);
+        Task<bool> Create(TEntity entity);
 
-        Task Update(string id, TEntity entity);
+        Task<bool> Update(string id, TEntity entity);
 
-        Task Delete(string id);
+        Task<bool> Delete(string id);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
@@ -16,18 +16,18 @@ namespace WebWallet.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task Create(TEntity entity)
+        public async Task<bool> Create(TEntity entity)
         {
             await this._dbContext.Set<TEntity>().AddAsync(entity);
-            await this._dbContext.SaveChangesAsync();
+            return (await this._dbContext.SaveChangesAsync()) > 0;
         }
 
-        public async Task Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             var entity = await this.GetById(id);
             ThrowIfIsNull(entity);
             this._dbContext.Set<TEntity>().Remove(entity);
-            await this._dbContext.SaveChangesAsync();
+            return (await this._dbContext.SaveChangesAsync()) > 0;
         }
 
         public IQueryable<TEntity> GetAll()
@@ -45,10 +45,10 @@ namespace WebWallet.Data.Repositories
             return entity;
         }
 
-        public async Task Update(string id, TEntity entity)
+        public async Task<bool> Update(string id, TEntity entity)
         {
             this._dbContext.Set<TEntity>().Update(entity);
-            await this._dbContext.SaveChangesAsync();
+            return (await this._dbContext.SaveChangesAsync()) > 0;
         }
     }
 }

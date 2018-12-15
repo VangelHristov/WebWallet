@@ -4694,6 +4694,9 @@
       "WebWallet.ViewModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "WebWallet.Models": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/WebWallet.ViewModels.dll": {}
         },

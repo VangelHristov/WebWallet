@@ -592,6 +592,9 @@
         }
       },
       "WebWallet.ViewModels/1.0.0": {
+        "dependencies": {
+          "WebWallet.Models": "1.0.0"
+        },
         "runtime": {
           "WebWallet.ViewModels.dll": {}
         },

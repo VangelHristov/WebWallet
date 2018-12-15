@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +16,7 @@ using WebWallet.Services.EmailSender;
 using AutoMapper;
 using WebWallet.Services.AutoMapper;
 using WebWallet.Services.UserServices;
+using WebWallet.Services.AccountServces;
 
 namespace WebWallet.Web
 {
@@ -86,6 +87,7 @@ namespace WebWallet.Web
             // Services
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
 

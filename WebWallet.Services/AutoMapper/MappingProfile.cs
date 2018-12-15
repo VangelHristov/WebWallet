@@ -1,5 +1,6 @@
-﻿using AutoMapper;
+using AutoMapper;
 using WebWallet.Models.Entities;
+using WebWallet.ViewModels.Account;
 using WebWallet.ViewModels.User;
 
 namespace WebWallet.Services.AutoMapper
@@ -9,6 +10,9 @@ namespace WebWallet.Services.AutoMapper
         public MappingProfile()
         {
             CreateMap<RegistrationVM, User>()
+                .ReverseMap();
+
+            CreateMap<AccountVM, Account>()
                 .ReverseMap();
         }
     }

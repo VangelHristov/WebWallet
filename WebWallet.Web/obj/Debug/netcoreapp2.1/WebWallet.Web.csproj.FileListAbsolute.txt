@@ -51,3 +51,6 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LayoutStylesPartial.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Shared\_LayoutScriptsPartial.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Shared\_LayoutStylesPartial.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\All.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\Create.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\Details.g.cshtml.cs
