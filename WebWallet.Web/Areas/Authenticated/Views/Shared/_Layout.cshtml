@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="bg">
 
 <head>
     <meta charset="utf-8">
@@ -10,13 +10,11 @@
 </head>
 
 <body>
-    <!-- page container area start -->
     <div class="page-container">
-        <!-- sidebar menu area start -->
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a asp-controller="Home" asp-action="Index" asp-area=""><img src="~/images/logo.png" alt="logo"></a>
+                    <p class="company-logo">Портфейл</p>
                 </div>
             </div>
             <div class="main-menu">
@@ -30,13 +28,13 @@
                                 <a asp-controller="" asp-action="Index" aria-expanded="true"><i class="ti-money"></i><span>Средства</span></a>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-wallet"></i><span>Бюджети</span></a>
+                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-shield"></i><span>Бюджети</span></a>
                             </li>
                             <li class="">
                                 <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-receipt"></i><span>Транзакции</span></a>
                             </li>
                             <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-gift"></i><span>Финансови цели</span></a>
+                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-pencil-alt"></i><span>Финансови цели</span></a>
                             </li>
                             <li class="">
                                 <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="ti-stats-up"></i><span>Инвестиции</span></a>
@@ -52,10 +50,7 @@
                 </div>
             </div>
         </div>
-        <!-- sidebar menu area end -->
-        <!-- main content area start -->
         <div class="main-content">
-            <!-- header area start -->
             <div class="header-area">
                 <div class="row align-items-center">
                     <div class="col-md-3 col-sm-3 clearfix">
@@ -65,10 +60,10 @@
                             <span></span>
                         </div>
                     </div>
-                    <div class="col-md-6 d-none d-md-inline"><span class="greeting text-muted text-center">Здравей,  Вангел</span></div>
+                    <div class="col-md-6 d-none d-md-inline"><span class="greeting text-muted text-center"> @User.Identity.Name</span></div>
                     <div class="col-md-3 d-none d-md-inline clearfix">
                         <ul class="notification-area pull-right">
-                            <li id="full-view" ><i class="ti-fullscreen"></i></li>
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
                             <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
                         </ul>
                     </div>
@@ -76,20 +71,15 @@
             </div>
 
             <div class="main-content-inner">
-                <!-- MAIN CONTENT GOES HERE -->
                 @RenderBody()
             </div>
         </div>
-        <!-- main content area end -->
-        <!-- footer area start-->
         <footer>
             <div class="footer-area">
                 <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
-        <!-- footer area end-->
     </div>
-    <!-- page container area end -->
     <partial name="_LayoutScriptsPartial" />
     @RenderSection("Scripts", required: false)
 </body>
