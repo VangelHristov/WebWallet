@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebWallet.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class addpropertybudgetgoalinvestmentrecurringPaymentintransactiontransactionisnotbaseentityanymore : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -287,17 +287,38 @@ namespace WebWallet.Data.Migrations
                     TransactionType = table.Column<int>(nullable: false),
                     Category = table.Column<string>(nullable: false),
                     Note = table.Column<string>(nullable: true),
-                    SourceId = table.Column<string>(nullable: false),
+                    AccountId = table.Column<string>(nullable: false),
                     BudgetId = table.Column<string>(nullable: true),
-                    RecurringPaymentId = table.Column<string>(nullable: true)
+                    GoalId = table.Column<string>(nullable: true),
+                    InvestmentId = table.Column<string>(nullable: true),
+                    RecurringPaymentId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Transactions_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Transactions_Budgets_BudgetId",
                         column: x => x.BudgetId,
                         principalTable: "Budgets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Goals_GoalId",
+                        column: x => x.GoalId,
+                        principalTable: "Goals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Investments_InvestmentId",
+                        column: x => x.InvestmentId,
+                        principalTable: "Investments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -307,11 +328,11 @@ namespace WebWallet.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Transactions_Accounts_SourceId",
-                        column: x => x.SourceId,
-                        principalTable: "Accounts",
+                        name: "FK_Transactions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -379,9 +400,24 @@ namespace WebWallet.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Transactions_AccountId",
+                table: "Transactions",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_BudgetId",
                 table: "Transactions",
                 column: "BudgetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_GoalId",
+                table: "Transactions",
+                column: "GoalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_InvestmentId",
+                table: "Transactions",
+                column: "InvestmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_RecurringPaymentId",
@@ -389,9 +425,9 @@ namespace WebWallet.Data.Migrations
                 column: "RecurringPaymentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_SourceId",
+                name: "IX_Transactions_UserId",
                 table: "Transactions",
-                column: "SourceId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -412,25 +448,25 @@ namespace WebWallet.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Goals");
-
-            migrationBuilder.DropTable(
-                name: "Investments");
-
-            migrationBuilder.DropTable(
                 name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Accounts");
+
+            migrationBuilder.DropTable(
                 name: "Budgets");
 
             migrationBuilder.DropTable(
-                name: "RecurringPayments");
+                name: "Goals");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Investments");
+
+            migrationBuilder.DropTable(
+                name: "RecurringPayments");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -1,4 +1,6 @@
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
 using WebWallet.Models.Entities;
@@ -21,6 +23,15 @@ namespace WebWallet.Services.AccountServces
         {
             var account = _mapper.Map<Account>(accountVM);
             return await this._accountRepository.Create(account);
+        }
+
+        public IEnumerable<AccountVM> GetAll(string userId)
+        {
+            return this._accountRepository
+                .GetAll()
+                //.Where(x => x.UserId == userId)
+                .Select(x => _mapper.Map<AccountVM>(x))
+                .AsEnumerable();
         }
     }
 }

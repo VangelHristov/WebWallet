@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,15 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using WebWallet.Data;
-using WebWallet.Data.Repositories;
 using WebWallet.Data.Contracts;
+using WebWallet.Data.Repositories;
 using WebWallet.Models.Entities;
-using WebWallet.Services.EmailSender;
-using AutoMapper;
-using WebWallet.Services.AutoMapper;
-using WebWallet.Services.UserServices;
 using WebWallet.Services.AccountServces;
+using WebWallet.Services.AutoMapper;
+using WebWallet.Services.EmailSender;
+using WebWallet.Services.UserServices;
 
 namespace WebWallet.Web
 {
@@ -63,18 +64,19 @@ namespace WebWallet.Web
 
             services
                 .AddAuthentication()
-                .AddCookie(cookieAuthentication =>
-                {
-                    cookieAuthentication.LoginPath = "/Identity/User/Login";
-                    cookieAuthentication.AccessDeniedPath = "/StatusCode/403";
-                    cookieAuthentication.LogoutPath = "/Identity/User/Logout";
-                    cookieAuthentication.Cookie.HttpOnly = true;
-                    cookieAuthentication.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
-                });
+                .AddCookie();
 
-            services
-                .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // Do not move this configuration in AddCookie method it does not work for paths different than
+            // /Account/Login ; /Account/Logout; /Account/AccessDenied
+            services.ConfigureApplicationCookie(appCookie =>
+            {
+                appCookie.LoginPath = new PathString("/Identity/User/Login/");
+                appCookie.AccessDeniedPath = new PathString("/StatusCode/403/");
+                appCookie.LogoutPath = new PathString("/Identity/User/Logout/");
+                appCookie.Cookie.HttpOnly = true;
+                appCookie.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
+                appCookie.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            });
 
             // Repositories
             services.AddSingleton<IUserRepository, UserRepository>();
@@ -82,7 +84,6 @@ namespace WebWallet.Web
             services.AddScoped<IRepository<Budget>, Repository<Budget>>();
             services.AddScoped<IRepository<Goal>, Repository<Goal>>();
             services.AddScoped<IRepository<Investment>, Repository<Investment>>();
-            services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
 
             // Services
             services.AddSingleton<IEmailSender, EmailSender>();
@@ -97,6 +98,10 @@ namespace WebWallet.Web
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            services
+                .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,14 +114,19 @@ namespace WebWallet.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(new PathString("/Error"));
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
+            app.UseStatusCodePagesWithReExecute(new PathString("/StatusCode/{0}"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+            });
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>

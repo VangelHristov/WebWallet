@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -36,7 +36,7 @@ namespace WebWallet.Data
             var changedEntities = ChangeTracker
                 .Entries()
                  .Where(
-                     x => x.Entity is BaseEntity &&
+                     x => (x.Entity is BaseEntity || x.Entity is Transaction || x.Entity is User) &&
                      (x.State == EntityState.Added || x.State == EntityState.Modified)
                  );
 

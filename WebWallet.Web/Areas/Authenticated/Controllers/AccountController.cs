@@ -9,10 +9,13 @@ using WebWallet.Models.Entities;
 using WebWallet.Web.Controllers;
 using WebWallet.ViewModels.Account;
 using WebWallet.Services.AccountServces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
     [Area("Authenticated")]
+    [Authorize]
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;

@@ -10,8 +10,8 @@ using WebWallet.Data;
 namespace WebWallet.Data.Migrations
 {
     [DbContext(typeof(WebWalletDBContext))]
-    [Migration("20181213204012_initial")]
-    partial class initial
+    [Migration("20181215220225_add-property-budget-goal-investment-recurringPayment-in-transaction-transaction-is-not-base-entity-anymore")]
+    partial class addpropertybudgetgoalinvestmentrecurringPaymentintransactiontransactionisnotbaseentityanymore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -282,6 +282,9 @@ namespace WebWallet.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AccountId")
+                        .IsRequired();
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
@@ -292,6 +295,10 @@ namespace WebWallet.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<string>("GoalId");
+
+                    b.Property<string>("InvestmentId");
+
                     b.Property<DateTime>("ModifiedOn");
 
                     b.Property<string>("Name")
@@ -301,18 +308,23 @@ namespace WebWallet.Data.Migrations
 
                     b.Property<string>("RecurringPaymentId");
 
-                    b.Property<string>("SourceId")
-                        .IsRequired();
-
                     b.Property<int>("TransactionType");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountId");
+
                     b.HasIndex("BudgetId");
+
+                    b.HasIndex("GoalId");
+
+                    b.HasIndex("InvestmentId");
 
                     b.HasIndex("RecurringPaymentId");
 
-                    b.HasIndex("SourceId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -419,53 +431,65 @@ namespace WebWallet.Data.Migrations
 
             modelBuilder.Entity("WebWallet.Models.Entities.Account", b =>
                 {
-                    b.HasOne("WebWallet.Models.Entities.User")
+                    b.HasOne("WebWallet.Models.Entities.User", "User")
                         .WithMany("Accounts")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebWallet.Models.Entities.Budget", b =>
                 {
-                    b.HasOne("WebWallet.Models.Entities.User")
+                    b.HasOne("WebWallet.Models.Entities.User", "User")
                         .WithMany("Budgets")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebWallet.Models.Entities.Goal", b =>
                 {
-                    b.HasOne("WebWallet.Models.Entities.User")
+                    b.HasOne("WebWallet.Models.Entities.User", "User")
                         .WithMany("Goals")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebWallet.Models.Entities.Investment", b =>
                 {
-                    b.HasOne("WebWallet.Models.Entities.User")
+                    b.HasOne("WebWallet.Models.Entities.User", "User")
                         .WithMany("Investments")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebWallet.Models.Entities.RecurringPayment", b =>
                 {
-                    b.HasOne("WebWallet.Models.Entities.User")
+                    b.HasOne("WebWallet.Models.Entities.User", "User")
                         .WithMany("RecurringPayments")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebWallet.Models.Entities.Transaction", b =>
                 {
-                    b.HasOne("WebWallet.Models.Entities.Budget")
+                    b.HasOne("WebWallet.Models.Entities.Account", "Account")
+                        .WithMany("Transactions")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WebWallet.Models.Entities.Budget", "Budget")
                         .WithMany("Transactions")
                         .HasForeignKey("BudgetId");
 
-                    b.HasOne("WebWallet.Models.Entities.RecurringPayment")
+                    b.HasOne("WebWallet.Models.Entities.Goal", "Goal")
+                        .WithMany("Transactions")
+                        .HasForeignKey("GoalId");
+
+                    b.HasOne("WebWallet.Models.Entities.Investment", "Investment")
+                        .WithMany()
+                        .HasForeignKey("InvestmentId");
+
+                    b.HasOne("WebWallet.Models.Entities.RecurringPayment", "RecurringPayment")
                         .WithMany("Transactions")
                         .HasForeignKey("RecurringPaymentId");
 
-                    b.HasOne("WebWallet.Models.Entities.Account", "Source")
+                    b.HasOne("WebWallet.Models.Entities.User", "User")
                         .WithMany("Transactions")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

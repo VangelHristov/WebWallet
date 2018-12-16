@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebWallet.Models.Enumerations;
@@ -16,5 +16,7 @@ namespace WebWallet.Models.Entities
         public AccountType Type { get; set; }
 
         public IEnumerable<Transaction> Transactions { get; set; }
+
+        public User User { get; set; }
     }
 }

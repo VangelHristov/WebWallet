@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,5 +21,7 @@ namespace WebWallet.Models.Entities
         [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Available { get; set; }
+
+        public User User { get; set; }
     }
 }

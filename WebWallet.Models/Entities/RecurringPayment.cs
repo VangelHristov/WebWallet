@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,5 +22,7 @@ namespace WebWallet.Models.Entities
         public decimal Amount { get; set; }
 
         public IEnumerable<Transaction> Transactions { get; set; }
+
+        public User User { get; set; }
     }
 }

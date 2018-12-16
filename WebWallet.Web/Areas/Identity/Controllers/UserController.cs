@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
@@ -31,6 +33,7 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         public async Task<IActionResult> Logout()
         {
             await this._userService.Logout();
+            //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home", new { area = "" });
         }
 
@@ -92,13 +95,12 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
-            if (!ModelState.IsValid)
+            if (!(ModelState.IsValid &&
+                    await this._userService
+                        .Login(loginVM.UserName, loginVM.Password, loginVM.RememberMe))
+               )
             {
-                return this.View(loginVM);
-            }
-
-            if (!await this._userService.Login(loginVM.UserName, loginVM.Password, loginVM.RememberMe))
-            {
+                ModelState.AddModelError("", "Грешно име или парола.");
                 return this.View(loginVM);
             }
 
@@ -120,7 +122,7 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             var message = $"Кликни на линка за да въведеш нова парола. <br/> <a href={resetLink}> Нова парола</a>";
             await this._emailSender.SendEmailAsync(user.Email, "Password Reset", message);
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home", new { area = "" });
         }
 
         public IActionResult ResetPassword(string token, string userId)
