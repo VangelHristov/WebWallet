@@ -102,6 +102,8 @@ namespace WebWallet.Web
             services
                 .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddHttpCacheHeaders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,6 +123,7 @@ namespace WebWallet.Web
             app.UseStatusCodePagesWithReExecute(new PathString("/StatusCode/{0}"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseHttpCacheHeaders();
 
             app.UseCookiePolicy(new CookiePolicyOptions
             {

@@ -34,7 +34,10 @@
     /*================================
     sidebar menu
     ==================================*/
-    $("#menu").metisMenu();
+   //$("#menu").metisMenu();
+    $(function () {
+        $('#menu').metisMenu();
+    });
 
     /*================================
     slimscroll activation

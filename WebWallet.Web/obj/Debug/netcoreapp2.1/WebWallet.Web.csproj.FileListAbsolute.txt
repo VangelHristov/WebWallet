@@ -38,7 +38,6 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\ForgotPassword.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\ResetPassword.g.cshtml.cs
-C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\bin\Debug\netcoreapp2.1\WebWallet.Services.dll
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\bin\Debug\netcoreapp2.1\WebWallet.Services.pdb
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Identity\Views\User\EmailValidation.g.cshtml.cs
@@ -54,3 +53,4 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\All.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\Create.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\Edit.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
