@@ -12,7 +12,7 @@ namespace WebWallet.Data.Contracts
 
         Task<bool> Create(TEntity entity);
 
-        Task<bool> Update(string id, TEntity entity);
+        Task<bool> Update(TEntity entity);
 
         Task<bool> Delete(string id);
     }

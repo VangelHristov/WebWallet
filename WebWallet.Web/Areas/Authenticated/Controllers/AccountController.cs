@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
 using WebWallet.Services.AccountServces;
 using WebWallet.Services.UserServices;
@@ -50,14 +51,16 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             return View(accounts);
         }
 
-        public IActionResult Details(string accountId)
+        public async Task<IActionResult> Edit(string accountId)
         {
             ThrowIfNull(accountId);
-            return View();
+            var accountDetails = await this._accountService.GetById(accountId);
+            ThrowIfNull(accountDetails);
+            return View(accountDetails);
         }
 
         [HttpPost]
-        public IActionResult Edit(AccountVM accountVM)
+        public async Task<IActionResult> Edit(AccountVM accountVM)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +68,23 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 return View(accountVM);
             }
 
+            if (!await this._accountService.Update(accountVM))
+            {
+                throw new OperationException("Error occured while updating account");
+            }
+
             return RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> Delete(string accountId)
+        {
+            ThrowIfNull(accountId);
+            if (!await this._accountService.Delete(accountId))
+            {
+                throw new OperationException("Error occured while deleting account");
+            }
+
+            return this.RedirectToAction(nameof(All));
         }
     }
 }

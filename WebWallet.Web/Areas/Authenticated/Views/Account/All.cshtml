@@ -23,18 +23,24 @@
                 @{ var counter = 1;}
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <th scope="row">@counter</th>
-                        <td>@item.Name</td>
-                        <td>@item.Balance лв.</td>
-                        <td>@Html.DisplayFor(x => item.Type)</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a asp-action="Delete" asp-route-id="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
-
-                        </td>
-                    </tr>
+                <tr>
+                    <th scope="row">@counter</th>
+                    <td>@item.Name</td>
+                    @if (item.Type == AccountType.Credit)
+                    {
+                        <td class="text-danger">- @item.Balance лв.</td>
+                    }
+                    else
+                    {
+                        <td class="text-success">@item.Balance лв.</td>
+                    }
+                    <td>@Html.DisplayFor(x => item.Type)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-accountId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a asp-action="Delete" asp-route-accountId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    </td>
+                </tr>
                     counter++;
                 }
             </tbody>

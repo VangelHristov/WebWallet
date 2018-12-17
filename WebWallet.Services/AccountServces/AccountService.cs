@@ -26,6 +26,11 @@ namespace WebWallet.Services.AccountServces
             return await this._accountRepository.Create(account);
         }
 
+        public async Task<bool> Delete(string accountId)
+        {
+            return await this._accountRepository.Delete(accountId);
+        }
+
         public IEnumerable<AccountVM> GetAll(string userId)
         {
             return this._accountRepository
@@ -33,6 +38,18 @@ namespace WebWallet.Services.AccountServces
                 .Where(x => x.UserId == userId)
                 .Select(x => _mapper.Map<AccountVM>(x))
                 .AsEnumerable();
+        }
+
+        public async Task<AccountVM> GetById(string accountId)
+        {
+            var account = await this._accountRepository.GetById(accountId);
+            return this._mapper.Map<AccountVM>(account);
+        }
+
+        public async Task<bool> Update(AccountVM accountVM)
+        {
+            var account = this._mapper.Map<Account>(accountVM);
+            return await this._accountRepository.Update(account);
         }
     }
 }
