@@ -34,7 +34,8 @@
     /*================================
     sidebar menu
     ==================================*/
-   $("#menu").metisMenu();
+    $("#menu").metisMenu();
+    $(".fa-money").first().trigger("click");// need this line to collapse menu
 
     /*================================
     slimscroll activation

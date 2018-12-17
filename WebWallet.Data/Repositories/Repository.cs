@@ -32,7 +32,7 @@ namespace WebWallet.Data.Repositories
 
         public IQueryable<TEntity> GetAll()
         {
-            return _dbContext.Set<TEntity>();
+            return _dbContext.Set<TEntity>().AsNoTracking();
         }
 
         public async Task<TEntity> GetById(string id)
