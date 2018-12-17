@@ -1,4 +1,4 @@
-﻿@{
+@{
     Layout = "_Layout";
     ViewData["title"] = "Вход";
 }
@@ -10,7 +10,6 @@
             <form asp-controller="User" asp-action="Login" asp-area="Identity" method="post">
                 <div class="login-form-head">
                     <h4>Вход за регистрирани потребители</h4>
-                    <p>Здравей, Влез и започни да управляваш финансите се</p>
                 </div>
                 <div class="login-form-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -50,6 +49,5 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts{ <partial name="_ValidationScriptsPartial" /> }

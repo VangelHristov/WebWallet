@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using WebWallet.Models.Contracts;
 using WebWallet.Models.Entities;
 
 namespace WebWallet.Data
@@ -35,19 +36,16 @@ namespace WebWallet.Data
         {
             var changedEntities = ChangeTracker
                 .Entries()
-                 .Where(
-                     x => (x.Entity is BaseEntity || x.Entity is Transaction || x.Entity is User) &&
-                     (x.State == EntityState.Added || x.State == EntityState.Modified)
-                 );
+                 .Where(x => (x.Entity is IEntity) && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entity in changedEntities)
             {
                 if (entity.State == EntityState.Added)
                 {
-                    ((BaseEntity)entity.Entity).CreatedOn = DateTime.UtcNow;
+                    ((IEntity)entity.Entity).CreatedOn = DateTime.UtcNow;
                 }
 
-                ((BaseEntity)entity.Entity).ModifiedOn = DateTime.UtcNow;
+                ((IEntity)entity.Entity).ModifiedOn = DateTime.UtcNow;
             }
         }
 

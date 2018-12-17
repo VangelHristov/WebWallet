@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebWallet.Models.Entities;
+using Entities = WebWallet.Models.Entities;
 using WebWallet.Models.Enumerations;
 
 namespace WebWallet.ViewModels.Account
 {
     public class AccountVM
     {
+        public string Id { get; set; }
+
+        public string UserId { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Име")]
         public string Name { get; set; }
@@ -22,6 +26,6 @@ namespace WebWallet.ViewModels.Account
         public AccountType Type { get; set; }
 
         [Display(Name = "Транзакции")]
-        public IEnumerable<Transaction> Transactions { get; set; }
+        public IEnumerable<Entities.Transaction> Transactions { get; set; }
     }
 }

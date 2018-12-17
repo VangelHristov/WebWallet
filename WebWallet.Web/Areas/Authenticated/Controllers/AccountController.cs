@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using WebWallet.Data.Contracts;
-using WebWallet.Models.Contracts;
-using WebWallet.Models.Entities;
-using WebWallet.Web.Controllers;
-using WebWallet.ViewModels.Account;
-using WebWallet.Services.AccountServces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WebWallet.Services.AccountServces;
+using WebWallet.Services.UserServices;
+using WebWallet.ViewModels.Account;
+using WebWallet.Web.Controllers;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
@@ -19,10 +13,12 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
+        private readonly IUserService _userService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IUserService userService)
         {
             this._accountService = accountService;
+            this._userService = userService;
         }
 
         public IActionResult Create()
@@ -35,25 +31,28 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
         {
             if (!ModelState.IsValid)
             {
+                AddModelErrors(ModelState);
                 return View(accountVM);
             }
 
+            var user = await this._userService.GetByUsername(User.Identity.Name);
+            accountVM.UserId = user.Id;
+
             await this._accountService.Create(accountVM);
+
             return RedirectToAction("All");
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            return View();
+            var user = await this._userService.GetByUsername(User.Identity.Name);
+            var accounts = this._accountService.GetAll(user.Id);
+            return View(accounts);
         }
 
         public IActionResult Details(string accountId)
         {
-            if (accountId == null)
-            {
-                ModelState.AddModelError("", "Номер на сметка е задължителен.");
-                return View();
-            }
+            ThrowIfNull(accountId);
             return View();
         }
 
@@ -62,6 +61,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
         {
             if (!ModelState.IsValid)
             {
+                AddModelErrors(ModelState);
                 return View(accountVM);
             }
 

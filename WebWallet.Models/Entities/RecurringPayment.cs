@@ -2,12 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebWallet.Models.Contracts;
 using WebWallet.Models.Enumerations;
 
 namespace WebWallet.Models.Entities
 {
-    public class RecurringPayment : BaseEntity
+    public class RecurringPayment : IEntity
     {
+        [Required(AllowEmptyStrings = false)]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Id { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Name { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
+
         [Required]
         public RecurringPaymentType RecurringPaymentType { get; set; }
 
@@ -23,6 +36,8 @@ namespace WebWallet.Models.Entities
 
         public IEnumerable<Transaction> Transactions { get; set; }
 
-        public User User { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string UserId { get; set; }
     }
 }

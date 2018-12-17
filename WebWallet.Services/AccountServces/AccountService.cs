@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace WebWallet.Services.AccountServces
         {
             return this._accountRepository
                 .GetAll()
-                //.Where(x => x.UserId == userId)
+                .Where(x => x.UserId == userId)
                 .Select(x => _mapper.Map<AccountVM>(x))
                 .AsEnumerable();
         }

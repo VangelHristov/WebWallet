@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.Linq;
 
 namespace WebWallet.Web.Controllers
 {
@@ -11,6 +13,15 @@ namespace WebWallet.Web.Controllers
             {
                 throw new ArgumentNullException();
             }
+        }
+
+        protected void AddModelErrors(ModelStateDictionary modelState)
+        {
+            modelState
+                .Values
+                .SelectMany(x => x.Errors)
+                .ToList()
+                .ForEach(x => modelState.AddModelError("", x.ErrorMessage));
         }
     }
 }

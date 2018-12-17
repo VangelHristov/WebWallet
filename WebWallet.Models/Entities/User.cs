@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
+using WebWallet.Models.Contracts;
 
 namespace WebWallet.Models.Entities
 {
-    public class User : IdentityUser<string>
+    public class User : IdentityUser<string>, IEntity
     {
-        public IEnumerable<Account> Accounts { get; set; }
-        public IEnumerable<Budget> Budgets { get; set; }
-        public IEnumerable<Goal> Goals { get; set; }
-        public IEnumerable<Investment> Investments { get; set; }
-        public IEnumerable<RecurringPayment> RecurringPayments { get; set; }
-        public IEnumerable<Transaction> Transactions { get; set; }
-        public string Avatar { get; set; }
-        public DateTime MemberSince { get; set; }
+        public string Name
+        {
+            get { return this.UserName; }
+            set { this.UserName = value; }
+        }
+
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
     }
 }

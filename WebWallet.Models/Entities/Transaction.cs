@@ -1,11 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebWallet.Models.Contracts;
 using WebWallet.Models.Enumerations;
 
 namespace WebWallet.Models.Entities
 {
-    public class Transaction
+    public class Transaction : IEntity
     {
         public string Id { get; set; }
 
@@ -31,17 +32,20 @@ namespace WebWallet.Models.Entities
 
         public string Note { get; set; }
 
-        [Required]
-        public Account Account { get; set; }
+        public string BudgetId { get; set; }
 
-        public Budget Budget { get; set; }
+        public string GoalId { get; set; }
 
-        public Goal Goal { get; set; }
+        public string InvestmentId { get; set; }
 
-        public Investment Investment { get; set; }
+        public string RecurringPaymentId { get; set; }
 
-        public RecurringPayment RecurringPayment { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string UserId { get; set; }
 
-        public User User { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string AccountId { get; set; }
     }
 }
