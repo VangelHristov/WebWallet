@@ -16,6 +16,7 @@ using WebWallet.Data.Repositories;
 using WebWallet.Models.Entities;
 using WebWallet.Services.AccountServces;
 using WebWallet.Services.AutoMapper;
+using WebWallet.Services.BudgetServices;
 using WebWallet.Services.EmailSender;
 using WebWallet.Services.UserServices;
 
@@ -84,11 +85,13 @@ namespace WebWallet.Web
             services.AddScoped<IRepository<Budget>, Repository<Budget>>();
             services.AddScoped<IRepository<Goal>, Repository<Goal>>();
             services.AddScoped<IRepository<Investment>, Repository<Investment>>();
+            services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
 
             // Services
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IBudgetService, BudgetService>();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
 

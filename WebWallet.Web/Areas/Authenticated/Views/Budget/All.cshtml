@@ -1,0 +1,64 @@
+@{
+    Layout = "_Layout";
+    ViewData["title"] = "Моите Бюджети";
+}
+@model IEnumerable<BudgetVM>
+
+<div class="single-table d-none d-md-block">
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead class="text-uppercase bg-info">
+                <tr class="text-white">
+                    <th scope="col">#</th>
+                    <th scope="col">Име</th>
+                    <th scope="col">Лимит</th>
+                    <th scope="col">Остават</th>
+                    <th scope="col">Период</th>
+                    <th scope="col">Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var counter = 1;}
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <th scope="row">@counter</th>
+                        <td>@item.Name</td>
+                        <td>@item.Limit</td>
+                        <td>@item.Available</td>
+                        <td>@item.PeriodString</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-accountId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a asp-action="Delete" asp-route-accountId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                        </td>
+                    </tr>
+                    counter++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+@foreach (var item in Model)
+{
+    <div class="d-block d-md-none d-lg-none d-xl-none d-xs-block">
+        <div class="card">
+            <div class="body bg-blue-grey">
+                <p>Име: <span class="pull-right">@item.Name</span></p>
+
+                <p>Лимит: <span class="pull-right">@item.Limit</span></p>
+                <p>Остават: <span class="pull-right">@item.Available</span></p>
+                <p>Период: <span class="pull-right">@item.PeriodString</span></p>
+                <p>
+                    <a asp-action="Edit" asp-route-accountId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-action="Delete" asp-route-accountId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br />
+}

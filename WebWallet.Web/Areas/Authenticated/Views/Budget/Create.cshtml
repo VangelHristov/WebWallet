@@ -1,7 +1,7 @@
-@model AccountVM
+@model BudgetVM
 @{
     Layout = "_Layout";
-    ViewData["title"] = "Добави Сметка";
+    ViewData["title"] = "Добави Бюджет";
 }
 
 <div class="row">
@@ -17,16 +17,16 @@
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Balance"></label>
-                        <input class="form-control" asp-for="Balance">
-                        <span asp-validation-for="Balance" class="text-danger"></span>
+                        <label asp-for="Limit"></label>
+                        <input class="form-control" asp-for="Limit">
+                        <span asp-validation-for="Limit" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Type"></label>
-                        <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<AccountType>()">
+                        <label asp-for="PeriodString"></label>
+                        <select class="form-control" asp-for="PeriodString" asp-items="@(new SelectList(Model.Periods))">
                             <option selected="selected" value="">Моля изберете...</option>
                         </select>
-                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <span asp-validation-for="PeriodString" class="text-danger"></span>
                     </div>
                     <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Добави</button>
                 </form>

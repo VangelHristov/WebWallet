@@ -54,3 +54,7 @@ C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\Create.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Account\Edit.g.cshtml.cs
 C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Budget\All.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Budget\Create.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Budget\Edit.g.cshtml.cs
+C:\Users\vangel\Documents\WebWallet\WebWallet.Web\obj\Debug\netcoreapp2.1\Razor\Areas\Authenticated\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs

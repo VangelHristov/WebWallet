@@ -1,19 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading.Tasks;
+using WebWallet.Services.BudgetServices;
+using WebWallet.Services.UserServices;
+using WebWallet.ViewModels.Budget;
+using WebWallet.Web.Controllers;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
-    public class BudgetController : Controller
+    [Area("Authenticated")]
+    public class BudgetController : BaseController
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private readonly IUserService _userService;
+        private readonly IBudgetService _budgetService;
+
+        public BudgetController(IUserService userService, IBudgetService budgetService)
+        {
+            this._userService = userService;
+            this._budgetService = budgetService;
+        }
+
+        public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(BudgetVM budgetVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                AddModelErrors(ModelState);
+                return this.View(budgetVM);
+            }
+
+            if (!await this._budgetService.Create(budgetVM))
+            {
+                return this.View(budgetVM);
+            }
+
+            var user = await this._userService.GetByUsername(User.Identity.Name);
+            budgetVM.UserId = user.Id;
+
+            await this._budgetService.Create(budgetVM);
+            return RedirectToAction(nameof(All));
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var user = await this._userService.GetByUsername(User.Identity.Name);
+            var budgetVM = this._budgetService.GetAll(user.Id);
+
+            return this.View(budgetVM);
+        }
+
+        public async Task<IActionResult> Edit(string budgetId)
+        {
+            var budgetVM = await this._budgetService.GetById(budgetId);
+            return this.View(budgetVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(BudgetVM budgetVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                AddModelErrors(ModelState);
+                return this.View(budgetVM);
+            }
+
+            await this._budgetService.Update(budgetVM);
+            return this.RedirectToAction(nameof(All));
+        }
+
+        public async Task<IActionResult> Delete(string budgetId)
+        {
+            ThrowIfNull(budgetId);
+            await this._budgetService.Delete(budgetId);
+
+            return this.RedirectToAction(nameof(All));
         }
     }
 }

@@ -12,11 +12,14 @@ namespace WebWallet.Services.AccountServces
     public class AccountService : IAccountService
     {
         private readonly IRepository<Account> _accountRepository;
+        private readonly IRepository<Transaction> _transactionRepository;
         private readonly IMapper _mapper;
 
-        public AccountService(IRepository<Account> accountRepository, IMapper mapper)
+        public AccountService(IRepository<Account> accountRepository,
+            IRepository<Transaction> transactionRepository, IMapper mapper)
         {
             this._accountRepository = accountRepository;
+            this._transactionRepository = transactionRepository;
             this._mapper = mapper;
         }
 
@@ -28,6 +31,13 @@ namespace WebWallet.Services.AccountServces
 
         public async Task<bool> Delete(string accountId)
         {
+            var transactions = await this._transactionRepository
+                .GetAll()
+                .Where(x => x.AccountId == accountId)
+                .ToListAsync();
+
+            transactions.ForEach(x => this._transactionRepository.Delete(x.Id));
+
             return await this._accountRepository.Delete(accountId);
         }
 
