@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using WebWallet.Services.InvestmentServices;
 using WebWallet.Web.Controllers;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
@@ -17,6 +15,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
         public IActionResult Create()
         {
+            return View();
         }
     }
 }

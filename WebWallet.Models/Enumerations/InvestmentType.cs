@@ -11,6 +11,9 @@ namespace WebWallet.Models.Enumerations
         Currency,
 
         [Display(Name = "Крипто валута")]
-        Crypto
+        Crypto,
+
+        [Display(Name = "Недвижим имот")]
+        RealEstate
     }
 }

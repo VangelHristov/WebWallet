@@ -8,7 +8,7 @@ namespace WebWallet.ViewModels.Transaction
 {
     public class TransactionVM
     {
-        private Dictionary<string, string[]> _categories = new Dictionary<string, string[]>
+        private readonly Dictionary<string, string[]> _categories = new Dictionary<string, string[]>
         {
             { "Храна и Напитки",
                 new string[]
@@ -134,7 +134,7 @@ namespace WebWallet.ViewModels.Transaction
             }
         };
 
-        private string _categorie;
+        private string _category;
 
         public string Id { get; set; }
 
@@ -149,7 +149,7 @@ namespace WebWallet.ViewModels.Transaction
 
         [Required]
         [Display(Name = "Сума")]
-        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
+        [Range(0.1, maximum: (double)decimal.MaxValue)]
         public decimal Amount { get; set; }
 
         [Required]
@@ -161,7 +161,7 @@ namespace WebWallet.ViewModels.Transaction
         [Display(Name = "Категория")]
         public string Category
         {
-            get { return this._categorie; }
+            get { return this._category; }
             set
             {
                 if (!this.Categories.Values.Any(x => x.Contains(value)))
@@ -169,7 +169,7 @@ namespace WebWallet.ViewModels.Transaction
                     throw new ArgumentException();
                 }
 
-                this._categorie = value;
+                this._category = value;
             }
         }
 
@@ -188,12 +188,6 @@ namespace WebWallet.ViewModels.Transaction
 
         public string AccountId { get; set; }
 
-        public Dictionary<string, string[]> Categories
-        {
-            get
-            {
-                return this._categories;
-            }
-        }
+        public Dictionary<string, string[]> Categories => this._categories;
     }
 }

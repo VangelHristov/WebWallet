@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using WebWallet.ViewModels.Transaction;
 
 namespace WebWallet.ViewModels.Budget
@@ -12,7 +11,7 @@ namespace WebWallet.ViewModels.Budget
 
         public string Id { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Полетро е задължително.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето е задължително.")]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Display(Name = "Име")]
         public string Name { get; set; }
