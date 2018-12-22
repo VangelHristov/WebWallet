@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using WebWallet.Services.InvestmentServices;
 using WebWallet.ViewModels.Investment;
@@ -39,10 +40,46 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 .WithSuccess("Успех!", "Инвестицията беше успешно запазена.");
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string timestamp)
         {
             var investmentsVM = await this._investmentService.GetAll(User.Identity.Name);
             return View(investmentsVM);
+        }
+
+        public async Task<IActionResult> Edit(string investmentId)
+        {
+            ThrowIfNull(investmentId);
+            var investmentVM = await this._investmentService.GetById(investmentId);
+
+            return View(investmentVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(InvestmentVM investmentVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                AddModelErrors(ModelState);
+                return View(investmentVM);
+            }
+
+            if (!await this._investmentService.Update(investmentVM))
+            {
+                return View(investmentVM)
+                    .WithWarning("Грешка!", "Моля задайте коректни стойности за всички полета.");
+            }
+
+            return RedirectToAction(nameof(All))
+                .WithSuccess("Успех!", "Промените бяха запазени.");
+        }
+
+        public async Task<IActionResult> Delete(string investmentId)
+        {
+            ThrowIfNull(investmentId);
+            await this._investmentService.Delete(investmentId);
+
+            return this.RedirectToAction(nameof(All), new { timestamp = DateTime.Now.Ticks })
+                .WithSuccess("Успех!", "Инвестицията беше изтрита.");
         }
     }
 }
