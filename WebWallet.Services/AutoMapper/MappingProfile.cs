@@ -2,6 +2,7 @@ using AutoMapper;
 using WebWallet.Models.Entities;
 using WebWallet.ViewModels.Account;
 using WebWallet.ViewModels.Budget;
+using WebWallet.ViewModels.Goal;
 using WebWallet.ViewModels.Investment;
 using WebWallet.ViewModels.Transaction;
 using WebWallet.ViewModels.User;
@@ -30,6 +31,9 @@ namespace WebWallet.Services.AutoMapper
             CreateMap<BudgetVM, Budget>();
 
             CreateMap<Investment, InvestmentVM>()
+                .ReverseMap();
+
+            CreateMap<Goal, GoalVM>()
                 .ReverseMap();
         }
     }
