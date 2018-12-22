@@ -21,8 +21,10 @@ namespace WebWallet.Services.AutoMapper
             CreateMap<TransactionVM, Transaction>()
                 .ReverseMap();
 
-            CreateMap<BudgetVM, Budget>()
-                .ReverseMap();
+            CreateMap<Budget, BudgetVM>()
+                .ForMember(dest => dest.Available, opt => opt.MapFrom(dest => dest.GetAvailable()));
+
+            CreateMap<BudgetVM, Budget>();
         }
     }
 }

@@ -19,6 +19,7 @@ using WebWallet.Services.AutoMapper;
 using WebWallet.Services.BudgetServices;
 using WebWallet.Services.EmailSender;
 using WebWallet.Services.UserServices;
+using WebWallet.Web.ModelBinders;
 
 namespace WebWallet.Web
 {
@@ -103,10 +104,26 @@ namespace WebWallet.Web
             services.AddSingleton(mapper);
 
             services
-                .AddMvc(mvc => mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
+                .AddMvc(mvc =>
+                {
+                    mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                    mvc.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddHttpCacheHeaders();
+            services.AddResponseCaching();
+
+            services.AddHttpCacheHeaders(
+                expirationModelOptions =>
+                {
+                    expirationModelOptions.MaxAge = 1000;
+                    expirationModelOptions.SharedMaxAge = 1000;
+                },
+                validationModelOptions =>
+                {
+                    validationModelOptions.MustRevalidate = true;
+                    validationModelOptions.ProxyRevalidate = true;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

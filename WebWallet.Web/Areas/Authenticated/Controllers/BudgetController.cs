@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebWallet.Services.BudgetServices;
 using WebWallet.Services.UserServices;
@@ -8,10 +11,22 @@ using WebWallet.Web.Controllers;
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
     [Area("Authenticated")]
+    [Authorize]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class BudgetController : BaseController
     {
         private readonly IUserService _userService;
         private readonly IBudgetService _budgetService;
+
+        private readonly List<SelectListItem> _periods = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "7 дни", Text = "7 дни" },
+                new SelectListItem { Value = "14 дни", Text = "14 дни" },
+                new SelectListItem { Value = "1 месец", Text = "1 месец"  },
+                new SelectListItem { Value = "3 месеца", Text = "3 месеца" },
+                new SelectListItem { Value = "6 месеца", Text = "6 месеца"  },
+                new SelectListItem { Value = "1 година", Text = "1 година"  }
+            };
 
         public BudgetController(IUserService userService, IBudgetService budgetService)
         {
@@ -21,6 +36,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
         public IActionResult Create()
         {
+            ViewData["BudgetPeriods"] = this._periods;
             return View();
         }
 
@@ -33,15 +49,14 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 return this.View(budgetVM);
             }
 
+            var user = await this._userService.GetByUsername(User.Identity.Name);
+            budgetVM.UserId = user.Id;
+
             if (!await this._budgetService.Create(budgetVM))
             {
                 return this.View(budgetVM);
             }
 
-            var user = await this._userService.GetByUsername(User.Identity.Name);
-            budgetVM.UserId = user.Id;
-
-            await this._budgetService.Create(budgetVM);
             return RedirectToAction(nameof(All));
         }
 
@@ -56,6 +71,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
         public async Task<IActionResult> Edit(string budgetId)
         {
             var budgetVM = await this._budgetService.GetById(budgetId);
+            ViewData["BudgetPeriods"] = this._periods;
             return this.View(budgetVM);
         }
 
@@ -65,6 +81,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             if (!ModelState.IsValid)
             {
                 AddModelErrors(ModelState);
+                ViewData["BudgetPeriods"] = this._periods;
                 return this.View(budgetVM);
             }
 

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ namespace WebWallet.Services.UserServices
         public async Task<User> Register(RegistrationVM registrationVM)
         {
             var user = this._mapper.Map<User>(registrationVM);
-            return await this._userRepository.Create(user);
+            return await this._userRepository.Create(user, registrationVM.Password);
         }
 
         public async Task<bool> ConfirmEmail(User user, string token)

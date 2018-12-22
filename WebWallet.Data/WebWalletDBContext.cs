@@ -23,13 +23,27 @@ namespace WebWallet.Data
         public override int SaveChanges()
         {
             AddTimestamps();
+            UpdateBudgetStartAndEnd();
             return base.SaveChanges();
         }
 
         public async Task<int> SaveChangesAsync()
         {
             AddTimestamps();
+            UpdateBudgetStartAndEnd();
             return await base.SaveChangesAsync();
+        }
+
+        private void UpdateBudgetStartAndEnd()
+        {
+            var budgets = ChangeTracker
+                .Entries()
+                .Where(x => x.Entity is Budget && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var budget in budgets)
+            {
+                ((Budget)budget.Entity).SetStartAndEnd();
+            }
         }
 
         private void AddTimestamps()

@@ -11,6 +11,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
     [Area("Authenticated")]
     [Authorize]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;

@@ -2827,3 +2827,7 @@ table.dataTable thead td {
 .metismenu span{
     font-family:'Library 3 AM'!important;
 }
+
+.card .body{
+    padding:10px 30px;
+}

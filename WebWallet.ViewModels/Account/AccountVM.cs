@@ -11,17 +11,17 @@ namespace WebWallet.ViewModels.Account
 
         public string UserId { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Име")]
         public string Name { get; set; }
 
-        [Required]
-        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
-        [DataType(DataType.Currency)]
+        [Required(ErrorMessage = "Полето е задължително.")]
+        [Range(1.0, maximum: (double)decimal.MaxValue, ErrorMessage = "Невалидна стойност.")]
+        [DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
         [Display(Name = "Баланс")]
         public decimal Balance { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Тип")]
         public AccountType Type { get; set; }
 

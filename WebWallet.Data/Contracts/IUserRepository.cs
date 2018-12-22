@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Models.Entities;
 
@@ -16,7 +16,7 @@ namespace WebWallet.Data.Contracts
 
         Task SignOut();
 
-        Task<User> Create(User entity);
+        Task<User> Create(User entity, string password);
 
         Task<string> GenerateEmailConfirmationToken(User user);
 

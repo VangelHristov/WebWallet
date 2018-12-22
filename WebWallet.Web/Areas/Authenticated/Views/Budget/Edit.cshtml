@@ -2,6 +2,7 @@
 @{
     Layout = "_Layout";
     ViewData["title"] = "Обнови Бюджет";
+    var Periods = (List<SelectListItem>)ViewData["BudgetPeriods"];
 }
 
 <div class="row">
@@ -23,12 +24,19 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="PeriodString"></label>
-                        <select class="form-control" asp-for="PeriodString" asp-items="@(new SelectList(Model.Periods))"></select>
+                        <select class="form-control" asp-for="PeriodString" asp-items="Periods"></select>
                         <span asp-validation-for="PeriodString" class="text-danger"></span>
                     </div>
                     <input type="hidden" name="UserId" value="@Model.UserId" />
                     <input type="hidden" name="Id" value="@Model.Id" />
-                    <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Обнови</button>
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Обнови</button>
+                        </div>
+                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                            <a asp-action="All" class="btn btn-secondary mt-4 pr-4 pl-4">Отказ</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

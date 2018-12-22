@@ -24,9 +24,9 @@ namespace WebWallet.Data.Repositories
             this._roleManager = roleManager;
         }
 
-        public async Task<User> Create(User entity)
+        public async Task<User> Create(User entity, string password)
         {
-            var createUser = await this._userManager.CreateAsync(entity);
+            var createUser = await this._userManager.CreateAsync(entity, password);
             ThrowIfTaskFail(createUser);
 
             var user = await this._userManager.FindByNameAsync(entity.UserName);
