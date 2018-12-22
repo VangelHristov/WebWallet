@@ -18,6 +18,8 @@ using WebWallet.Services.AccountServces;
 using WebWallet.Services.AutoMapper;
 using WebWallet.Services.BudgetServices;
 using WebWallet.Services.EmailSender;
+using WebWallet.Services.InvestmentServices;
+using WebWallet.Services.TransactionServices;
 using WebWallet.Services.UserServices;
 using WebWallet.Web.ModelBinders;
 
@@ -93,6 +95,8 @@ namespace WebWallet.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IBudgetService, BudgetService>();
+            services.AddTransient<IInvestmentService, InvestmentService>();
+            services.AddTransient<ITransactionService, TransactionService>();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
@@ -116,8 +120,8 @@ namespace WebWallet.Web
             services.AddHttpCacheHeaders(
                 expirationModelOptions =>
                 {
-                    expirationModelOptions.MaxAge = 1000;
-                    expirationModelOptions.SharedMaxAge = 1000;
+                    expirationModelOptions.MaxAge = 1200;
+                    expirationModelOptions.SharedMaxAge = 1200;
                 },
                 validationModelOptions =>
                 {
