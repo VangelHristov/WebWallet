@@ -1,0 +1,50 @@
+@model GoalVM
+@{
+    Layout = "_Layout";
+    ViewData["title"] = "Добави Финансова Цел";
+}
+
+<div class="row">
+    <div class="col-12 mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Обнови Финансова Цел</h4>
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input class="form-control" asp-for="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Target"></label>
+                        <input class="form-control" asp-for="Target">
+                        <span asp-validation-for="Target" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Deadline"></label>
+                        <input class="form-control" asp-for="Deadline" />
+                        <span asp-validation-for="Deadline" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type"></label>
+                        <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<GoalType>()"></select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" name="UserId" value="@Model.UserId" />
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Обнови</button>
+                        </div>
+                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                            <a asp-action="All" class="btn btn-secondary mt-4 pr-4 pl-4">Отказ</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ <partial name="_ValidationScriptsPartial" />}
