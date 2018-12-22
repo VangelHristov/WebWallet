@@ -144,7 +144,7 @@ namespace WebWallet.Web
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute(new PathString("/StatusCode/{0}"));
+            app.UseStatusCodePagesWithReExecute(new PathString("/StatusCode/{statusCode}"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseHttpCacheHeaders();

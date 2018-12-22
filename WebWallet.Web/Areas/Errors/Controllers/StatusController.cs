@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebWallet.ViewModels;
 
@@ -7,7 +7,7 @@ namespace WebWallet.Web.Areas.Errors.Controllers
     public class StatusController : Controller
     {
         [Route("/StatusCode/{statusCode}")]
-        public IActionResult Index(int statusCode)
+        public IActionResult Index(int statusCode = 500)
         {
             var reExecute = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
             var statusmessage = string.Empty;
@@ -19,7 +19,10 @@ namespace WebWallet.Web.Areas.Errors.Controllers
                 case 404: statusmessage = "Няма такава страница"; break;
                 case 408: statusmessage = "Изпълнението на заявката се забави"; break;
                 case 500: statusmessage = "Грешка на сървъра. Моля да ни извините"; break;
-                default: statusmessage = "Г Р Е Ш К А"; break;
+                default:
+                    statusmessage = "Г Р Е Ш К А";
+                    statusCode = 666;
+                    break;
             }
 
             var viewModel = new StatusCodeVM { Code = statusCode.ToString(), Message = statusmessage };

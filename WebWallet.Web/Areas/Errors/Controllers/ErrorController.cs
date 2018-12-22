@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebWallet.Web.Areas.Errors.Controllers
 {
@@ -9,7 +9,7 @@ namespace WebWallet.Web.Areas.Errors.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
-            return RedirectToAction("StatusCode", new { statusCode = 500 });
+            return Redirect("/StatusCode/500");
         }
     }
 }

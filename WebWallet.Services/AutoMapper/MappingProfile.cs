@@ -1,8 +1,8 @@
 using AutoMapper;
-using System.Collections.Generic;
 using WebWallet.Models.Entities;
 using WebWallet.ViewModels.Account;
 using WebWallet.ViewModels.Budget;
+using WebWallet.ViewModels.Investment;
 using WebWallet.ViewModels.Transaction;
 using WebWallet.ViewModels.User;
 
@@ -22,9 +22,15 @@ namespace WebWallet.Services.AutoMapper
                 .ReverseMap();
 
             CreateMap<Budget, BudgetVM>()
-                .ForMember(dest => dest.Available, opt => opt.MapFrom(dest => dest.GetAvailable()));
+                .ForMember(
+                    dest => dest.Available,
+                    opt => opt.MapFrom(dest => dest.GetAvailable())
+                );
 
             CreateMap<BudgetVM, Budget>();
+
+            CreateMap<Investment, InvestmentVM>()
+                .ReverseMap();
         }
     }
 }
