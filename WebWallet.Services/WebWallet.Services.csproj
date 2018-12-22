@@ -17,4 +17,8 @@
     <ProjectReference Include="..\WebWallet.ViewModels\WebWallet.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GoalServices\" />
+  </ItemGroup>
+
 </Project>

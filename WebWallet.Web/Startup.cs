@@ -18,6 +18,7 @@ using WebWallet.Services.AccountServces;
 using WebWallet.Services.AutoMapper;
 using WebWallet.Services.BudgetServices;
 using WebWallet.Services.EmailSender;
+using WebWallet.Services.GoalServices;
 using WebWallet.Services.InvestmentServices;
 using WebWallet.Services.TransactionServices;
 using WebWallet.Services.UserServices;
@@ -97,6 +98,7 @@ namespace WebWallet.Web
             services.AddTransient<IBudgetService, BudgetService>();
             services.AddTransient<IInvestmentService, InvestmentService>();
             services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IGoalService, GoalService>();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
 

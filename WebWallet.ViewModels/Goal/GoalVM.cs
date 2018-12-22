@@ -27,6 +27,7 @@ namespace WebWallet.ViewModels.Goal
 
         [Required(ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Краен срок")]
+        [DataType(DataType.Date)]
         public DateTime Deadline { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително.")]
