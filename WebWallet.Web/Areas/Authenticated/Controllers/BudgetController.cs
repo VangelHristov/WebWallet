@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebWallet.Services.BudgetServices;
@@ -14,7 +14,6 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
     [Area("Authenticated")]
     [Authorize]
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class BudgetController : BaseController
     {
         private readonly IUserService _userService;
@@ -60,12 +59,11 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 return this.View(budgetVM);
             }
 
-            return this.RedirectToAction(nameof(Index), nameof(Dashboard))
+            return this.RedirectToAction(nameof(All))
                     .WithSuccess("Успех!", "Успешно добавихте нов бюджет.");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(long? timestamp = null)
         {
             var user = await this._userService.GetByUsername(User.Identity.Name);
             var budgetVM = this._budgetService.GetAll(user.Id);
@@ -93,7 +91,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
             await this._budgetService.Update(budgetVM);
 
-            return this.RedirectToAction(nameof(Index), nameof(Dashboard))
+            return this.RedirectToAction(nameof(All))
                 .WithSuccess("Успех!", "Бюджета беше обновен.");
         }
 
@@ -102,7 +100,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             ThrowIfNull(budgetId);
             await this._budgetService.Delete(budgetId);
 
-            return this.RedirectToAction(nameof(Index), nameof(Dashboard))
+            return this.RedirectToAction(nameof(All), new { timestamp = DateTime.Now.Ticks })
                 .WithSuccess("Успех!", "Бюджета беше изтрит.");
         }
     }

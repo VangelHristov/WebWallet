@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Design;
+using System;
 using System.Threading.Tasks;
 using WebWallet.Services.AccountServces;
 using WebWallet.Services.UserServices;
@@ -12,7 +13,6 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
     [Area("Authenticated")]
     [Authorize]
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class AccountController : BaseController
     {
         private readonly IAccountService _accountService;
@@ -48,8 +48,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                  .WithSuccess("Успех!", "Успешно добавихте нова сметка.");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(long? timestamp = null)
         {
             var user = await this._userService.GetByUsername(User.Identity.Name);
             var accounts = this._accountService.GetAll(user.Id);
@@ -91,7 +90,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 throw new OperationException("Error occured while deleting account");
             }
 
-            return this.RedirectToAction(nameof(All))
+            return this.RedirectToAction(nameof(All), new { timestamp = DateTime.Now.Ticks })
                 .WithSuccess("Успех!", "Сметката беше изтрита.");
         }
     }
