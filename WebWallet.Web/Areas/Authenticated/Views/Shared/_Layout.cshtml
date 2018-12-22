@@ -33,7 +33,7 @@
                                 </a>
                                 <ul class="collapse in" style="">
                                     <li class=""><a asp-controller="Account" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Account" asp-action="All"  asp-area="Authenticated"><span>Моите Средства</span></a></li>
+                                    <li><a asp-controller="Account" asp-action="All" asp-area="Authenticated"><span>Моите Средства</span></a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -41,8 +41,8 @@
                                     <i class="ti-shield"></i><span>Бюджети</span>
                                 </a>
                                 <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Budget" asp-action="Create"  asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Budget" asp-action="All"  asp-area="Authenticated"><span>Моите Бюджети</span></a></li>
+                                    <li class=""><a asp-controller="Budget" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Budget" asp-action="All" asp-area="Authenticated"><span>Моите Бюджети</span></a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -50,8 +50,8 @@
                                     <i class="ti-receipt"></i><span>Транзакции</span>
                                 </a>
                                 <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Transaction" asp-action="Create"  asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Transaction" asp-action="All"  asp-area="Authenticated"><span>Всички Транзакции</span></a></li>
+                                    <li class=""><a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Transaction" asp-action="All" asp-area="Authenticated"><span>Всички Транзакции</span></a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -59,8 +59,8 @@
                                     <i class="ti-pencil-alt"></i><span>Финансови цели</span>
                                 </a>
                                 <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Goal" asp-action="Create"  asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Goal" asp-action="All"  asp-area="Authenticated"><span>Виж Всички</span></a></li>
+                                    <li class=""><a asp-controller="Goal" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Goal" asp-action="All" asp-area="Authenticated"><span>Виж Всички</span></a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -68,8 +68,8 @@
                                     <i class="ti-stats-up"></i><span>Инвестиции</span>
                                 </a>
                                 <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Investment" asp-action="Create"  asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Investment" asp-action="All"  asp-area="Authenticated"><span>Моите Инвестиции</span></a></li>
+                                    <li class=""><a asp-controller="Investment" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
+                                    <li><a asp-controller="Investment" asp-action="All" asp-area="Authenticated"><span>Моите Инвестиции</span></a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -77,8 +77,8 @@
                                     <i class="ti-check-box"></i><span>Заеми и Сметки</span>
                                 </a>
                                 <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="RecurringPayment" asp-action="Create"  asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="RecurringPayment" asp-action="All"  asp-area="Authenticated"><span>Виж Всички</span></a></li>
+                                    <li class=""><a asp-controller="RecurringPayment" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
+                                    <li><a asp-controller="RecurringPayment" asp-action="All" asp-area="Authenticated"><span>Виж Всички</span></a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -110,6 +110,7 @@
             </div>
 
             <div class="main-content-inner">
+                <partial name="_AlertMessagePartial" />
                 @RenderBody()
             </div>
         </div>

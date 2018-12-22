@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.User;
 using WebWallet.Web.Controllers;
+using WebWallet.Web.Extensions.Alert;
 
 namespace WebWallet.Web.Areas.Identity.Controllers
 {
@@ -34,7 +35,8 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         {
             await this._userService.Logout();
             //await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return RedirectToAction("Index", "Home", new { area = "" })
+                .WithSuccess("Успешен изход.", "До скоро!");
         }
 
         [HttpPost]
@@ -63,7 +65,8 @@ namespace WebWallet.Web.Areas.Identity.Controllers
 
             await this._emailSender.SendEmailAsync(user.Email, registrationVM.ActivationEmailSubjec, message);
 
-            return this.RedirectToAction("RegistrationSuccess", new { userEmail = user.Email });
+            return this.RedirectToAction("RegistrationSuccess", new { userEmail = user.Email })
+                .WithSuccess("Регистрацията е създадена.", "Моля потвърдете имейла си преди за да се активира регистрацията.");
         }
 
         public IActionResult RegistrationSuccess(string userEmail)
@@ -122,7 +125,8 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             var message = $"Кликни на линка за да въведеш нова парола. <br/> <a href={resetLink}> Нова парола</a>";
             await this._emailSender.SendEmailAsync(user.Email, "Password Reset", message);
 
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            return this.RedirectToAction("Index", "Home", new { area = "" })
+                .WithSuccess("Успех!", "Изпратихме ви имейл, в който има инструкции за създаване на нова парола.");
         }
 
         public IActionResult ResetPassword(string token, string userId)
@@ -147,7 +151,8 @@ namespace WebWallet.Web.Areas.Identity.Controllers
                 return this.View(resetPasswordVM);
             }
 
-            return this.RedirectToAction("Index", "Dashboard", new { area = "Authenticated" });
+            return this.RedirectToAction("Index", "Dashboard", new { area = "Authenticated" })
+                .WithSuccess("Успех!", "Вашата нова парола беше запазена.");
         }
     }
 }

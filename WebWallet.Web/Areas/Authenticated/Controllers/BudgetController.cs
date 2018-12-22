@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebWallet.Services.BudgetServices;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.Budget;
 using WebWallet.Web.Controllers;
+using WebWallet.Web.Extensions.Alert;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
@@ -46,7 +48,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             if (!ModelState.IsValid)
             {
                 AddModelErrors(ModelState);
-                return this.View(budgetVM);
+                return this.View(budgetVM)
+                    .WithDanger("Грешка!", "Моля поправете грешките маркирани с червено.");
             }
 
             var user = await this._userService.GetByUsername(User.Identity.Name);
@@ -57,9 +60,11 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 return this.View(budgetVM);
             }
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index), nameof(Dashboard))
+                    .WithSuccess("Успех!", "Успешно добавихте нов бюджет.");
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> All()
         {
             var user = await this._userService.GetByUsername(User.Identity.Name);
@@ -82,11 +87,14 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             {
                 AddModelErrors(ModelState);
                 ViewData["BudgetPeriods"] = this._periods;
-                return this.View(budgetVM);
+                return this.View(budgetVM)
+                    .WithDanger("Грешка!", "Моля поправете грешките маркирани с червено.");
             }
 
             await this._budgetService.Update(budgetVM);
-            return this.RedirectToAction(nameof(All));
+
+            return this.RedirectToAction(nameof(Index), nameof(Dashboard))
+                .WithSuccess("Успех!", "Бюджета беше обновен.");
         }
 
         public async Task<IActionResult> Delete(string budgetId)
@@ -94,7 +102,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             ThrowIfNull(budgetId);
             await this._budgetService.Delete(budgetId);
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(Index), nameof(Dashboard))
+                .WithSuccess("Успех!", "Бюджета беше изтрит.");
         }
     }
 }

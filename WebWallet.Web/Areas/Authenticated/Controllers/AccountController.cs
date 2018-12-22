@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
@@ -6,6 +6,7 @@ using WebWallet.Services.AccountServces;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.Account;
 using WebWallet.Web.Controllers;
+using WebWallet.Web.Extensions.Alert;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
@@ -34,7 +35,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             if (!ModelState.IsValid)
             {
                 AddModelErrors(ModelState);
-                return View(accountVM);
+                return View(accountVM)
+                    .WithDanger("Грешка!", "Моля поправете грешките маркирани с червено.");
             }
 
             var user = await this._userService.GetByUsername(User.Identity.Name);
@@ -42,9 +44,11 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
             await this._accountService.Create(accountVM);
 
-            return RedirectToAction("All");
+            return this.RedirectToAction(nameof(All))
+                 .WithSuccess("Успех!", "Успешно добавихте нова сметка.");
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> All()
         {
             var user = await this._userService.GetByUsername(User.Identity.Name);
@@ -66,7 +70,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             if (!ModelState.IsValid)
             {
                 AddModelErrors(ModelState);
-                return View(accountVM);
+                return View(accountVM)
+                    .WithDanger("Грешка!", "Моля поправете грешките маркирани с червено.");
             }
 
             if (!await this._accountService.Update(accountVM))
@@ -74,7 +79,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 throw new OperationException("Error occured while updating account");
             }
 
-            return RedirectToAction("All");
+            return this.RedirectToAction(nameof(All))
+                    .WithSuccess("Успех!", "Сметката беше обновена.");
         }
 
         public async Task<IActionResult> Delete(string accountId)
@@ -85,7 +91,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 throw new OperationException("Error occured while deleting account");
             }
 
-            return this.RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(All))
+                .WithSuccess("Успех!", "Сметката беше изтрита.");
         }
     }
 }
