@@ -1,15 +1,18 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using WebWallet.Data;
 using WebWallet.Data.Contracts;
 using WebWallet.Data.Repositories;
@@ -157,6 +160,22 @@ namespace WebWallet.Web
             });
 
             app.UseAuthentication();
+
+            var defaultDateCulture = "bg-BG";
+            var bulgarianCulture = new CultureInfo(defaultDateCulture);
+            bulgarianCulture.NumberFormat.NumberDecimalSeparator = ",";
+            bulgarianCulture.NumberFormat.CurrencyDecimalSeparator = ",";
+
+            var cultures = new List<CultureInfo> { bulgarianCulture };
+            var requestCulture = new RequestCulture(bulgarianCulture);
+
+            var requestLocalicationOptions = new RequestLocalizationOptions();
+            requestLocalicationOptions.DefaultRequestCulture = requestCulture;
+            requestLocalicationOptions.SupportedCultures = cultures;
+            requestLocalicationOptions.SupportedUICultures = cultures;
+            requestLocalicationOptions.DefaultRequestCulture = requestCulture;
+
+            app.UseRequestLocalization(requestLocalicationOptions);
 
             app.UseMvc(routes =>
             {

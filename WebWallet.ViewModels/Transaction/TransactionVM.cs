@@ -150,6 +150,7 @@ namespace WebWallet.ViewModels.Transaction
         [Required]
         [Display(Name = "Сума")]
         [Range(0.1, maximum: (double)decimal.MaxValue)]
+        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
         public decimal Amount { get; set; }
 
         [Required]

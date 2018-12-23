@@ -23,7 +23,7 @@
                     <tr>
                         <th scope="row">@counter</th>
                         <td>@item.Name</td>
-                        <td class="">@item.Amount лв.</td>
+                        <td class="">@Html.DisplayFor(x => item.Amount)</td>
                         <td>@Html.DisplayFor(x => item.Type)</td>
                         <td>
                             <a asp-action="Edit" asp-route-investmentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>

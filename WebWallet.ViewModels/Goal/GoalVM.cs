@@ -22,12 +22,13 @@ namespace WebWallet.ViewModels.Goal
         [Required(ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Сума")]
         [Range(1.0, maximum: (double)decimal.MaxValue, ErrorMessage = "Невалидна стойност.")]
-        [DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
         public decimal Target { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Краен срок")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd MMMM yyyy г.}")]
         public DateTime Deadline { get; set; }
 
         [Required(ErrorMessage = "Полето е задължително.")]

@@ -25,11 +25,11 @@
                         <td>@item.Name</td>
                         @if (item.Type == AccountType.Credit)
                         {
-                            <td class="text-danger">- @item.Balance лв.</td>
+                            <td class="text-danger">-@Html.DisplayFor(x=>item.Balance)</td>
                         }
                         else
                         {
-                            <td class="text-success">@item.Balance лв.</td>
+                            <td class="text-success">@Html.DisplayFor(x => item.Balance)</td>
                         }
                         <td>@Html.DisplayFor(x => item.Type)</td>
                         <td>
@@ -54,11 +54,11 @@
                 <p>Име: <span class="pull-right">@item.Name лв.</span></p>
                 @if (item.Type == AccountType.Credit)
                 {
-                    <p class="text-danger">Баланс: <span class="pull-right">-@item.Balance лв.</span></p>
+                    <p class="text-danger">Баланс: <span class="pull-right">-@Html.DisplayFor(x => item.Balance)</span></p>
                 }
                 else
                 {
-                    <p class="text-success">Баланс: <span class="pull-right">@item.Balance лв.</span></p>
+                    <p class="text-success">Баланс: <span class="pull-right">@Html.DisplayFor(x => item.Balance)</span></p>
                 }
                 <p>Тип: <span class="pull-right">@Html.DisplayFor(x => item.Type)</span></p>
                 <p>

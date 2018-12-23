@@ -24,7 +24,7 @@ namespace WebWallet.ViewModels.Investment
         [Required(ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Сума")]
         [Range(0.1, maximum: (double)decimal.MaxValue, ErrorMessage = "Невалидна стойност.")]
-        [DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
         public decimal Amount { get; set; }
 
         public string UserId { get; set; }

@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebWallet.ViewModels.Common;
-using WebWallet.ViewModels.Transaction;
 
 namespace WebWallet.ViewModels.Budget
 {
@@ -11,10 +9,11 @@ namespace WebWallet.ViewModels.Budget
         [Required(ErrorMessage = "Полето е задължително.")]
         [Display(Name = "Лимит")]
         [Range(1.0, maximum: (double)decimal.MaxValue, ErrorMessage = "Невалидна стойност.")]
-        [DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
         public decimal Limit { get; set; }
 
         [Display(Name = "Остават")]
+        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
         public decimal Available { get; set; }
 
         public DateTime Start { get; set; }

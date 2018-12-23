@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Entities = WebWallet.Models.Entities;
 using WebWallet.Models.Enumerations;
+using WebWallet.ViewModels.Transaction;
 
 namespace WebWallet.ViewModels.Account
 {
@@ -17,7 +17,7 @@ namespace WebWallet.ViewModels.Account
 
         [Required(ErrorMessage = "Полето е задължително.")]
         [Range(1.0, maximum: (double)decimal.MaxValue, ErrorMessage = "Невалидна стойност.")]
-        [DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
         [Display(Name = "Баланс")]
         public decimal Balance { get; set; }
 
@@ -26,6 +26,6 @@ namespace WebWallet.ViewModels.Account
         public AccountType Type { get; set; }
 
         [Display(Name = "Транзакции")]
-        public IEnumerable<Entities.Transaction> Transactions { get; set; }
+        public IEnumerable<TransactionVM> Transactions { get; set; }
     }
 }
