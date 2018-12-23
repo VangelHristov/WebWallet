@@ -72,5 +72,9 @@ namespace WebWallet.ViewModels.Budget
         public string UserId { get; set; }
 
         public IEnumerable<TransactionVM> Transactions { get; set; }
+
+        public DateTime Start { get; set; }
+
+        public DateTime End { get; set; }
     }
 }

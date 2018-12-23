@@ -42,7 +42,7 @@ namespace WebWallet.Models.Entities
 
         public void SetStartAndEnd()
         {
-            if (End == new DateTime())
+            if (End.Year < 2018)
             {
                 End = Start.AddTicks(Period);
             }

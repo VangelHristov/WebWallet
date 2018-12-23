@@ -24,6 +24,7 @@ namespace WebWallet.Services.BudgetServices
 
         public async Task<bool> Create(BudgetVM budgetVM)
         {
+            budgetVM.Start = DateTime.UtcNow;
             var budget = this._mapper.Map<Budget>(budgetVM);
             return await this._budgetRepository.Create(budget);
         }
