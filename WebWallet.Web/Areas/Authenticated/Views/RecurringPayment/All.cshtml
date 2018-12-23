@@ -1,8 +1,8 @@
 @{
     Layout = "_Layout";
-    ViewData["title"] = "Моите Инвестиции";
+    ViewData["title"] = "Моите Сметки и Заеми";
 }
-@model IEnumerable<InvestmentVM>
+@model IEnumerable<RecurringPaymentVM>
 
 <div class="single-table d-none d-md-block">
     <div class="table-responsive">
@@ -13,6 +13,7 @@
                     <th scope="col">Име</th>
                     <th scope="col">Сума</th>
                     <th scope="col">Тип</th>
+                    <th scope="col">Краен Срок</th>
                     <th scope="col">Действие</th>
                 </tr>
             </thead>
@@ -24,11 +25,12 @@
                         <th scope="row">@counter</th>
                         <td>@item.Name</td>
                         <td class="">@Html.DisplayFor(x => item.Amount)</td>
-                        <td>@Html.DisplayFor(x => item.Type)</td>
+                        <td>@Html.DisplayFor(x => item.RecurringPaymentType)</td>
+                        <td>@Html.DisplayFor(x => item.DueDate)</td>
                         <td>
-                            <a asp-action="Edit" asp-route-investmentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                            <a asp-action="Edit" asp-route-paymentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a asp-action="Delete" asp-route-investmentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                            <a asp-action="Delete" asp-route-paymentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
                         </td>
                     </tr>
                     counter++;
@@ -46,11 +48,12 @@
             <div class="body bg-blue-grey">
                 <p>Име: <span class="pull-right">@item.Name</span></p>
                 <p class="text-success">Сума: <span class="pull-right">@Html.DisplayFor(x => item.Amount)</span></p>
-                <p>Тип: <span class="pull-right">@Html.DisplayFor(x => item.Type)</span></p>
+                <p>Тип: <span class="pull-right">@Html.DisplayFor(x => item.RecurringPaymentType)</span></p>
+                <p>Краен Срок: <span class="fa-pull-right">@Html.DisplayFor(x => item.DueDate)</span></p>
                 <p>
-                    <a asp-action="Edit" asp-route-investmentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                    <a asp-action="Edit" asp-route-paymentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a asp-action="Delete" asp-route-investmentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    <a asp-action="Delete" asp-route-paymentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
                 </p>
             </div>
         </div>

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ using WebWallet.Web.Extensions.Alert;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
+    [Area("Authenticated")]
+    [Authorize]
     public class RecurringPaymentController : BaseController
     {
         private readonly IPaymentService _paymentService;

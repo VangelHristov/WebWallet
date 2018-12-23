@@ -1,0 +1,51 @@
+@model RecurringPaymentVM
+@{
+    Layout = "_Layout";
+    ViewData["title"] = "Обнови Сметка/Заем";
+}
+
+<div class="row">
+    <div class="col-12 mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">Обнови Сметка/Заем</h4>
+                <form asp-action="Edit" asp-route-paymentId="@Model.Id" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input class="form-control" asp-for="Name">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount"></label>
+                        <input class="form-control" asp-for="Amount">
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RecurringPaymentType"></label>
+                        <select class="form-control" asp-for="RecurringPaymentType"
+                                asp-items="Html.GetEnumSelectList<RecurringPaymentType>()"></select>
+                        <span asp-validation-for="RecurringPaymentType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DueDate"></label>
+                        <input class="form-control" asp-for="DueDate"></"></">
+                        <span asp-validation-for="DueDate" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" name="UserId" value="@Model.UserId" />
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Обнови</button>
+                        </div>
+                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                            <a asp-action="All" class="btn btn-secondary mt-4 pr-4 pl-4">Отказ</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ <partial name="_ValidationScriptsPartial" />}
