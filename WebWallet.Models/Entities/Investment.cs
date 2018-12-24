@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebWallet.Models.Contracts;
@@ -31,5 +32,7 @@ namespace WebWallet.Models.Entities
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string UserId { get; set; }
+
+        public IEnumerable<Transaction> Transactions { get; set; }
     }
 }
