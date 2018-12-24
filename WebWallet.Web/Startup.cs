@@ -12,7 +12,6 @@ using WebWallet.Models.Entities;
 using WebWallet.Services.AutoMapper;
 using WebWallet.Services.EmailSender;
 using WebWallet.Web.ConfigurationOptions;
-using WebWallet.Web.ModelBinders;
 
 namespace WebWallet.Web
 {
@@ -25,15 +24,9 @@ namespace WebWallet.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(cookiePolicy =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                cookiePolicy.CheckConsentNeeded = context => true;
-                cookiePolicy.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services.Configure<CookiePolicyOptions>(CookiePolicy.Configuration);
 
             services.AddDbContext<WebWalletDBContext>(dbContext =>
             {
@@ -66,11 +59,7 @@ namespace WebWallet.Web
             services.AddSingleton(mapper);
 
             services
-                .AddMvc(mvc =>
-                {
-                    mvc.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    mvc.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
-                })
+                .AddMvc(Mvc.Options)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddResponseCaching();

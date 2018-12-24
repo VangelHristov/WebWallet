@@ -15,5 +15,11 @@ namespace WebWallet.Web.ConfigurationOptions
                 };
             }
         }
+
+        public static void Configuration(CookiePolicyOptions cookiePolicy)
+        {
+            cookiePolicy.CheckConsentNeeded = context => true;
+            cookiePolicy.MinimumSameSitePolicy = SameSiteMode.None;
+        }
     }
 }
