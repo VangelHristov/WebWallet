@@ -65,24 +65,8 @@ namespace WebWallet.Web
             // /Account/Login ; /Account/Logout; /Account/AccessDenied
             services.ConfigureApplicationCookie(CookieAuthentication.Options);
 
-            // Repositories
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddScoped<IRepository<Account>, Repository<Account>>();
-            services.AddScoped<IRepository<Budget>, Repository<Budget>>();
-            services.AddScoped<IRepository<Goal>, Repository<Goal>>();
-            services.AddScoped<IRepository<Investment>, Repository<Investment>>();
-            services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
-            services.AddScoped<IRepository<RecurringPayment>, Repository<RecurringPayment>>();
-
-            // Services
-            services.AddSingleton<IEmailSender, EmailSender>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IBudgetService, BudgetService>();
-            services.AddTransient<IInvestmentService, InvestmentService>();
-            services.AddTransient<ITransactionService, TransactionService>();
-            services.AddTransient<IGoalService, GoalService>();
-            services.AddTransient<IPaymentService, PaymentService>();
+            AppRepositories.Add(services);
+            AppServices.Add(services);
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
