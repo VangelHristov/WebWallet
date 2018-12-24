@@ -1,18 +1,15 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using WebWallet.Data;
 using WebWallet.Data.Contracts;
 using WebWallet.Data.Repositories;
@@ -26,6 +23,7 @@ using WebWallet.Services.InvestmentServices;
 using WebWallet.Services.PaymentServices;
 using WebWallet.Services.TransactionServices;
 using WebWallet.Services.UserServices;
+using WebWallet.Web.ConfigurationOptions;
 using WebWallet.Web.ModelBinders;
 
 namespace WebWallet.Web
@@ -55,18 +53,16 @@ namespace WebWallet.Web
             });
 
             services
-                .AddIdentity<User, IdentityRole>(identity =>
+                .AddIdentity<User, IdentityRole>(options =>
                 {
-                    identity.Stores.MaxLengthForKeys = 128;
-
-                    identity.SignIn.RequireConfirmedEmail = true;
-
-                    identity.Password.RequireDigit = true;
-                    identity.Password.RequireLowercase = true;
-                    identity.Password.RequireUppercase = true;
-                    identity.Password.RequiredUniqueChars = 1;
-                    identity.Password.RequireNonAlphanumeric = true;
-                    identity.Password.RequiredLength = 8;
+                    options.Stores.MaxLengthForKeys = 128;
+                    options.SignIn.RequireConfirmedEmail = true;
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequiredUniqueChars = 1;
+                    options.Password.RequireNonAlphanumeric = true;
+                    options.Password.RequiredLength = 8;
                 })
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<WebWalletDBContext>();
@@ -157,28 +153,10 @@ namespace WebWallet.Web
             app.UseStaticFiles();
             app.UseHttpCacheHeaders();
 
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                MinimumSameSitePolicy = SameSiteMode.Strict,
-            });
+            app.UseCookiePolicy(CookiePolicy.Options);
 
             app.UseAuthentication();
-
-            var defaultDateCulture = "bg-BG";
-            var bulgarianCulture = new CultureInfo(defaultDateCulture);
-            bulgarianCulture.NumberFormat.NumberDecimalSeparator = ",";
-            bulgarianCulture.NumberFormat.CurrencyDecimalSeparator = ",";
-
-            var cultures = new List<CultureInfo> { bulgarianCulture };
-            var requestCulture = new RequestCulture(bulgarianCulture);
-
-            var requestLocalicationOptions = new RequestLocalizationOptions();
-            requestLocalicationOptions.DefaultRequestCulture = requestCulture;
-            requestLocalicationOptions.SupportedCultures = cultures;
-            requestLocalicationOptions.SupportedUICultures = cultures;
-            requestLocalicationOptions.DefaultRequestCulture = requestCulture;
-
-            app.UseRequestLocalization(requestLocalicationOptions);
+            app.UseRequestLocalization(RequestLocalization.BulgarianCulture);
 
             app.UseMvc(routes =>
             {
