@@ -63,15 +63,7 @@ namespace WebWallet.Web
 
             // Do not move this configuration in AddCookie method it does not work for paths different than
             // /Account/Login ; /Account/Logout; /Account/AccessDenied
-            services.ConfigureApplicationCookie(appCookie =>
-            {
-                appCookie.LoginPath = new PathString("/Identity/User/Login/");
-                appCookie.AccessDeniedPath = new PathString("/StatusCode/403/");
-                appCookie.LogoutPath = new PathString("/Identity/User/Logout/");
-                appCookie.Cookie.HttpOnly = true;
-                appCookie.Cookie.Name = CookieAuthenticationDefaults.AuthenticationScheme;
-                appCookie.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-            });
+            services.ConfigureApplicationCookie(CookieAuthentication.Options);
 
             // Repositories
             services.AddSingleton<IUserRepository, UserRepository>();
