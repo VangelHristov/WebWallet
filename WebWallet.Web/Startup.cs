@@ -1,28 +1,16 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using WebWallet.Data;
-using WebWallet.Data.Contracts;
-using WebWallet.Data.Repositories;
 using WebWallet.Models.Entities;
-using WebWallet.Services.AccountServces;
 using WebWallet.Services.AutoMapper;
-using WebWallet.Services.BudgetServices;
 using WebWallet.Services.EmailSender;
-using WebWallet.Services.GoalServices;
-using WebWallet.Services.InvestmentServices;
-using WebWallet.Services.PaymentServices;
-using WebWallet.Services.TransactionServices;
-using WebWallet.Services.UserServices;
 using WebWallet.Web.ConfigurationOptions;
 using WebWallet.Web.ModelBinders;
 
@@ -87,18 +75,7 @@ namespace WebWallet.Web
 
             services.AddResponseCaching();
 
-            services.AddHttpCacheHeaders(
-                expirationModelOptions =>
-                {
-                    expirationModelOptions.MaxAge = 1200;
-                    expirationModelOptions.SharedMaxAge = 1200;
-                },
-                validationModelOptions =>
-                {
-                    validationModelOptions.MustRevalidate = true;
-                    validationModelOptions.ProxyRevalidate = true;
-                }
-            );
+            services.AddHttpCacheHeaders(CacheHeader.ExpirationOptions, CacheHeader.ValidationOptions);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
