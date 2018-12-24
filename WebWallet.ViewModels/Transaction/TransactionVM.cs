@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using WebWallet.Models.Enumerations;
+using WebWallet.ViewModels.Constants;
 
 namespace WebWallet.ViewModels.Transaction
 {
@@ -138,7 +139,7 @@ namespace WebWallet.ViewModels.Transaction
 
         public string Id { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = Message.RequiredField)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Display(Name = "Име")]
         public string Name { get; set; }
@@ -147,17 +148,17 @@ namespace WebWallet.ViewModels.Transaction
 
         public DateTime ModifiedOn { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = Message.RequiredField)]
         [Display(Name = "Сума")]
-        [Range(0.1, maximum: (double)decimal.MaxValue)]
-        [DisplayFormat(DataFormatString = "{0:0.## лв.}", ApplyFormatInEditMode = false)]
+        [Range(0.1, maximum: (double)decimal.MaxValue, ErrorMessage = Message.InvalidValue)]
+        [DisplayFormat(DataFormatString = FormatStrig.BGN, ApplyFormatInEditMode = false)]
         public decimal Amount { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = Message.RequiredField)]
         [Display(Name = "Тип")]
         public TransactionType TransactionType { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = Message.RequiredField)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Display(Name = "Категория")]
         public string Category

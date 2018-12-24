@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WebWallet.ViewModels.Constants;
 using WebWallet.ViewModels.Transaction;
 
 namespace WebWallet.ViewModels.Common
@@ -13,7 +14,7 @@ namespace WebWallet.ViewModels.Common
 
         public string UserId { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Полето е задължително.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = Message.RequiredField)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Display(Name = "Име")]
         public string Name { get; set; }
@@ -22,7 +23,7 @@ namespace WebWallet.ViewModels.Common
 
         public DateTime ModifiedOn { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително.")]
+        [Required(ErrorMessage = Message.RequiredField)]
         [Display(Name = "Период")]
         public string PeriodString
         {

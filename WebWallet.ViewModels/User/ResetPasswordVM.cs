@@ -1,20 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+using WebWallet.ViewModels.Constants;
 
 namespace WebWallet.ViewModels.User
 {
     public class ResetPasswordVM
     {
-        [Required(ErrorMessage = "Полето е задължително.")]
+        [Required(ErrorMessage = Message.RequiredField)]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-             ErrorMessage = "Паролата трябва да е между 8 и 20 символа. Трябва да съдържа главни и малки букви, цифри и специални символи [ @$!%*?& ]."
-        )]
+        [RegularExpression(Pattern.Password, ErrorMessage = Message.PasswordError)]
         [Display(Name = "Въведи Нова Парола")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Полето е задължително.")]
+        [Required(ErrorMessage = Message.RequiredField)]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
+        [Compare("Password", ErrorMessage = Message.ConfirmPasswordError)]
         [Display(Name = "Повтори Паролата")]
         public string ConfirmPassword { get; set; }
 
