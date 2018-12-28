@@ -73,7 +73,7 @@ namespace WebWallet.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseDatabaseErrorPage(new DatabaseErrorPageOptions { MigrationsEndPointPath = new PathString("/Error") });
             }
             else
             {

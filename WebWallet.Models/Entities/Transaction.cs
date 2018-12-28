@@ -47,5 +47,9 @@ namespace WebWallet.Models.Entities
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string AccountId { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string AccountName { get; set; }
     }
 }

@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebWallet.Services.AccountServces;
 using WebWallet.Services.TransactionServices;
+using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.Transaction;
 using WebWallet.Web.Controllers;
 using WebWallet.Web.Extensions.Alert;
@@ -14,14 +18,19 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
     public class TransactionController : BaseController
     {
         private readonly ITransactionService _transactionService;
+        private readonly IAccountService _accountService;
+        private readonly IUserService _userService;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(ITransactionService transactionService, IAccountService accountService, IUserService userService)
         {
             this._transactionService = transactionService;
+            this._accountService = accountService;
+            this._userService = userService;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewData["UserAccounts"] = await GetAccountsSelectList();
             ViewData["TransactionCategories"] = TransactionCategories;
             return View();
         }
@@ -50,7 +59,8 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
         {
             ThrowIfNull(transactionId);
             var transactionVM = await _transactionService.GetById(transactionId);
-            ViewData["TransactionCategories"] = _transactionCategories;
+            ViewData["UserAccounts"] = await GetAccountsSelectList();
+            ViewData["TransactionCategories"] = TransactionCategories;
             return View(transactionVM);
         }
 
@@ -75,6 +85,25 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             await _transactionService.Delete(transactionId);
             return RedirectToAction(nameof(All), new { timestamp = DateTime.Now.Ticks.ToString() })
                 .WithSuccess("", "");
+        }
+
+        private async Task<List<SelectListItem>> GetAccountsSelectList()
+        {
+            var user = await _userService.GetByUsername(User.Identity.Name);
+            var accounts = _accountService.GetAll(user.Id);
+            var accountsSelectList = new List<SelectListItem>();
+
+            foreach (var account in accounts)
+            {
+                accountsSelectList.Add(
+                    new SelectListItem
+                    {
+                        Value = $"{account.Name};{account.Id}",
+                        Text = account.Name
+                    });
+            }
+
+            return accountsSelectList;
         }
     }
 }

@@ -136,6 +136,7 @@ namespace WebWallet.ViewModels.Transaction
         };
 
         private string _category;
+        private string _account;
 
         public string Id { get; set; }
 
@@ -180,6 +181,24 @@ namespace WebWallet.ViewModels.Transaction
 
         [Display(Name = "Забележка")]
         public string Note { get; set; }
+
+        public string Account
+        {
+            get
+            {
+                return this._account;
+            }
+
+            set
+            {
+                this._account = value;
+                var accountDetails = value.Split(';');
+                this.AccountName = accountDetails[0];
+                this.AccountId = accountDetails[1];
+            }
+        }
+
+        public string AccountName { get; set; }
 
         public string BudgetId { get; set; }
 

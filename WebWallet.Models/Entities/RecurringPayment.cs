@@ -37,6 +37,8 @@ namespace WebWallet.Models.Entities
 
         public bool Overdue { get; set; }
 
+        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal OverdueAmount { get; set; }
 
         public IEnumerable<Transaction> Transactions { get; set; }

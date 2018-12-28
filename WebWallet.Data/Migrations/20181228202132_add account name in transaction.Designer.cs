@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebWallet.Data;
 
 namespace WebWallet.Data.Migrations
 {
     [DbContext(typeof(WebWalletDBContext))]
-    partial class WebWalletDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181228202132_add account name in transaction")]
+    partial class addaccountnameintransaction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,8 +260,7 @@ namespace WebWallet.Data.Migrations
 
                     b.Property<bool>("Overdue");
 
-                    b.Property<decimal>("OverdueAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("OverdueAmount");
 
                     b.Property<long>("Period");
 

@@ -14,6 +14,7 @@
                     <th scope="col">Сума</th>
                     <th scope="col">Тип</th>
                     <th scope="col">Дата</th>
+                    <th scope="col">Категория</th>
                     <th scope="col">Действие</th>
                 </tr>
             </thead>
@@ -21,18 +22,19 @@
                 @{ var counter = 1;}
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <th scope="row">@counter</th>
-                        <td>@item.Name</td>
-                        <td class="">@Html.DisplayFor(x => item.Amount)</td>
-                        <td>@Html.DisplayFor(x => item.TransactionType)</td>
-                        <td>@Html.DisplayFor(x => item.CreatedOn)</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-transactionId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a asp-action="Delete" asp-route-transactionId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <th scope="row">@counter</th>
+                    <td>@item.Name</td>
+                    <td class="">@Html.DisplayFor(x => item.Amount)</td>
+                    <td>@Html.DisplayFor(x => item.TransactionType)</td>
+                    <td>@Html.DisplayFor(x => item.CreatedOn)</td>
+                    <td>@item.Category</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-transactionId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a asp-action="Delete" asp-route-transactionId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    </td>
+                </tr>
                     counter++;
                 }
             </tbody>
@@ -50,6 +52,7 @@
                 <p class="text-success">Сума: <span class="pull-right">@Html.DisplayFor(x => item.Amount)</span></p>
                 <p>Тип: <span class="pull-right">@Html.DisplayFor(x => item.TransactionType)</span></p>
                 <p>Дата: <span class="fa-pull-right">@Html.DisplayFor(x => item.CreatedOn)</span></p>
+                <p>Категория: <span class="fa-pull-right">@item.Category</span></p>
                 <p>
                     <a asp-action="Edit" asp-route-transactionId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;

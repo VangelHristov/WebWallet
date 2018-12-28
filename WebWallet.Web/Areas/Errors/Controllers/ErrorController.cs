@@ -9,6 +9,7 @@ namespace WebWallet.Web.Areas.Errors.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
+            var status = HttpContext.Response.StatusCode;
             return Redirect("/StatusCode/500");
         }
     }
