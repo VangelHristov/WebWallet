@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ using WebWallet.Web.Extensions.Alert;
 
 namespace WebWallet.Web.Areas.Authenticated.Controllers
 {
+    [Area("Authenticated")]
+    [Authorize]
     public class TransactionController : BaseController
     {
         private readonly ITransactionService _transactionService;
@@ -17,7 +20,11 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
             this._transactionService = transactionService;
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            ViewData["TransactionCategories"] = TransactionCategories;
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(TransactionVM transactionVM)
@@ -43,6 +50,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
         {
             ThrowIfNull(transactionId);
             var transactionVM = await _transactionService.GetById(transactionId);
+            ViewData["TransactionCategories"] = _transactionCategories;
             return View(transactionVM);
         }
 

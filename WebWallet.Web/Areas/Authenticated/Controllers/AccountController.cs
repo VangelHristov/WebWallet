@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
@@ -48,7 +48,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                  .WithSuccess("Успех!", "Успешно добавихте нова сметка.");
         }
 
-        public async Task<IActionResult> All(long? timestamp = null)
+        public async Task<IActionResult> All()
         {
             var user = await this._userService.GetByUsername(User.Identity.Name);
             var accounts = this._accountService.GetAll(user.Id);

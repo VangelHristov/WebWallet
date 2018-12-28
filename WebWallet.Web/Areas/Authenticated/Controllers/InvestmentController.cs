@@ -40,7 +40,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 .WithSuccess("Успех!", "Инвестицията беше успешно запазена.");
         }
 
-        public async Task<IActionResult> All(string timestamp)
+        public async Task<IActionResult> All()
         {
             var investmentsVM = await this._investmentService.GetAll(User.Identity.Name);
             return View(investmentsVM);

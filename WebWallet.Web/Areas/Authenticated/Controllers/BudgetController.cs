@@ -51,7 +51,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                     .WithSuccess("Успех!", "Успешно добавихте нов бюджет.");
         }
 
-        public async Task<IActionResult> All(long? timestamp = null)
+        public async Task<IActionResult> All()
         {
             var user = await this._userService.GetByUsername(User.Identity.Name);
             var budgetVM = this._budgetService.GetAll(user.Id);

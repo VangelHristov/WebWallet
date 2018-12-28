@@ -144,6 +144,9 @@ namespace WebWallet.ViewModels.Transaction
         [Display(Name = "Име")]
         public string Name { get; set; }
 
+        [Display(Name = "Дата")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = FormatStrig.Date)]
         public DateTime CreatedOn { get; set; }
 
         public DateTime ModifiedOn { get; set; }

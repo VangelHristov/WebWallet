@@ -43,7 +43,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
                 .WithSuccess("Успех!", "Финансовата цел беше запазена.");
         }
 
-        public async Task<IActionResult> All(long? timestamp)
+        public async Task<IActionResult> All()
         {
             var goalsVM = await this._goalService.GetAll(User.Identity.Name);
             return View(goalsVM);
