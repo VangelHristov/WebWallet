@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
 using WebWallet.Models.Entities;
 using WebWallet.ViewModels.Account;
+using WebWallet.ViewModels.Transaction;
 
 namespace WebWallet.Services.AccountServces
 {
@@ -53,6 +54,12 @@ namespace WebWallet.Services.AccountServces
         public async Task<AccountVM> GetById(string accountId)
         {
             var account = await this._accountRepository.GetById(accountId);
+            var transactions = _transactionRepository
+                .GetAll()
+                .Where(x => x.AccountId == account.Id)
+                .AsEnumerable();
+
+            account.Transactions = transactions;
             return this._mapper.Map<AccountVM>(account);
         }
 
