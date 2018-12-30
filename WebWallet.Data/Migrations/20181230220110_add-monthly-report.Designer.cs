@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebWallet.Data;
 
 namespace WebWallet.Data.Migrations
 {
     [DbContext(typeof(WebWalletDBContext))]
-    partial class WebWalletDBContextModelSnapshot : ModelSnapshot
+    [Migration("20181230220110_add-monthly-report")]
+    partial class addmonthlyreport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
