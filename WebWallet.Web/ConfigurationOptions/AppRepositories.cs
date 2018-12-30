@@ -16,6 +16,7 @@ namespace WebWallet.Web.ConfigurationOptions
             services.AddScoped<IRepository<Investment>, Repository<Investment>>();
             services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
             services.AddScoped<IRepository<RecurringPayment>, Repository<RecurringPayment>>();
+            services.AddScoped<IRepository<MonthlyReport>, Repository<MonthlyReport>>();
         }
     }
 }

@@ -6,6 +6,7 @@ using WebWallet.Services.EmailSender;
 using WebWallet.Services.GoalServices;
 using WebWallet.Services.InvestmentServices;
 using WebWallet.Services.PaymentServices;
+using WebWallet.Services.ReportService;
 using WebWallet.Services.TransactionServices;
 using WebWallet.Services.UserServices;
 
@@ -23,6 +24,7 @@ namespace WebWallet.Web.ConfigurationOptions
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IGoalService, GoalService>();
             services.AddTransient<IPaymentService, PaymentService>();
+            services.AddTransient<IReportService, ReportService>();
         }
     }
 }

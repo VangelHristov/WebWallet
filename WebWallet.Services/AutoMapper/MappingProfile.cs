@@ -4,6 +4,7 @@ using WebWallet.ViewModels.Account;
 using WebWallet.ViewModels.Budget;
 using WebWallet.ViewModels.Goal;
 using WebWallet.ViewModels.Investment;
+using WebWallet.ViewModels.MonthlyReport;
 using WebWallet.ViewModels.RecurringPayment;
 using WebWallet.ViewModels.Transaction;
 using WebWallet.ViewModels.User;
@@ -38,6 +39,9 @@ namespace WebWallet.Services.AutoMapper
                 .ReverseMap();
 
             CreateMap<RecurringPayment, RecurringPaymentVM>()
+                .ReverseMap();
+
+            CreateMap<MonthlyReport, MonthlyReportVM>()
                 .ReverseMap();
         }
     }
