@@ -1,7 +1,7 @@
 @model TransactionVM
 @{
     Layout = "_Layout";
-    ViewData["title"] = "Обнови Транзакция";
+    ViewData["title"] = "Добави Транзакция";
     var categories = (List<SelectListItem>)ViewData["TransactionCategories"];
     var accounts = (List<SelectListItem>)ViewData["UserAccounts"];
 }
@@ -10,7 +10,6 @@
     <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Добави Транзакция</h4>
                 <form asp-action="Create" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">

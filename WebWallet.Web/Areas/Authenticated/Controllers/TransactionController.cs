@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -46,7 +46,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
             await _transactionService.Create(transactionVM, User.Identity.Name);
             return RedirectToAction(nameof(All))
-                .WithSuccess("", "");
+                .WithSuccess("Успех!", "Транзакцията е запазена.");
         }
 
         public async Task<IActionResult> All()
@@ -75,7 +75,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
             await _transactionService.Update(transactionVM);
             return RedirectToAction(nameof(All))
-                .WithSuccess("", "");
+                .WithSuccess("Успех!", "Променте са запазени.");
         }
 
         public async Task<IActionResult> Delete(string transactionId)
@@ -84,7 +84,7 @@ namespace WebWallet.Web.Areas.Authenticated.Controllers
 
             await _transactionService.Delete(transactionId);
             return RedirectToAction(nameof(All), new { timestamp = DateTime.Now.Ticks.ToString() })
-                .WithSuccess("", "");
+                .WithSuccess("Успех!", "Транзакцията е изтрита.");
         }
 
         private async Task<List<SelectListItem>> GetAccountsSelectList()

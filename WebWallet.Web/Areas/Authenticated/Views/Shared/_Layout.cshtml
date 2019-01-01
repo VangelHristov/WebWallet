@@ -6,83 +6,130 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Начало</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <partial name="_LayoutStylesPartial" />
+    <partial name="_MainLayoutStyles" />
 </head>
 
 <body>
     <div id="preloader">
-        <div id="status">&nbsp;</div>
+        <div class="loader"></div>
     </div>
     <div class="page-container">
         <div class="sidebar-menu">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <p class="company-logo">Портфейл</p>
-                </div>
-            </div>
             <div class="main-menu">
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="true"><i class="fa fa-road"></i><span>Начало</span></a>
+                            <li class="active">
+                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="false">
+                                    <i class="fa fa-road"></i><span>Начало</span>
+                                </a>
                             </li>
-                            <li class="">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="false">
                                     <i class="fa fa-money"></i><span>Средства</span>
                                 </a>
-                                <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Account" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Account" asp-action="All" asp-area="Authenticated"><span>Моите Средства</span></a></li>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="Account" asp-action="Create" asp-area="Authenticated">
+                                            <span>Добави</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="All" asp-area="Authenticated">
+                                            <span>Моите Средства</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="false">
                                     <i class="ti-shield"></i><span>Бюджети</span>
                                 </a>
-                                <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Budget" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Budget" asp-action="All" asp-area="Authenticated"><span>Моите Бюджети</span></a></li>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="Budget" asp-action="Create" asp-area="Authenticated">
+                                            <span>Добави</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Budget" asp-action="All" asp-area="Authenticated">
+                                            <span>Моите Бюджети</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="false">
                                     <i class="ti-receipt"></i><span>Транзакции</span>
                                 </a>
-                                <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Transaction" asp-action="All" asp-area="Authenticated"><span>Всички Транзакции</span></a></li>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated">
+                                            <span>Добави</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Transaction" asp-action="All" asp-area="Authenticated">
+                                            <span>Всички Транзакции</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="false">
                                     <i class="ti-pencil-alt"></i><span>Финансови цели</span>
                                 </a>
-                                <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Goal" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Goal" asp-action="All" asp-area="Authenticated"><span>Виж Всички</span></a></li>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="Goal" asp-action="Create" asp-area="Authenticated">
+                                            <span>Добави</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Goal" asp-action="All" asp-area="Authenticated">
+                                            <span>Виж Всички</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="false">
                                     <i class="ti-stats-up"></i><span>Инвестиции</span>
                                 </a>
-                                <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="Investment" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="Investment" asp-action="All" asp-area="Authenticated"><span>Моите Инвестиции</span></a></li>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="Investment" asp-action="Create" asp-area="Authenticated">
+                                            <span>Добави</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Investment" asp-action="All" asp-area="Authenticated">
+                                            <span>Моите Инвестиции</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="false">
                                     <i class="ti-check-box"></i><span>Заеми и Сметки</span>
                                 </a>
-                                <ul class="collapse in" style="">
-                                    <li class=""><a asp-controller="RecurringPayment" asp-action="Create" asp-area="Authenticated"><span>Добави</span></a></li>
-                                    <li><a asp-controller="RecurringPayment" asp-action="All" asp-area="Authenticated"><span>Виж Всички</span></a></li>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="RecurringPayment" asp-action="Create" asp-area="Authenticated">
+                                            <span>Добави</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="RecurringPayment" asp-action="All" asp-area="Authenticated">
+                                            <span>Виж Всички</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="">
-                                <a asp-controller="User" asp-action="Logout" asp-area="Identity" aria-expanded="false"><i class="ti-shift-left"></i><span>Изход</span></a>
+                            <li>
+                                <a asp-controller="User" asp-action="Logout" asp-area="Identity" aria-expanded="false">
+                                    <i class="ti-shift-left"></i><span>Изход</span>
+                                </a>
                             </li>
                         </ul>
                     </nav>
@@ -99,7 +146,7 @@
                             <span></span>
                         </div>
                     </div>
-                    <div class="col-md-6 d-none d-md-inline"><span class="greeting text-muted text-center"> @User.Identity.Name</span></div>
+                    <div class="col-md-6 d-none d-md-inline"><div class="greeting text-muted text-center"> @ViewData["title"]</div></div>
                     <div class="col-md-3 d-none d-md-inline clearfix">
                         <ul class="notification-area pull-right">
                             <li id="full-view"><i class="ti-fullscreen"></i></li>
@@ -120,7 +167,7 @@
             </div>
         </footer>
     </div>
-    <partial name="_LayoutScriptsPartial" />
+    <partial name="_MainLayoutScripts" />
     @RenderSection("Scripts", required: false)
 </body>
 </html>

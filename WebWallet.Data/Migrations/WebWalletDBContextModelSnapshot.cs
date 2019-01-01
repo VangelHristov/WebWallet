@@ -239,6 +239,36 @@ namespace WebWallet.Data.Migrations
                     b.ToTable("Investments");
                 });
 
+            modelBuilder.Entity("WebWallet.Models.Entities.MonthlyReport", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<decimal>("EndBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ModifiedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("SpendingsPerCategoryJson");
+
+                    b.Property<decimal>("TotalIncome")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalSpendings")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MonthlyReports");
+                });
+
             modelBuilder.Entity("WebWallet.Models.Entities.RecurringPayment", b =>
                 {
                     b.Property<string>("Id")

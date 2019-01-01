@@ -1,7 +1,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+<html lang="bg" class="no-js">
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,12 +17,15 @@
     <meta charset="UTF-8">
     <!-- Site Title -->
     <title>Портфейл</title>
-    <partial name="_LayoutStylesPartial" />
+    <partial name="_LandingLayoutStyles" />
 </head>
 <body>
     <div id="preloader">
-        <div id="status">&nbsp;</div>
+        <div class="loader"></div>
     </div>
+    @*<div id="preloader">
+            <div id="status">&nbsp;</div>
+        </div>*@
     <div class="main-wrapper-first relative">
         <header>
             <div class="container">
@@ -77,6 +80,6 @@
         <!-- End footer Area -->
     </div>
 
-    <partial name="_LayoutScriptsPartial" />
+    <partial name="_LandingLayoutScripts" />
 </body>
 </html>

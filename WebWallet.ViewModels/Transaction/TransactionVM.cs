@@ -175,9 +175,11 @@ namespace WebWallet.ViewModels.Transaction
                     throw new ArgumentException();
                 }
 
-                this.MainCategory = Categories
+                var mainCategory = Categories
                     .FirstOrDefault(x => x.Value.Contains(value))
                     .Key;
+
+                MainCategory = mainCategory;
                 this._category = value;
             }
         }

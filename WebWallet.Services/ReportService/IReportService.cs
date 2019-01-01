@@ -6,7 +6,7 @@ namespace WebWallet.Services.ReportService
 {
     public interface IReportService
     {
-        Task<MonthlyReportVM> GetLastThirtyDaysReport(string username);
+        Task<MonthlyReportVM> GetCurrentMonthReport(string username);
 
         Task<IEnumerable<MonthlyReportVM>> GetAllReports(string username);
 

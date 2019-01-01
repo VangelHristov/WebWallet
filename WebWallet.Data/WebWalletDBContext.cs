@@ -69,5 +69,6 @@ namespace WebWallet.Data
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Goal> Goals { get; set; }
         public DbSet<Investment> Investments { get; set; }
+        public DbSet<MonthlyReport> MonthlyReports { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace WebWallet.Services.ReportService
         public async Task<bool> DeleteAll(string username)
         {
             var user = await _userService.GetByUsername(username);
+
             var userReports = _repository
                 .GetAll()
                 .Where(x => x.UserId == user.Id)
@@ -63,16 +64,25 @@ namespace WebWallet.Services.ReportService
         public async Task<IEnumerable<MonthlyReportVM>> GetAllReports(string username)
         {
             var user = await _userService.GetByUsername(username);
-            return _repository
+
+            var currentMonthReport = await GetCurrentMonthReport(username);
+
+            var previousMonthsReports = _repository
                 .GetAll()
                 .Where(x => x.UserId == user.Id)
                 .Select(x => _mapper.Map<MonthlyReportVM>(x))
                 .AsEnumerable();
+
+            previousMonthsReports.Append(currentMonthReport);
+
+            return previousMonthsReports;
         }
 
-        public async Task<MonthlyReportVM> GetLastThirtyDaysReport(string username)
+        public async Task<MonthlyReportVM> GetCurrentMonthReport(string username)
         {
-            var report = await GenerateReport(username, DateTime.Now.AddDays(-30));
+            var now = DateTime.Now;
+            var days = now.Day;
+            var report = await GenerateReport(username, now.AddDays(days * -1));
             return _mapper.Map<MonthlyReportVM>(report);
         }
 
@@ -108,7 +118,7 @@ namespace WebWallet.Services.ReportService
                 }
             }
             var now = DateTime.Now;
-            var name = $"{now.ToString("MMMM", CultureInfo.CreateSpecificCulture("bg"))}.{now.Year}";
+            var name = $"{now.ToString("MMMM", CultureInfo.CreateSpecificCulture("bg"))} {now.Year}";
 
             return new MonthlyReport
             {
