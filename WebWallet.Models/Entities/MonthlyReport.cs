@@ -46,7 +46,7 @@ namespace WebWallet.Models.Entities
         public decimal TotalSpendings { get; set; }
 
         [NotMapped]
-        public Dictionary<string, decimal> SpendingsPerCategory { get; set; }
+        public Dictionary<string, string> SpendingsPerCategory { get; set; }
 
         public string SpendingsPerCategoryJson
         {
@@ -56,7 +56,22 @@ namespace WebWallet.Models.Entities
             }
             set
             {
-                SpendingsPerCategory = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(value);
+                SpendingsPerCategory = JsonConvert.DeserializeObject<Dictionary<string, string>>(value);
+            }
+        }
+
+        [NotMapped]
+        public Dictionary<string, string> SpendingsPerMainCategory { get; set; }
+
+        public string SpendingsPerMainCategoryJson
+        {
+            get
+            {
+                return JsonConvert.SerializeObject(SpendingsPerMainCategory);
+            }
+            set
+            {
+                SpendingsPerMainCategory = JsonConvert.DeserializeObject<Dictionary<string, string>>(value);
             }
         }
     }

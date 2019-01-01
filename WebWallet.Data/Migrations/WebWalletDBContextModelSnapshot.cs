@@ -257,6 +257,8 @@ namespace WebWallet.Data.Migrations
 
                     b.Property<string>("SpendingsPerCategoryJson");
 
+                    b.Property<string>("SpendingsPerMainCategoryJson");
+
                     b.Property<decimal>("TotalIncome")
                         .HasColumnType("decimal(18,2)");
 

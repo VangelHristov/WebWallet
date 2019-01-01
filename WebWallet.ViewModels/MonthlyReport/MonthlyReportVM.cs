@@ -11,7 +11,8 @@ namespace WebWallet.ViewModels.MonthlyReport
         public decimal TotalIncome { get; set; }
         public decimal TotalInvested { get; set; }
         public decimal TotalSpendings { get; set; }
-        public Dictionary<string, decimal> SpendingsPerCategory { get; set; }
+        public Dictionary<string, string> SpendingsPerCategory { get; set; }
+        public Dictionary<string, string> SpendingsPerMainCategory { get; set; }
         public Dictionary<string, decimal> InvestmentsPerType { get; set; }
     }
 }

@@ -1,15 +1,53 @@
 ﻿$(function () {
     /*
-        Income vs Expence Chart
-    =======================================================
+         =====================================================================================================================
+
+                            Income vs Investment Line Chart
+
+         =====================================================================================================================
      */
     $.getJSON("https://localhost:5001/Authenticated/Dashboard/AllReports", function (reports) {
+        reports = JSON.parse(reports);
+        reports.push({
+            CreatedOn: "2019-02-01T06:40:12.1278044Z",
+            EndBalance: 18635,
+            InvestmentsPerType: { "Крипто": 300, "Стокова борса": 200 },
+            Name: "февруари 2019",
+            SpendingsPerCategory: { "Шопинг": "80%", "Подаръци": "20%" },
+            SpendingsPerMainCategory: {"Шопинг":"100%"},
+            TotalIncome: 1260,
+            TotalInvested: 500,
+            TotalSpendings: 310
+        });
+        reports.push({
+            CreatedOn: "2019-03-01T06:40:12.1278044Z",
+            EndBalance: 18635,
+            InvestmentsPerType: { "Крипто": 380, "Стокова борса": 700 },
+            Name: "март 2019",
+            SpendingsPerCategory: { "Шопинг": "70%", "Подаръци": "30%" },
+            SpendingsPerMainCategory: { "Шопинг": "100%" },
+            TotalIncome: 4260,
+            TotalInvested: 1080,
+            TotalSpendings: 1280
+        });
+        reports.push({
+            CreatedOn: "2019-04-01T06:40:12.1278044Z",
+            EndBalance: 10635,
+            InvestmentsPerType: { "Вила": 300, "Апартамент": 200 },
+            Name: "април 2019",
+            SpendingsPerCategory: { "Шопинг": "50%", "Подаръци": "50%" },
+            SpendingsPerMainCategory: { "Шопинг": "100%" },
+            TotalIncome: 6260,
+            TotalInvested: 500,
+            TotalSpendings: 1330
+        });
+
         am4core.useTheme(am4themes_animated);
         var incomeVsExpence = am4core.create("incomeVsExpence", am4charts.XYChart);
         //incomeVsExpence.language.locale = am4lang_bg_BG;
         incomeVsExpence.colors.step = 2;
-        incomeVsExpence.data = JSON.parse(reports);
-        incomeVsExpence.dateFormatter.dateFormat = '{dateX.toLocaleDateString()}';
+        incomeVsExpence.data = reports;
+        console.log(incomeVsExpence.data);
 
         var incomeVsExpenceDateAxis = incomeVsExpence.xAxes.push(new am4charts.DateAxis());
         incomeVsExpenceDateAxis.renderer.minGridDistance = 50;
@@ -80,5 +118,109 @@
 
         // Add cursor
         incomeVsExpence.cursor = new am4charts.XYCursor();
+
+        /*
+         =====================================================================================================================
+
+                            Total Invested vs Total Income Bar Chart
+
+         =====================================================================================================================
+         */
+
+        var investedVsIncome = am4core.create("investedVsIncome", am4charts.XYChart);
+        investedVsIncome.data = reports;
+
+        // Create axes
+        var categoryAxis = investedVsIncome.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "Name";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+
+        var valueAxis = investedVsIncome.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "Сума в лева";
+        valueAxis.title.fontWeight = 800;
+
+        // Create series
+        var series = investedVsIncome.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "TotalIncome";
+        series.dataFields.categoryX = "Name";
+        series.clustered = false;
+        series.tooltipText = "Приходи за {categoryX} : [bold]{valueY}[/]";
+
+        var series2 = investedVsIncome.series.push(new am4charts.ColumnSeries());
+        series2.dataFields.valueY = "TotalInvested";
+        series2.dataFields.categoryX = "Name";
+        series2.clustered = false;
+        series2.columns.template.width = am4core.percent(50);
+        series2.tooltipText = "Инвестиции за {categoryX} : [bold]{valueY}[/]";
+
+        investedVsIncome.cursor = new am4charts.XYCursor();
+        investedVsIncome.cursor.lineX.disabled = true;
+        investedVsIncome.cursor.lineY.disabled = true;
+
+        /*
+         =====================================================================================================================
+
+                            Spendings for current month Pie Chart
+
+         =====================================================================================================================
+         */
+
+        // Create chart instance
+        var spendingsPerCategoryCurrentMonthChart = am4core.create("spendingsPerCategoryCurrentMonth", am4charts.PieChart);
+        var selected = -1;
+        var generateCategoryChartData = function () {
+            var spendCurrMonthData = [];
+            var index = 0;
+            reports.forEach(function selectData(rep) {
+                var keys;
+                if (selected == index) {
+                    keys = Object.keys(rep.SpendingsPerCategory);
+                    keys.forEach(function getSubCategoryData(k) {
+                        spendCurrMonthData.push({
+                            category: k,
+                            percent: rep.SpendingsPerCategory[k],
+                            color: spendingsPerCategoryCurrentMonthChart.colors.getIndex(index),
+                            pulled: true,
+                            id: index
+                        });
+                    });
+                } else {
+                    keys = Object.keys(rep.SpendingsPerMainCategory);
+                    keys.forEach(function getCategoryData(k) {
+                        spendCurrMonthData.push({
+                            category: k,
+                            percent: rep.SpendingsPerMainCategory[k],
+                            color: spendingsPerCategoryCurrentMonthChart.colors.getIndex(index),
+                            id: index
+                        });
+                    });
+                }
+
+                index += 1;
+            });
+
+            return spendCurrMonthData;
+        };
+
+        spendingsPerCategoryCurrentMonthChart.data = generateCategoryChartData();
+
+        // Add and configure Series
+        var pieSeries = spendingsPerCategoryCurrentMonthChart.series.push(new am4charts.PieSeries());
+        pieSeries.dataFields.value = "percent";
+        pieSeries.dataFields.category = "type";
+        pieSeries.slices.template.propertyFields.fill = "color";
+        pieSeries.slices.template.propertyFields.isActive = "pulled";
+        pieSeries.slices.template.strokeWidth = 0;
+
+        pieSeries.slices.template.events.on("hit", function (event) {
+            if (event.target.dataItem.dataContext.id != undefined) {
+                selected = event.target.dataItem.dataContext.id;
+            } else {
+                selected = undefined;
+            }
+            spendingsPerCategoryCurrentMonthChart.data = generateCategoryChartData();
+        });
+
     });
 });
