@@ -25,6 +25,24 @@ namespace WebWallet.Models.Entities
         public decimal TotalIncome { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
+        public decimal TotalInvested { get; set; }
+
+        [NotMapped]
+        public Dictionary<string, decimal> InvestmentsPerType { get; set; }
+
+        public string InvestmentsPerTypeJson
+        {
+            get
+            {
+                return JsonConvert.SerializeObject(InvestmentsPerType);
+            }
+            set
+            {
+                InvestmentsPerType = JsonConvert.DeserializeObject<Dictionary<string, decimal>>(value);
+            }
+        }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalSpendings { get; set; }
 
         [NotMapped]

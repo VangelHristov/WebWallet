@@ -8,6 +8,7 @@ using WebWallet.Data.Contracts;
 using WebWallet.Models.Entities;
 using WebWallet.Models.Enumerations;
 using WebWallet.Services.AccountServces;
+using WebWallet.Services.InvestmentServices;
 using WebWallet.Services.TransactionServices;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.MonthlyReport;
@@ -21,18 +22,21 @@ namespace WebWallet.Services.ReportService
         private readonly IAccountService _accountService;
         private readonly IUserService _userService;
         private readonly ITransactionService _transactionService;
+        private readonly IInvestmentService _investmentService;
 
         public ReportService(
             IRepository<MonthlyReport> repository,
             IMapper mapper, IUserService userService,
             IAccountService accountService,
-            ITransactionService transactionService)
+            ITransactionService transactionService,
+            IInvestmentService investmentService)
         {
             this._repository = repository;
             this._mapper = mapper;
             this._accountService = accountService;
             this._userService = userService;
             this._transactionService = transactionService;
+            this._investmentService = investmentService;
         }
 
         public async Task<bool> Create(string username)
@@ -96,6 +100,22 @@ namespace WebWallet.Services.ReportService
             var transactions = await _transactionService.GetAll(username);
             transactions = transactions.Where(x => x.CreatedOn >= startDate);
 
+            var investments = await _investmentService.GetAll(username);
+            investments = investments.Where(x => x.CreatedOn >= startDate);
+            var investmentsPerType = new Dictionary<string, decimal>();
+
+            foreach (var investment in investments)
+            {
+                if (!investmentsPerType.Keys.Contains(investment.Type.ToString()))
+                {
+                    investmentsPerType[investment.Type.ToString()] = 0;
+                }
+
+                investmentsPerType[investment.Type.ToString()] += investment.Amount;
+            }
+
+            var totalInvested = investments.Sum(x => x.Amount);
+
             var spendingsPerCategory = new Dictionary<string, decimal>();
             var totalIncome = 0m;
             var totalSpendings = 0m;
@@ -127,6 +147,8 @@ namespace WebWallet.Services.ReportService
                 SpendingsPerCategory = spendingsPerCategory,
                 TotalIncome = totalIncome,
                 TotalSpendings = totalSpendings,
+                TotalInvested = totalInvested,
+                InvestmentsPerType = investmentsPerType,
                 UserId = user.Id,
                 CreatedOn = DateTime.UtcNow
             };

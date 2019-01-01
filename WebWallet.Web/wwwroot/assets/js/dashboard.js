@@ -9,6 +9,7 @@
         //incomeVsExpence.language.locale = am4lang_bg_BG;
         incomeVsExpence.colors.step = 2;
         incomeVsExpence.data = JSON.parse(reports);
+        incomeVsExpence.dateFormatter.dateFormat = '{dateX.toLocaleDateString()}';
 
         var incomeVsExpenceDateAxis = incomeVsExpence.xAxes.push(new am4charts.DateAxis());
         incomeVsExpenceDateAxis.renderer.minGridDistance = 50;
