@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using WebWallet.Services.ReportService;
 using WebWallet.Web.Controllers;
@@ -17,10 +18,12 @@ namespace WebWallet.Web.Areas.Dashboard.Controllers
             this._reportService = reportService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index() => View();
+
+        public async Task<JsonResult> AllReports()
         {
             var reportVM = await _reportService.GetAllReports(User.Identity.Name);
-            return this.View(reportVM);
+            return Json(JsonConvert.SerializeObject(reportVM));
         }
     }
 }

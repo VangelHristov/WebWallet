@@ -8,7 +8,7 @@ namespace WebWallet.Services.ReportService
     {
         Task<MonthlyReportVM> GetCurrentMonthReport(string username);
 
-        Task<IEnumerable<MonthlyReportVM>> GetAllReports(string username);
+        Task<IList<MonthlyReportVM>> GetAllReports(string username);
 
         Task<bool> Create(string username);
 

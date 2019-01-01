@@ -61,7 +61,7 @@ namespace WebWallet.Services.ReportService
             return true;
         }
 
-        public async Task<IEnumerable<MonthlyReportVM>> GetAllReports(string username)
+        public async Task<IList<MonthlyReportVM>> GetAllReports(string username)
         {
             var user = await _userService.GetByUsername(username);
 
@@ -71,9 +71,9 @@ namespace WebWallet.Services.ReportService
                 .GetAll()
                 .Where(x => x.UserId == user.Id)
                 .Select(x => _mapper.Map<MonthlyReportVM>(x))
-                .AsEnumerable();
+                .ToList();
 
-            previousMonthsReports.Append(currentMonthReport);
+            previousMonthsReports.Add(currentMonthReport);
 
             return previousMonthsReports;
         }
@@ -127,7 +127,8 @@ namespace WebWallet.Services.ReportService
                 SpendingsPerCategory = spendingsPerCategory,
                 TotalIncome = totalIncome,
                 TotalSpendings = totalSpendings,
-                UserId = user.Id
+                UserId = user.Id,
+                CreatedOn = DateTime.UtcNow
             };
         }
     }

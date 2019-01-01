@@ -1,15 +1,6 @@
-﻿@model IEnumerable<MonthlyReportVM>
 @{
     Layout = "_Layout";
-    ViewData["title"] = "Начало";
-}
-
-@foreach (var report in Model)
-{
-    <h1>@report.Name</h1>
-    <h1>@report.TotalIncome</h1>
-    <h1>@report.TotalSpendings</h1>
-    <h1>@report.EndBalance</h1>
+    ViewData["title"] = "Репорт";
 }
 
 <div class="row">
