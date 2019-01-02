@@ -19,10 +19,22 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="active">
-                                <a asp-controller="Dashboard" asp-action="Index" aria-expanded="false">
-                                    <i class="fa fa-road"></i><span>Начало</span>
+                            <li class="">
+                                <a href="javascript:void(0)" aria-expanded="false">
+                                    <i class="fa fa-pie-chart"></i><span>Графики</span>
                                 </a>
+                                <ul class="collapse" style="">
+                                    <li class="">
+                                        <a asp-controller="Report" asp-action="IncomeAndSpendings" asp-area="Authenticated">
+                                            <span>Приходи и Разходи</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Report" asp-action="Investments" asp-area="Authenticated">
+                                            <span>Инвестиции</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="false">

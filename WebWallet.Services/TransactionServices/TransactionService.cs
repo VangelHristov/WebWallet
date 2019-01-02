@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
 using WebWallet.Models.Entities;
+using WebWallet.Models.Enumerations;
+using WebWallet.Services.AccountServces;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.Transaction;
 
@@ -14,16 +16,19 @@ namespace WebWallet.Services.TransactionServices
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IAccountService _accountService;
 
         public TransactionService(
                 IRepository<Transaction> transactionRepository,
                 IUserService userService,
-                IMapper mapper
+                IMapper mapper,
+                IAccountService accountService
             )
         {
             this._transactionRepository = transactionRepository;
             this._userService = userService;
             this._mapper = mapper;
+            this._accountService = accountService;
         }
 
         public async Task<bool> Create(TransactionVM transactionVM, string username)
@@ -31,6 +36,18 @@ namespace WebWallet.Services.TransactionServices
             var user = await _userService.GetByUsername(username);
             transactionVM.UserId = user.Id;
             var transaction = _mapper.Map<Transaction>(transactionVM);
+
+            var account = await _accountService.GetById(transaction.AccountId);
+            if (transaction.TransactionType == TransactionType.Expence)
+            {
+                account.Balance -= transaction.Amount;
+            }
+            else
+            {
+                account.Balance += transaction.Amount;
+            }
+
+            await _accountService.Update(account);
             return await _transactionRepository.Create(transaction);
         }
 

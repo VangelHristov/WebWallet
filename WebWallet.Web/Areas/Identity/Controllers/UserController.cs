@@ -24,7 +24,11 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             this._emailSender = emailSender;
         }
 
-        public IActionResult Login() => this.View();
+        public IActionResult Login(string returnUrl = null)
+        {
+            ViewData["returnUrl"] = returnUrl;
+            return this.View();
+        }
 
         public IActionResult Register() => this.View();
 
@@ -96,7 +100,7 @@ namespace WebWallet.Web.Areas.Identity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM loginVM)
+        public async Task<IActionResult> Login(LoginVM loginVM, string returnUrl = null)
         {
             if (!(ModelState.IsValid &&
                     await this._userService
@@ -107,7 +111,9 @@ namespace WebWallet.Web.Areas.Identity.Controllers
                 return this.View(loginVM);
             }
 
-            return this.RedirectToAction("Index", "Dashboard", new { area = "Authenticated" });
+            return returnUrl != null
+                ? this.Redirect(returnUrl)
+                : this.Redirect("/Authenticated/Report/IncomeAndSpendings");
         }
 
         [HttpPost]
@@ -151,7 +157,7 @@ namespace WebWallet.Web.Areas.Identity.Controllers
                 return this.View(resetPasswordVM);
             }
 
-            return this.RedirectToAction("Index", "Dashboard", new { area = "Authenticated" })
+            return this.RedirectToAction("IncomeAndSpendings", "Report", new { area = "Authenticated" })
                 .WithSuccess("Успех!", "Вашата нова парола беше запазена.");
         }
     }

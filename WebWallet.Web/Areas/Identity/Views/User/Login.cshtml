@@ -1,13 +1,14 @@
 @{
     Layout = "_Layout";
     ViewData["title"] = "Вход";
+
 }
 @model LoginVM;
 
 <div class="login-area">
     <div class="container">
         <div class="login-box ptb--100">
-            <form asp-controller="User" asp-action="Login" asp-area="Identity" method="post">
+            <form asp-controller="User" asp-action="Login" asp-area="Identity" method="post" asp-route-returnUrl=@ViewData["returnUrl"]>
                 <div class="login-form-head">
                     <h4>Вход за регистрирани потребители</h4>
                 </div>

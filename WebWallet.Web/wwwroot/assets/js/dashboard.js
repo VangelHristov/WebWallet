@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $.getJSON("https://localhost:5001/Authenticated/Dashboard/AllReports", function (reports) {
+    $.getJSON("https://localhost:5001/Authenticated/Report/AllReports", function (reports) {
         reports = JSON.parse(reports);
         reports.push({
             CreatedOn: "2019-02-02T15:27:11.0196374Z",
