@@ -1,4 +1,83 @@
 ﻿$(function () {
+    $.getJSON("https://localhost:5001/Authenticated/Dashboard/AllReports", function (reports) {
+        reports = JSON.parse(reports);
+        reports.push({
+            CreatedOn: "2019-02-02T15:27:11.0196374Z",
+            EndBalance: 16035,
+            InvestmentsPerType: { Crypto: 5100 },
+            Name: "февруари 2019",
+            SpendingsPerCategory: [
+                {
+                    Amount: 253,
+                    CategoryName: "Храна и Напитки",
+                    SubCategories: {
+                        "Храни и напитки друго": 225,
+                        "Хранителни продукти": 28
+                    }
+                },
+                {
+                    Amount: 734,
+                    CategoryName: "Шопинг",
+                    SubCategories:  { "Дрехи и обувки": 534, "Шопинг друго": 200 }
+                }
+            ],
+            TotalIncome: 1865,
+            TotalInvested: 800,
+            TotalSpendings: 987
+        });
+
+        reports.push({
+            CreatedOn: "2019-03-02T15:27:11.0196374Z",
+            EndBalance: 1750,
+            InvestmentsPerType: { Crypto: 5100 },
+            Name: "март 2019",
+            SpendingsPerCategory: [
+                {
+                    Amount: 553,
+                    CategoryName: "Храна и Напитки",
+                    SubCategories: {
+                        "Храни и напитки друго": 425,
+                        "Хранителни продукти": 128
+                    }
+                },
+                {
+                    Amount: 234,
+                    CategoryName: "Шопинг",
+                    SubCategories: { "Дрехи и обувки": 134, "Шопинг друго": 100 }
+                }
+            ],
+            TotalIncome: 1365,
+            TotalInvested: 100,
+            TotalSpendings: 700
+        });
+        reports.push({
+            CreatedOn: "2019-04-02T15:27:11.0196374Z",
+            EndBalance: 19035,
+            InvestmentsPerType: { Crypto: 5100 },
+            Name: "април 2019",
+            SpendingsPerCategory: [
+                {
+                    Amount: 450,
+                    CategoryName: "Храна и Напитки",
+                    SubCategories: {
+                        "Храни и напитки друго": 220,
+                        "Хранителни продукти": 230
+                    }
+                },
+                {
+                    Amount: 234,
+                    CategoryName: "Шопинг",
+                    SubCategories: { "Дрехи и обувки": 184, "Шопинг друго": 50 }
+                }
+            ],
+            TotalIncome: 1365,
+            TotalInvested: 300,
+            TotalSpendings: 687
+        });
+
+        am4core.useTheme(am4themes_animated);
+
+
     /*
          =====================================================================================================================
 
@@ -6,48 +85,10 @@
 
          =====================================================================================================================
      */
-    $.getJSON("https://localhost:5001/Authenticated/Dashboard/AllReports", function (reports) {
-        reports = JSON.parse(reports);
-        reports.push({
-            CreatedOn: "2019-02-01T06:40:12.1278044Z",
-            EndBalance: 18635,
-            InvestmentsPerType: { "Крипто": 300, "Стокова борса": 200 },
-            Name: "февруари 2019",
-            SpendingsPerCategory: { "Шопинг": "80%", "Подаръци": "20%" },
-            SpendingsPerMainCategory: {"Шопинг":"100%"},
-            TotalIncome: 1260,
-            TotalInvested: 500,
-            TotalSpendings: 310
-        });
-        reports.push({
-            CreatedOn: "2019-03-01T06:40:12.1278044Z",
-            EndBalance: 18635,
-            InvestmentsPerType: { "Крипто": 380, "Стокова борса": 700 },
-            Name: "март 2019",
-            SpendingsPerCategory: { "Шопинг": "70%", "Подаръци": "30%" },
-            SpendingsPerMainCategory: { "Шопинг": "100%" },
-            TotalIncome: 4260,
-            TotalInvested: 1080,
-            TotalSpendings: 1280
-        });
-        reports.push({
-            CreatedOn: "2019-04-01T06:40:12.1278044Z",
-            EndBalance: 10635,
-            InvestmentsPerType: { "Вила": 300, "Апартамент": 200 },
-            Name: "април 2019",
-            SpendingsPerCategory: { "Шопинг": "50%", "Подаръци": "50%" },
-            SpendingsPerMainCategory: { "Шопинг": "100%" },
-            TotalIncome: 6260,
-            TotalInvested: 500,
-            TotalSpendings: 1330
-        });
-
-        am4core.useTheme(am4themes_animated);
         var incomeVsExpence = am4core.create("incomeVsExpence", am4charts.XYChart);
         //incomeVsExpence.language.locale = am4lang_bg_BG;
         incomeVsExpence.colors.step = 2;
         incomeVsExpence.data = reports;
-        console.log(incomeVsExpence.data);
 
         var incomeVsExpenceDateAxis = incomeVsExpence.xAxes.push(new am4charts.DateAxis());
         incomeVsExpenceDateAxis.renderer.minGridDistance = 50;
@@ -165,50 +206,59 @@
 
          =====================================================================================================================
          */
-
+        am4core.useTheme(am4themes_animated);
         // Create chart instance
         var spendingsPerCategoryCurrentMonthChart = am4core.create("spendingsPerCategoryCurrentMonth", am4charts.PieChart);
-        var selected = -1;
+        var selected;
+        var mainCatColors = {};
+        // Generate Data
         var generateCategoryChartData = function () {
-            var spendCurrMonthData = [];
-            var index = 0;
-            reports.forEach(function selectData(rep) {
-                var keys;
-                if (selected == index) {
-                    keys = Object.keys(rep.SpendingsPerCategory);
-                    keys.forEach(function getSubCategoryData(k) {
-                        spendCurrMonthData.push({
-                            category: k,
-                            percent: rep.SpendingsPerCategory[k],
-                            color: spendingsPerCategoryCurrentMonthChart.colors.getIndex(index),
-                            pulled: true,
-                            id: index
+            var currentReport = reports[reports.length - 1];
+
+            var keys = Object.keys(currentReport.SpendingsPerCategory);
+            var spendingsData = [];
+            for (var i = 0; i < keys.length; i++) {
+                if (selected == i) {
+                    var subCategories = currentReport.SpendingsPerCategory[i].SubCategories;
+                    var subKeys = Object.keys(subCategories);   
+                    var mainCat = currentReport.SpendingsPerCategory[i];
+
+                    for (var j = 0; j < subKeys.length; j++) {
+                        var subCatKey = subKeys[j];
+                        var subCatVal = mainCat.SubCategories[subCatKey];
+
+                        spendingsData.push({
+                            category: subCatKey,
+                            percent: subCatVal / currentReport.TotalSpendings * 100,
+                            color: mainCatColors[mainCat.CategoryName],
+                            pulled: true
                         });
-                    });
+                    }
                 } else {
-                    keys = Object.keys(rep.SpendingsPerMainCategory);
-                    keys.forEach(function getCategoryData(k) {
-                        spendCurrMonthData.push({
-                            category: k,
-                            percent: rep.SpendingsPerMainCategory[k],
-                            color: spendingsPerCategoryCurrentMonthChart.colors.getIndex(index),
-                            id: index
-                        });
+                    var color = spendingsPerCategoryCurrentMonthChart.colors.getIndex(i);
+                    var category = currentReport.SpendingsPerCategory[i].CategoryName;
+                    var percent = currentReport.SpendingsPerCategory[i].Amount / currentReport.TotalSpendings * 100;
+                    var id = i;
+                    mainCatColors[category] = color;
+
+                    spendingsData.push({
+                        category,
+                        percent,
+                        color,
+                        id
                     });
                 }
-
-                index += 1;
-            });
-
-            return spendCurrMonthData;
-        };
+            }
+            
+            return spendingsData;
+        }   
 
         spendingsPerCategoryCurrentMonthChart.data = generateCategoryChartData();
 
         // Add and configure Series
         var pieSeries = spendingsPerCategoryCurrentMonthChart.series.push(new am4charts.PieSeries());
         pieSeries.dataFields.value = "percent";
-        pieSeries.dataFields.category = "type";
+        pieSeries.dataFields.category = "category";
         pieSeries.slices.template.propertyFields.fill = "color";
         pieSeries.slices.template.propertyFields.isActive = "pulled";
         pieSeries.slices.template.strokeWidth = 0;
@@ -222,5 +272,112 @@
             spendingsPerCategoryCurrentMonthChart.data = generateCategoryChartData();
         });
 
+
+        /*
+      =====================================================================================================================
+
+                         Spendings for all months Pie Chart
+
+      =====================================================================================================================
+      */
+
+        // Create chart instance
+        var spendingsPerCategoryChart = am4core.create("spendingsPerCategoryAllTime", am4charts.PieChart);
+        var selectedAllTime;
+        var mainCatColorsAllTime = {};
+        // Generate Data
+        var generateCategoryChartDataAllTime = function () {
+
+            var allReports = {
+                TotalSpendings:0,
+                SpendingsPerCategory: []
+            };
+            reports.forEach(function (report) {
+                for (var i = 0; i < report.SpendingsPerCategory.length; i++) {
+                    var spendings = report.SpendingsPerCategory[i];
+                    var categoryName = spendings.CategoryName;
+
+                    if (!allReports.SpendingsPerCategory.some(x => x.CategoryName == categoryName)) {
+                        allReports.SpendingsPerCategory.push({
+                            CategoryName: spendings.CategoryName,
+                            Amount: 0,
+                            SubCategories: {}
+                        });
+                    }
+
+                    allReports.TotalSpendings += spendings.Amount;
+
+                    var spendingsSubCategoriesKeys = Object.keys(spendings.SubCategories);
+                    var currentCategories = allReports.SpendingsPerCategory.find(x => x.CategoryName == categoryName);
+
+                    spendingsSubCategoriesKeys.forEach(key => {
+                        if (!currentCategories.SubCategories[key]) {
+                            currentCategories.SubCategories[key] = 0;
+                        }
+
+                        currentCategories.SubCategories[key] += spendings.SubCategories[key];
+                        currentCategories.Amount += spendings.SubCategories[key];
+                    });
+                }
+            });
+
+            var keys = Object.keys(allReports.SpendingsPerCategory);
+            var spendingsData = [];
+            for (var i = 0; i < keys.length; i++) {
+                if (selectedAllTime == i) {
+                    var mainCat = allReports.SpendingsPerCategory[keys[i]];
+                    console.log(mainCat);
+                    var subCategories = mainCat.SubCategories;
+                    var subKeys = Object.keys(subCategories);
+
+                    for (var j = 0; j < subKeys.length; j++) {
+                        var subCatKey = subKeys[j];
+                        var subCatVal = mainCat.SubCategories[subCatKey];
+
+                        spendingsData.push({
+                            category: subCatKey,
+                            percent: subCatVal / allReports.TotalSpendings * 100,
+                            color: mainCatColorsAllTime[mainCat.CategoryName],
+                            pulled: true
+                        });
+                    }
+                } else {
+                    var color = spendingsPerCategoryCurrentMonthChart.colors.getIndex(i);
+                    var category = allReports.SpendingsPerCategory[keys[i]].CategoryName;
+                    var percent = allReports.SpendingsPerCategory[keys[i]].Amount / allReports.TotalSpendings * 100;
+                    var id = i;
+                    mainCatColorsAllTime[category] = color;
+
+                    spendingsData.push({
+                        category,
+                        percent,
+                        color,
+                        id
+                    });
+                }
+            }
+            
+            return spendingsData;
+        }
+
+        spendingsPerCategoryChart.data = generateCategoryChartDataAllTime();
+
+        // Add and configure Series
+        var pieSeries = spendingsPerCategoryChart.series.push(new am4charts.PieSeries());
+        pieSeries.dataFields.value = "percent";
+        pieSeries.dataFields.category = "category";
+        pieSeries.slices.template.propertyFields.fill = "color";
+        pieSeries.slices.template.propertyFields.isActive = "pulled";
+        pieSeries.slices.template.strokeWidth = 0;
+
+        pieSeries.slices.template.events.on("hit", function (event) {
+            if (event.target.dataItem.dataContext.id != undefined) {
+                selectedAllTime = event.target.dataItem.dataContext.id;
+            } else {
+                selectedAllTime = undefined;
+            }
+            spendingsPerCategoryChart.data = generateCategoryChartDataAllTime();
+        });
+        console.dir(reports[0]);
     });
 });

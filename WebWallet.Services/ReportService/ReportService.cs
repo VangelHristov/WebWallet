@@ -116,8 +116,7 @@ namespace WebWallet.Services.ReportService
 
             var totalInvested = investments.Sum(x => x.Amount);
 
-            var spendingsPerCategory = new Dictionary<string, decimal>();
-            var spendingsPerMainCategory = new Dictionary<string, decimal>();
+            var spendingsPerCategory = new List<CategorySpendings>();
             var totalIncome = 0m;
             var totalSpendings = 0m;
 
@@ -130,27 +129,27 @@ namespace WebWallet.Services.ReportService
                 else
                 {
                     totalSpendings += transaction.Amount;
-                    if (!spendingsPerCategory.Keys.Contains(transaction.MainCategory))
+                    if (!spendingsPerCategory.Any(x => x.CategoryName == transaction.MainCategory))
                     {
-                        spendingsPerCategory[transaction.Category] = 0;
-                    }
-                    if (!spendingsPerMainCategory.Keys.Contains(transaction.MainCategory))
-                    {
-                        spendingsPerMainCategory[transaction.MainCategory] = 0;
+                        var categorySpendings = new CategorySpendings
+                        {
+                            CategoryName = transaction.MainCategory,
+                            Amount = 0,
+                            SubCategories = new Dictionary<string, decimal>()
+                        };
+                        spendingsPerCategory.Add(categorySpendings);
                     }
 
-                    spendingsPerCategory[transaction.Category] += transaction.Amount;
-                    spendingsPerMainCategory[transaction.MainCategory] += transaction.Amount;
+                    var category = spendingsPerCategory.Find(x => x.CategoryName == transaction.MainCategory);
+                    category.Amount += transaction.Amount;
+                    if (!category.SubCategories.Keys.Contains(transaction.Category))
+                    {
+                        category.SubCategories[transaction.Category] = 0;
+                    }
+
+                    category.SubCategories[transaction.Category] += transaction.Amount;
                 }
             }
-
-            var spendingsPerCategoryPercentage = spendingsPerCategory
-                .Select(x => new KeyValuePair<string, string>(x.Key, $"{x.Value / totalSpendings * 100}%"))
-                .ToDictionary(x => x.Key, x => x.Value);
-
-            var spendingsPerMainCategoryPercentage = spendingsPerMainCategory
-                .Select(x => new KeyValuePair<string, string>(x.Key, $"{x.Value / totalSpendings * 100}%"))
-                .ToDictionary(x => x.Key, x => x.Value);
 
             var now = DateTime.Now;
             var name = $"{now.ToString("MMMM", CultureInfo.CreateSpecificCulture("bg"))} {now.Year}";
@@ -159,8 +158,7 @@ namespace WebWallet.Services.ReportService
             {
                 Name = name,
                 EndBalance = balance,
-                SpendingsPerCategory = spendingsPerCategoryPercentage,
-                SpendingsPerMainCategory = spendingsPerMainCategoryPercentage,
+                SpendingsPerCategory = spendingsPerCategory,
                 TotalIncome = totalIncome,
                 TotalSpendings = totalSpendings,
                 TotalInvested = totalInvested,

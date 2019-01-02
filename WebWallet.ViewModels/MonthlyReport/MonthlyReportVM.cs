@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using WebWallet.Models.Entities;
 
 namespace WebWallet.ViewModels.MonthlyReport
 {
@@ -11,8 +12,7 @@ namespace WebWallet.ViewModels.MonthlyReport
         public decimal TotalIncome { get; set; }
         public decimal TotalInvested { get; set; }
         public decimal TotalSpendings { get; set; }
-        public Dictionary<string, string> SpendingsPerCategory { get; set; }
-        public Dictionary<string, string> SpendingsPerMainCategory { get; set; }
+        public IList<CategorySpendings> SpendingsPerCategory { get; set; }
         public Dictionary<string, decimal> InvestmentsPerType { get; set; }
     }
 }
