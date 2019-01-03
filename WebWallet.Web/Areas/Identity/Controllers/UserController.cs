@@ -89,7 +89,6 @@ namespace WebWallet.Web.Areas.Identity.Controllers
             {
                 confirmEmailVM.Result = "Успех!";
                 confirmEmailVM.Message = "Имейлът беше потвърден!\nРегистрацията е активирана.";
-
                 return View(confirmEmailVM);
             }
 

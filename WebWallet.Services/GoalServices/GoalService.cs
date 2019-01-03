@@ -1,5 +1,4 @@
 using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +26,7 @@ namespace WebWallet.Services.GoalServices
         {
             var user = await this._userService.GetByUsername(username);
             goalVM.UserId = user.Id;
+            goalVM.Remaining = goalVM.Target;
             var goal = this._mapper.Map<Goal>(goalVM);
             return await this._goalRepostitory.Create(goal);
         }

@@ -1,5 +1,4 @@
 using AutoMapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +26,7 @@ namespace WebWallet.Services.PaymentServices
         {
             var user = await _userService.GetByUsername(username);
             paymentVM.UserId = user.Id;
+            paymentVM.AmountRemaining = paymentVM.Amount;
             var payment = _mapper.Map<RecurringPayment>(paymentVM);
             return await _paymentRepository.Create(payment);
         }

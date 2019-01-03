@@ -24,8 +24,16 @@ namespace WebWallet.ViewModels.RecurringPayment
         [DisplayFormat(DataFormatString = FormatStrig.BGN, ApplyFormatInEditMode = false)]
         public decimal Amount { get; set; }
 
+        [Display(Name = "Оставаща Сума")]
+        [Range(0, maximum: (double)decimal.MaxValue, ErrorMessage = Message.InvalidValue)]
+        [DisplayFormat(DataFormatString = FormatStrig.BGN, ApplyFormatInEditMode = false)]
+        public decimal AmountRemaining { get; set; }
+
         public bool Overdue { get; set; }
 
+        [Display(Name = "Просрочено")]
+        [Range(0, maximum: (double)decimal.MaxValue, ErrorMessage = Message.InvalidValue)]
+        [DisplayFormat(DataFormatString = FormatStrig.BGN, ApplyFormatInEditMode = false)]
         public decimal OverdueAmount { get; set; }
     }
 }

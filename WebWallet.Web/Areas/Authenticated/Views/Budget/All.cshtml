@@ -21,19 +21,23 @@
                 @{ var counter = 1;}
                 @foreach (var item in Model)
                 {
-                    <tr>
+                <tr class=@(item.Available < 0? "bg-red-text-bold" :"")>
 
-                        <th scope="row">@counter</th>
-                        <td>@item.Name</td>
-                        <td>@Html.DisplayFor(x => item.Limit)</td>
-                        <td>@Html.DisplayFor(x => item.Available)</td>
-                        <td>@item.PeriodString</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-budgetId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a asp-action="Delete" asp-route-budgetId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
-                        </td>
-                    </tr>
+                    <th scope="row">@counter</th>
+                    <td>@item.Name</td>
+                    <td>@Html.DisplayFor(x => item.Limit)</td>
+                    <td>@Html.DisplayFor(x => item.Available)</td>
+                    <td>@item.PeriodString</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-budgetId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a asp-action="Delete" asp-route-budgetId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-budgetId="@item.Id" class="">
+                            <i class="ti-receipt"></i> Добави Транзакция
+                        </a>
+                    </td>
+                </tr>
                     counter++;
                 }
             </tbody>
@@ -58,6 +62,10 @@
                     <a asp-action="Edit" asp-route-budgetId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                     <a asp-action="Delete" asp-route-budgetId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-budgetId="@item.Id" class="">
+                        <i class="ti-receipt"></i> Добави Транзакция
+                    </a>
                 </p>
             </div>
         </div>

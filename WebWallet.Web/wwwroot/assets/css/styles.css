@@ -2851,3 +2851,8 @@ table.dataTable thead td {
     width: auto;
     height: 824px;
 }
+
+.bg-red-text-bold {
+    background: #ff5656;
+    font-weight: bold;
+}

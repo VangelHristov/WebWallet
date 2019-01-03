@@ -20,7 +20,7 @@
                 @{ var counter = 1;}
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr class=@(item.Balance< 0 ? "bg-red-text-bold":"")>
                         <th scope="row">@counter</th>
                         <td>@item.Name</td>
                         @if (item.Type == AccountType.Credit)
@@ -36,6 +36,10 @@
                             <a asp-action="Edit" asp-route-accountId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                             <a asp-action="Delete" asp-route-accountId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-accountId="@item.Id" class="">
+                                <i class="ti-receipt"></i> Добави Транзакция
+                            </a>
                         </td>
                     </tr>
                     counter++;
@@ -65,6 +69,10 @@
                     <a asp-action="Edit" asp-route-accountId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                     <a asp-action="Delete" asp-route-accountId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-accountId="@item.Id" class="">
+                        <i class="ti-receipt"></i> Добави Транзакция
+                    </a>
                 </p>
             </div>
         </div>

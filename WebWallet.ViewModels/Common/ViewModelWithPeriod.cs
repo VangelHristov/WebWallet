@@ -62,7 +62,5 @@ namespace WebWallet.ViewModels.Common
         }
 
         public long Period { get; set; }
-
-        public IEnumerable<TransactionVM> Transactions { get; set; }
     }
 }

@@ -41,7 +41,9 @@ namespace WebWallet.Models.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal OverdueAmount { get; set; }
 
-        public IEnumerable<Transaction> Transactions { get; set; }
+        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal AmountRemaining { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -51,15 +53,10 @@ namespace WebWallet.Models.Entities
         {
             if (DueDate >= DateTime.UtcNow)
             {
-                var startDate = new DateTime(DueDate.Ticks - Period);
-
-                var totalPayedForPeriod = Transactions
-                    .Where(x => x.CreatedOn >= startDate)
-                    .Sum(x => x.Amount);
-                if (totalPayedForPeriod < Amount)
+                if (AmountRemaining > 0)
                 {
                     Overdue = true;
-                    OverdueAmount += Amount - totalPayedForPeriod;
+                    OverdueAmount += AmountRemaining;
                 }
 
                 DueDate = DateTime.UtcNow.AddTicks(Period);

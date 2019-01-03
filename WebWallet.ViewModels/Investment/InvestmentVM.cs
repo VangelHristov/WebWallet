@@ -29,5 +29,9 @@ namespace WebWallet.ViewModels.Investment
         public decimal Amount { get; set; }
 
         public string UserId { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Display(Name = "Код")]
+        public string Abbreviation { get; set; }
     }
 }

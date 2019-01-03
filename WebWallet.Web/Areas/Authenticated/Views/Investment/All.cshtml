@@ -29,6 +29,10 @@
                             <a asp-action="Edit" asp-route-investmentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                             <a asp-action="Delete" asp-route-investmentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-investmentId="@item.Id" class="">
+                                <i class="ti-receipt"></i> Добави Транзакция
+                            </a>
                         </td>
                     </tr>
                     counter++;
@@ -51,6 +55,10 @@
                     <a asp-action="Edit" asp-route-investmentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                     <a asp-action="Delete" asp-route-investmentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-investmentId="@item.Id" class="">
+                        <i class="ti-receipt"></i> Добави Транзакция
+                    </a>
                 </p>
             </div>
         </div>

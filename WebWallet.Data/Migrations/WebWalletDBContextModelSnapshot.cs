@@ -163,6 +163,9 @@ namespace WebWallet.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("Available")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<DateTime>("End");
@@ -201,6 +204,9 @@ namespace WebWallet.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<decimal>("Remaining")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Target")
                         .HasColumnType("decimal(18,2)");
 
@@ -218,6 +224,8 @@ namespace WebWallet.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Abbreviation");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -280,6 +288,9 @@ namespace WebWallet.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmountRemaining")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedOn");
@@ -353,14 +364,6 @@ namespace WebWallet.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
-
-                    b.HasIndex("BudgetId");
-
-                    b.HasIndex("GoalId");
-
-                    b.HasIndex("InvestmentId");
-
-                    b.HasIndex("RecurringPaymentId");
 
                     b.ToTable("Transactions");
                 });
@@ -473,22 +476,6 @@ namespace WebWallet.Data.Migrations
                         .WithMany("Transactions")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebWallet.Models.Entities.Budget")
-                        .WithMany("Transactions")
-                        .HasForeignKey("BudgetId");
-
-                    b.HasOne("WebWallet.Models.Entities.Goal")
-                        .WithMany("Transactions")
-                        .HasForeignKey("GoalId");
-
-                    b.HasOne("WebWallet.Models.Entities.Investment")
-                        .WithMany("Transactions")
-                        .HasForeignKey("InvestmentId");
-
-                    b.HasOne("WebWallet.Models.Entities.RecurringPayment")
-                        .WithMany("Transactions")
-                        .HasForeignKey("RecurringPaymentId");
                 });
 #pragma warning restore 612, 618
         }

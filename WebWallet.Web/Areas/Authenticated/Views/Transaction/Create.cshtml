@@ -4,6 +4,11 @@
     ViewData["title"] = "Добави Транзакция";
     var categories = (List<SelectListItem>)ViewData["TransactionCategories"];
     var accounts = (List<SelectListItem>)ViewData["UserAccounts"];
+    var toTim = new char[] { '/' };
+    var budgetId = Context.Request.Query["budgetId"].ToString().Trim(toTim);
+    var goalId = Context.Request.Query["goalId"].ToString().Trim(toTim);
+    var investmentId = Context.Request.Query["investmentId"].ToString().Trim(toTim);
+    var recurringPaymentId = Context.Request.Query["recurringPaymentId"].ToString().Trim(toTim);
 }
 
 <div class="row">
@@ -39,6 +44,22 @@
                         <input class="form-control" asp-for="Name">
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
+                    @if (!string.IsNullOrEmpty(budgetId) && budgetId != "/")
+                    {
+                        <input type="hidden" name="BudgetId" value=@budgetId />
+                    }
+                    else if (!string.IsNullOrEmpty(investmentId) && investmentId != "/")
+                    {
+                        <input type="hidden" name="InvestmentId" value=@investmentId />
+                    }
+                    else if (!string.IsNullOrEmpty(recurringPaymentId) && recurringPaymentId != "/")
+                    {
+                        <input type="hidden" name="RecurringPaymentId" value=@recurringPaymentId />
+                    }
+                    else if (!string.IsNullOrEmpty(goalId) && goalId != "/")
+                    {
+                        <input type="hidden" name="GoalId" value=@goalId />
+                    }
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group mr-2" role="group" aria-label="First group">
                             <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Добави</button>

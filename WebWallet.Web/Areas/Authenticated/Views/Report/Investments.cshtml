@@ -3,4 +3,13 @@
     ViewData["title"] = "Репорт Инвестиции";
 }
 
-<h4>Investments</h4>
+<div class="single-table d-none d-md-block">
+    <div class="table-responsive" id="stocksTable">
+        
+    </div>
+</div>
+
+
+@section Scripts{
+    <partial name="_InvestmentsCharts" />
+}

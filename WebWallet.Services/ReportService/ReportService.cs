@@ -87,7 +87,9 @@ namespace WebWallet.Services.ReportService
             var now = DateTime.Now;
             var days = now.Day;
             var report = await GenerateReport(username, now.AddDays(days * -1));
-            return _mapper.Map<MonthlyReportVM>(report);
+            var reportVM = _mapper.Map<MonthlyReportVM>(report);
+
+            return reportVM;
         }
 
         private async Task<MonthlyReport> GenerateReport(string username, DateTime startDate)

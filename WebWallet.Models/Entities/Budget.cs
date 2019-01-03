@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using WebWallet.Models.Contracts;
 
 namespace WebWallet.Models.Entities
@@ -22,14 +20,12 @@ namespace WebWallet.Models.Entities
         public DateTime ModifiedOn { get; set; }
 
         [Required]
-        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
+        [Range(1, maximum: (double)decimal.MaxValue)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Limit { get; set; }
 
         [Required]
         public long Period { get; set; }
-
-        public IEnumerable<Transaction> Transactions { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
@@ -54,11 +50,9 @@ namespace WebWallet.Models.Entities
             }
         }
 
-        public decimal GetAvailable()
-        {
-            return Limit - (Transactions?
-                .Where(x => x.CreatedOn >= End)
-                .Sum(x => x.Amount) ?? 0);
-        }
+        [Required]
+        [Range(1, maximum: (double)decimal.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Available { get; set; }
     }
 }

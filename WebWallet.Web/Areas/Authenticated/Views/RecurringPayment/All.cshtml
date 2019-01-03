@@ -14,6 +14,7 @@
                     <th scope="col">Сума</th>
                     <th scope="col">Тип</th>
                     <th scope="col">Краен Срок</th>
+                    <th scope="col">Просрочено</th>
                     <th scope="col">Действие</th>
                 </tr>
             </thead>
@@ -21,16 +22,21 @@
                 @{ var counter = 1;}
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr class=@(item.Overdue?"bg-red-text-bold":"")>
                         <th scope="row">@counter</th>
                         <td>@item.Name</td>
-                        <td class="">@Html.DisplayFor(x => item.Amount)</td>
+                        <td class="">@Html.DisplayFor(x => item.AmountRemaining)</td>
                         <td>@Html.DisplayFor(x => item.RecurringPaymentType)</td>
                         <td>@Html.DisplayFor(x => item.DueDate)</td>
+                        <td>@Html.DisplayFor(x => item.OverdueAmount)</td>
                         <td>
                             <a asp-action="Edit" asp-route-paymentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                             <a asp-action="Delete" asp-route-paymentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-recurringPaymentId="@item.Id" class="">
+                                <i class="ti-receipt"></i> Добави Транзакция
+                            </a>
                         </td>
                     </tr>
                     counter++;
@@ -47,13 +53,18 @@
         <div class="card">
             <div class="body bg-blue-grey">
                 <p>Име: <span class="pull-right">@item.Name</span></p>
-                <p class="text-success">Сума: <span class="pull-right">@Html.DisplayFor(x => item.Amount)</span></p>
+                <p class="text-success">Сума: <span class="pull-right">@Html.DisplayFor(x => item.AmountRemaining)</span></p>
                 <p>Тип: <span class="pull-right">@Html.DisplayFor(x => item.RecurringPaymentType)</span></p>
                 <p>Краен Срок: <span class="fa-pull-right">@Html.DisplayFor(x => item.DueDate)</span></p>
+                <p>Просрочено: <span class="fa-pull-right">@Html.DisplayFor(x => item.OverdueAmount)</span></p>
                 <p>
                     <a asp-action="Edit" asp-route-paymentId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                     <a asp-action="Delete" asp-route-paymentId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-recurringPaymentId="@item.Id" class="">
+                        <i class="ti-receipt"></i> Добави Транзакция
+                    </a>
                 </p>
             </div>
         </div>

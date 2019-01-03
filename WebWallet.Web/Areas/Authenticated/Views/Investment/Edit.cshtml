@@ -25,6 +25,11 @@
                         <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<InvestmentType>()"></select>
                         <span asp-validation-for="Type" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <label asp-for="Abbreviation"></label>
+                        <input class="form-control" asp-for="Abbreviation">
+                        <span asp-validation-for="Abbreviation" class="text-danger"></span>
+                    </div>
                     <input type="hidden" name="UserId" value="@Model.UserId" />
                     <input type="hidden" name="Id" value="@Model.Id" />
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

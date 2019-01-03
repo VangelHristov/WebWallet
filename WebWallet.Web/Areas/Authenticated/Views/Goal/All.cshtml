@@ -12,6 +12,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Име</th>
                     <th scope="col">Сума</th>
+                    <th scope="col">Оставаща Сума</th>
                     <th scope="col">Краен срок</th>
                     <th scope="col">Тип</th>
                     <th scope="col">Действие</th>
@@ -21,19 +22,24 @@
                 @{ var counter = 1;}
                 @foreach (var item in Model)
                 {
-                    <tr>
+                <tr>
 
-                        <th scope="row">@counter</th>
-                        <td>@item.Name</td>
-                        <td>@Html.DisplayFor(x=> item.Target)</td>
-                        <td>@Html.DisplayFor(x=> item.Deadline)</td>
-                        <td>@Html.DisplayFor(x => item.Type)</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-goalId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a asp-action="Delete" asp-route-goalId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
-                        </td>
-                    </tr>
+                    <th scope="row">@counter</th>
+                    <td>@item.Name</td>
+                    <td>@Html.DisplayFor(x => item.Target)</td>
+                    <td>@Html.DisplayFor(x => item.Remaining)</td>
+                    <td>@Html.DisplayFor(x => item.Deadline)</td>
+                    <td>@Html.DisplayFor(x => item.Type)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-goalId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a asp-action="Delete" asp-route-goalId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-goalId="@item.Id" class="">
+                            <i class="ti-receipt"></i> Добави Транзакция
+                        </a>
+                    </td>
+                </tr>
                     counter++;
                 }
             </tbody>
@@ -50,12 +56,17 @@
                 <p>Име: <span class="pull-right">@item.Name</span></p>
 
                 <p>Лимит: <span class="pull-right">@item.Target</span></p>
-                <p>Остават: <span class="pull-right">@item.Deadline</span></p>
-                <p>Период: <span class="pull-right">@item.Type</span></p>
+                <p>Остават: <span class="pull-right">@item.Remaining</span></p>
+                <p>Краен срок: <span class="pull-right">@item.Deadline</span></p>
+                <p>Тип: <span class="pull-right">@item.Type</span></p>
                 <p>
                     <a asp-action="Edit" asp-route-goalId="@item.Id" class=""><i class="ti-pencil-alt"></i> Обнови</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                     <a asp-action="Delete" asp-route-goalId="@item.Id" class=""><i class="ti-trash"></i> Изтрий</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a asp-controller="Transaction" asp-action="Create" asp-area="Authenticated" asp-route-goalId="@item.Id" class="">
+                        <i class="ti-receipt"></i> Добави Транзакция
+                    </a>
                 </p>
             </div>
         </div>

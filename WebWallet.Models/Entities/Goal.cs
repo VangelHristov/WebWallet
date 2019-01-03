@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using WebWallet.Models.Contracts;
 using WebWallet.Models.Enumerations;
 
@@ -22,9 +20,13 @@ namespace WebWallet.Models.Entities
 
         public DateTime ModifiedOn { get; set; }
 
-        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
+        [Range(1, maximum: (double)decimal.MaxValue)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Target { get; set; }
+
+        [Range((double)decimal.MinValue, maximum: (double)decimal.MaxValue)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Remaining { get; set; }
 
         [Required]
         public DateTime Deadline { get; set; }
@@ -32,15 +34,8 @@ namespace WebWallet.Models.Entities
         [Required]
         public GoalType Type { get; set; }
 
-        public IEnumerable<Transaction> Transactions { get; set; }
-
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string UserId { get; set; }
-
-        public decimal GetSavedAmount()
-        {
-            return Transactions.Sum(x => x.Amount);
-        }
     }
 }
