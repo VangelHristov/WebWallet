@@ -12,6 +12,7 @@ using WebWallet.Models.Entities;
 using WebWallet.Services.AutoMapper;
 using WebWallet.Services.EmailSender;
 using WebWallet.Web.ConfigurationOptions;
+using WebWallet.Web.Extensions;
 
 namespace WebWallet.Web
 {
@@ -31,7 +32,9 @@ namespace WebWallet.Web
             services.AddDbContext<WebWalletDBContext>(dbContext =>
             {
                 dbContext.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
-            });
+            },
+                ServiceLifetime.Transient
+            );
 
             services
                 .AddIdentity<User, IdentityRole>(IdentityConfiguration.Options)
@@ -58,13 +61,13 @@ namespace WebWallet.Web
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services
-                .AddMvc(Mvc.Options)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddMemoryCache();
             services.AddResponseCaching();
 
             services.AddHttpCacheHeaders(CacheHeader.ExpirationOptions, CacheHeader.ValidationOptions);
+            services
+                .AddMvc(Mvc.Options)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +93,7 @@ namespace WebWallet.Web
 
             app.UseAuthentication();
             app.UseRequestLocalization(RequestLocalization.BulgarianCulture);
+            app.UseMonthlyReportScheduler();
 
             app.UseMvc(routes =>
             {
