@@ -57,19 +57,26 @@ namespace WebWallet.Web.Middlewares
             .SetAbsoluteExpiration(timeToNextMonth)
             .RegisterPostEvictionCallback(callback: EvictionCallback, state: this);
 
-            _cache.Set("Users", users, cacheEntryOptions);
+            users.ForEach(u =>
+            {
+                var username = string.Empty;
+                if (!_cache.TryGetValue(u, out username))
+                {
+                    _cache.Set(u, u, cacheEntryOptions);
+                }
+            });
 
             await _next(httpContext);
         }
 
         private void EvictionCallback(object key, object value, EvictionReason reason, object state)
         {
-            _logger.LogInformation($"Starting Monthly Reports Generation", DateTime.UtcNow.Date);
+            var user = (string)value;
+            _logger.LogInformation($"===========Starting Monthly Reports Generation for {user}=========", DateTime.UtcNow.Date);
 
-            var users = (List<string>)value;
-            users.ForEach(async (user) => await _reportService.Create(user));
+            _reportService.Create(user).Wait();
 
-            _logger.LogInformation($"Ended Monthly Reports Generation", DateTime.UtcNow.Date);
+            _logger.LogInformation($"===========Ended Monthly Reports Generation for {user}============", DateTime.UtcNow.Date);
         }
     }
 }

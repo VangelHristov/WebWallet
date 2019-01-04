@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $.getJSON("https://localhost:5001/Authenticated/Report/AllReports", function (reports) {
+    $.getJSON("https://webwallet.azurewebsites.net/Authenticated/Report/AllReports", function (reports) {
         reports = JSON.parse(reports);
         reports.push({
             CreatedOn: "2019-02-02T15:27:11.0196374Z",
@@ -18,7 +18,7 @@
                 {
                     Amount: 734,
                     CategoryName: "Шопинг",
-                    SubCategories:  { "Дрехи и обувки": 534, "Шопинг друго": 200 }
+                    SubCategories: { "Дрехи и обувки": 534, "Шопинг друго": 200 }
                 }
             ],
             TotalIncome: 1865,
@@ -77,14 +77,13 @@
 
         am4core.useTheme(am4themes_animated);
 
+        /*
+             =====================================================================================================================
 
-    /*
-         =====================================================================================================================
+                                Income vs Investment Line Chart
 
-                            Income vs Investment Line Chart
-
-         =====================================================================================================================
-     */
+             =====================================================================================================================
+         */
         var incomeVsExpence = am4core.create("incomeVsExpence", am4charts.XYChart);
         //incomeVsExpence.language.locale = am4lang_bg_BG;
         incomeVsExpence.colors.step = 2;
@@ -220,7 +219,7 @@
             for (var i = 0; i < keys.length; i++) {
                 if (selected == i) {
                     var subCategories = currentReport.SpendingsPerCategory[i].SubCategories;
-                    var subKeys = Object.keys(subCategories);   
+                    var subKeys = Object.keys(subCategories);
                     var mainCat = currentReport.SpendingsPerCategory[i];
 
                     for (var j = 0; j < subKeys.length; j++) {
@@ -249,9 +248,9 @@
                     });
                 }
             }
-            
+
             return spendingsData;
-        }   
+        }
 
         spendingsPerCategoryCurrentMonthChart.data = generateCategoryChartData();
 
@@ -272,7 +271,6 @@
             spendingsPerCategoryCurrentMonthChart.data = generateCategoryChartData();
         });
 
-
         /*
       =====================================================================================================================
 
@@ -287,9 +285,8 @@
         var mainCatColorsAllTime = {};
         // Generate Data
         var generateCategoryChartDataAllTime = function () {
-
             var allReports = {
-                TotalSpendings:0,
+                TotalSpendings: 0,
                 SpendingsPerCategory: []
             };
             reports.forEach(function (report) {
@@ -356,7 +353,7 @@
                     });
                 }
             }
-            
+
             return spendingsData;
         }
 

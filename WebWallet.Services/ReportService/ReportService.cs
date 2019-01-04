@@ -105,15 +105,21 @@ namespace WebWallet.Services.ReportService
             var investments = await _investmentService.GetAll(username);
             investments = investments.Where(x => x.CreatedOn >= startDate);
             var investmentsPerType = new Dictionary<string, decimal>();
+            var investmentsAbbreviations = new Dictionary<string, HashSet<string>>();
 
             foreach (var investment in investments)
             {
-                if (!investmentsPerType.Keys.Contains(investment.Type.ToString()))
+                var investmentType = investment.Type.ToString();
+                if (!investmentsPerType.Keys.Contains(investmentType))
                 {
-                    investmentsPerType[investment.Type.ToString()] = 0;
+                    investmentsPerType[investmentType] = 0;
                 }
-
-                investmentsPerType[investment.Type.ToString()] += investment.Amount;
+                if (!investmentsAbbreviations.Keys.Contains(investmentType))
+                {
+                    investmentsAbbreviations[investmentType] = new HashSet<string>();
+                }
+                investmentsAbbreviations[investmentType].Add(investment.Abbreviation);
+                investmentsPerType[investmentType] += investment.Amount;
             }
 
             var totalInvested = investments.Sum(x => x.Amount);
@@ -166,7 +172,8 @@ namespace WebWallet.Services.ReportService
                 TotalInvested = totalInvested,
                 InvestmentsPerType = investmentsPerType,
                 UserId = user.Id,
-                CreatedOn = DateTime.UtcNow
+                CreatedOn = DateTime.UtcNow,
+                Abbreviations = investmentsAbbreviations
             };
         }
     }

@@ -194,7 +194,7 @@
     /* ============================================================== */
 
     var href = window.location.href;
-    href = href.replace("https://localhost:5001", "");
+    href = href.replace("https://webwallet.azurewebsites.net/", "");
 
     if (href.toLowerCase().indexOf("dashboard") < 0) {
         $("#menu li.active").removeClass("active");

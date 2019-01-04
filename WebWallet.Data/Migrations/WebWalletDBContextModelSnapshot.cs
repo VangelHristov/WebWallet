@@ -252,6 +252,8 @@ namespace WebWallet.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AbbreviationsJson");
+
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<decimal>("EndBalance")

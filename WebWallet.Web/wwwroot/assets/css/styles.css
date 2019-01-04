@@ -2856,3 +2856,13 @@ table.dataTable thead td {
     background: #ff5656;
     font-weight: bold;
 }
+
+.single-table .table{
+    margin-bottom:25px;
+}
+
+.title {
+    margin-left: 700px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}

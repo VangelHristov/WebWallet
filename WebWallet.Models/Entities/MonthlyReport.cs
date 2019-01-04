@@ -60,5 +60,24 @@ namespace WebWallet.Models.Entities
                     .DeserializeObject<IList<CategorySpendings>>(value);
             }
         }
+
+        [NotMapped]
+        public Dictionary<string, HashSet<string>> Abbreviations { get; set; }
+
+        public string AbbreviationsJson
+        {
+            get
+            {
+                return JsonConvert.SerializeObject(Abbreviations);
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    Abbreviations = JsonConvert
+                    .DeserializeObject<Dictionary<string, HashSet<string>>>(value);
+                }
+            }
+        }
     }
 }
