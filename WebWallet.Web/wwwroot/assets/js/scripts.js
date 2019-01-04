@@ -194,17 +194,11 @@
     /* ============================================================== */
 
     var href = window.location.href;
-    href = href.replace("https://webwallet.azurewebsites.net/", "");
-
-    if (href.toLowerCase().indexOf("dashboard") < 0) {
-        $("#menu li.active").removeClass("active");
-
-        var currentRoute = `[href='${href}']`;
-        var $currentRoute = $(currentRoute);
-
-        $currentRoute.parent().addClass("active");
-        $currentRoute.parent().parent().addClass("in");
-        $currentRoute.parent().parent().prev().attr("aria-expanded", "true");
-        $currentRoute.parent().parent().parent().addClass("active");
-    }
+    href = href.replace("https://localhost:5001", "");
+    var $currentRoute = $(`[href='${href}']`);
+    
+    $currentRoute.parent().addClass("active");
+    $currentRoute.parent().parent().addClass("in");
+    $currentRoute.parent().parent().prev().attr("aria-expanded", "true");
+    $currentRoute.parent().parent().parent().addClass("active");
 })(jQuery);
