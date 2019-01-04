@@ -375,6 +375,5 @@
             }
             spendingsPerCategoryChart.data = generateCategoryChartDataAllTime();
         });
-        console.dir(reports[0]);
     });
 });
