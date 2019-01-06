@@ -25,7 +25,7 @@
                     <tr class=@(item.Overdue?"bg-red-text-bold":"")>
                         <th scope="row">@counter</th>
                         <td>@item.Name</td>
-                        <td class="">@Html.DisplayFor(x => item.AmountRemaining)</td>
+                        <td class="">@Html.DisplayFor(x => item.Amount)</td>
                         <td>@Html.DisplayFor(x => item.RecurringPaymentType)</td>
                         <td>@Html.DisplayFor(x => item.DueDate)</td>
                         <td>@Html.DisplayFor(x => item.OverdueAmount)</td>
@@ -53,7 +53,7 @@
         <div class="card">
             <div class="body bg-blue-grey">
                 <p>Име: <span class="pull-right">@item.Name</span></p>
-                <p class="text-success">Сума: <span class="pull-right">@Html.DisplayFor(x => item.AmountRemaining)</span></p>
+                <p class="text-success">Сума: <span class="pull-right">@Html.DisplayFor(x => item.Amount)</span></p>
                 <p>Тип: <span class="pull-right">@Html.DisplayFor(x => item.RecurringPaymentType)</span></p>
                 <p>Краен Срок: <span class="fa-pull-right">@Html.DisplayFor(x => item.DueDate)</span></p>
                 <p>Просрочено: <span class="fa-pull-right">@Html.DisplayFor(x => item.OverdueAmount)</span></p>

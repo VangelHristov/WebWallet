@@ -80,7 +80,7 @@ namespace WebWallet.Services.TransactionServices
             else if (!string.IsNullOrEmpty(transaction.RecurringPaymentId))
             {
                 var payment = await _paymentService.GetById(transaction.RecurringPaymentId);
-                payment.AmountRemaining -= transaction.Amount;
+                payment.Amount -= transaction.Amount;
                 await _paymentService.Update(payment);
             }
             else if (!string.IsNullOrEmpty(transaction.InvestmentId))

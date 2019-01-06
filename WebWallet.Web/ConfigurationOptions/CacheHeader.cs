@@ -6,8 +6,8 @@ namespace WebWallet.Web.ConfigurationOptions
     {
         public static void ExpirationOptions(ExpirationModelOptions expirationModelOptions)
         {
-            expirationModelOptions.MaxAge = 1200;
-            expirationModelOptions.SharedMaxAge = 1200;
+            expirationModelOptions.MaxAge = 0;
+            expirationModelOptions.SharedMaxAge = 0;
         }
 
         public static void ValidationOptions(ValidationModelOptions validationModelOptions)

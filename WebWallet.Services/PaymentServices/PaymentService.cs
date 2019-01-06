@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebWallet.Data.Contracts;
 using WebWallet.Models.Entities;
+using WebWallet.Services.TransactionServices;
 using WebWallet.Services.UserServices;
 using WebWallet.ViewModels.RecurringPayment;
 
@@ -31,10 +32,9 @@ namespace WebWallet.Services.PaymentServices
             return await _paymentRepository.Create(payment);
         }
 
-        public Task<bool> Delete(string paymentId)
+        public async Task<bool> Delete(string paymentId)
         {
-            // TODO: delete transactions
-            return _paymentRepository.Delete(paymentId);
+            return await _paymentRepository.Delete(paymentId);
         }
 
         public async Task<IEnumerable<RecurringPaymentVM>> GetAll(string username)
